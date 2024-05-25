@@ -13,6 +13,6 @@ public class ExampleMod implements ModInitializer {
 
         // Use Fabric to bootstrap the Common mod.
         MineAnything.LOG.info("Hello Fabric world!");
-        MineAnything.init();
+        MineAnything.preInit();
     }
 }
