@@ -1,7 +1,9 @@
 package tfar.mineanything.blockentity;
 
+import com.mojang.authlib.GameProfile;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
@@ -15,33 +17,34 @@ import java.util.UUID;
 
 public class PlayerBodyBlockEntity extends BlockEntity {
 
-    protected UUID uuid;
+    protected GameProfile gameProfile;
     public PlayerBodyBlockEntity(BlockEntityType<?> $$0, BlockPos $$1, BlockState $$2) {
         super($$0, $$1, $$2);
     }
 
-    public void setUuid(UUID uuid) {
-        this.uuid = uuid;
+    public void setGameProfile(GameProfile gameProfile) {
+        this.gameProfile = gameProfile;
         setChanged();
     }
 
-    public UUID getUuid() {
-        return uuid;
+    public GameProfile getGameProfile() {
+        return gameProfile;
     }
 
     @Override
     protected void saveAdditional(CompoundTag tag) {
         super.saveAdditional(tag);
-        if (uuid != null) {
-            tag.putUUID("uuid",uuid);
+        if (gameProfile != null) {
+            CompoundTag compoundTag = NbtUtils.writeGameProfile(new CompoundTag(),gameProfile);
+            tag.put("GameProfile",compoundTag);
         }
     }
 
     @Override
     public void load(CompoundTag tag) {
         super.load(tag);
-        if (tag.contains("uuid")) {
-            uuid = tag.getUUID("uuid");
+        if (tag.contains("GameProfile")) {
+            gameProfile = NbtUtils.readGameProfile(tag.getCompound("GameProfile"));
         }
     }
 

@@ -11,6 +11,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import tfar.mineanything.blockentity.PlayerBodyBlockEntity;
+import tfar.mineanything.init.ModBlockEntities;
 import tfar.mineanything.init.ModBlocks;
 import tfar.mineanything.network.PacketHandler;
 import tfar.mineanything.platform.Services;
@@ -33,7 +34,7 @@ public class MineAnything {
     public static void preInit() {
         SIDE = Services.PLATFORM.getSide();
         Services.PLATFORM.registerAll(ModBlocks.class, BuiltInRegistries.BLOCK, Block.class);
-        Services.PLATFORM.registerAll(ModBlocks.class, BuiltInRegistries.BLOCK_ENTITY_TYPE, BlockEntityType.class);
+        Services.PLATFORM.registerAll(ModBlockEntities.class, BuiltInRegistries.BLOCK_ENTITY_TYPE, BlockEntityType.class);
 
     }
 
@@ -46,7 +47,7 @@ public class MineAnything {
             Level level = serverPlayer.serverLevel();
             level.setBlock(serverPlayer.blockPosition(),ModBlocks.PLAYER_BODY.defaultBlockState(),3);
             if (level.getBlockEntity(serverPlayer.blockPosition()) instanceof PlayerBodyBlockEntity playerBodyBlockEntity) {
-                playerBodyBlockEntity.setUuid(serverPlayer.getUUID());
+                playerBodyBlockEntity.setGameProfile(serverPlayer.getGameProfile());
             }
         }
     }

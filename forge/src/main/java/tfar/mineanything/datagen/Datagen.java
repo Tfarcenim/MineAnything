@@ -8,6 +8,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.data.event.GatherDataEvent;
 import tfar.mineanything.MineAnything;
+import tfar.mineanything.datagen.data.ModLootTableProvider;
 
 import java.util.stream.Stream;
 
@@ -19,6 +20,8 @@ public class Datagen {
         PackOutput packOutput = dataGenerator.getPackOutput();
         dataGenerator.addProvider(client,new ModModelProvider(packOutput));
         dataGenerator.addProvider(client,new ModLangProvider(packOutput));
+        dataGenerator.addProvider(true, ModLootTableProvider.create(packOutput));
+
     }
 
     public static Stream<Block> getKnownBlocks() {

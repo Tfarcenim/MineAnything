@@ -1,17 +1,28 @@
 package tfar.mineanything.block;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 import tfar.mineanything.blockentity.PlayerBodyBlockEntity;
 
 public class PlayerBodyBlock extends Block implements EntityBlock {
+
+    protected static final VoxelShape BOTTOM_AABB = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 8.0D, 16.0D);
+
     public PlayerBodyBlock(Properties $$0) {
         super($$0);
+    }
+
+    @Override
+    public VoxelShape getShape(BlockState $$0, BlockGetter $$1, BlockPos $$2, CollisionContext $$3) {
+        return BOTTOM_AABB;
     }
 
     @Nullable
