@@ -1,3 +1,7 @@
 accessWidener v1 named
 
 mutable field net/minecraft/client/Options keyMappings [Lnet/minecraft/client/KeyMapping;
+
+extendable class net/minecraft/world/level/block/entity/BlockEntityType$BlockEntitySupplier
+
+accessible method net/minecraft/client/renderer/blockentity/BlockEntityRenderers register (Lnet/minecraft/world/level/block/entity/BlockEntityType;Lnet/minecraft/client/renderer/blockentity/BlockEntityRendererProvider;)V

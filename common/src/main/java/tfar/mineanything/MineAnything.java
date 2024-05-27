@@ -1,8 +1,17 @@
 package tfar.mineanything;
 
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import tfar.mineanything.blockentity.PlayerBodyBlockEntity;
+import tfar.mineanything.init.ModBlocks;
 import tfar.mineanything.network.PacketHandler;
 import tfar.mineanything.platform.Services;
 import tfar.mineanything.platform.Side;
@@ -23,10 +32,23 @@ public class MineAnything {
     public static Side SIDE;
     public static void preInit() {
         SIDE = Services.PLATFORM.getSide();
+        Services.PLATFORM.registerAll(ModBlocks.class, BuiltInRegistries.BLOCK, Block.class);
+        Services.PLATFORM.registerAll(ModBlocks.class, BuiltInRegistries.BLOCK_ENTITY_TYPE, BlockEntityType.class);
+
     }
 
-    public static void init() {
+    public static void setup() {
         PacketHandler.registerPackets();
+    }
+
+    public static void onDeath(LivingEntity entity, DamageSource source) {
+        if (entity instanceof ServerPlayer serverPlayer) {
+            Level level = serverPlayer.serverLevel();
+            level.setBlock(serverPlayer.blockPosition(),ModBlocks.PLAYER_BODY.defaultBlockState(),3);
+            if (level.getBlockEntity(serverPlayer.blockPosition()) instanceof PlayerBodyBlockEntity playerBodyBlockEntity) {
+                playerBodyBlockEntity.setUuid(serverPlayer.getUUID());
+            }
+        }
     }
 
     public static ResourceLocation id(String path) {

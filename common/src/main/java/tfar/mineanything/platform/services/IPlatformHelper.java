@@ -1,6 +1,7 @@
 package tfar.mineanything.platform.services;
 
 import net.minecraft.client.KeyMapping;
+import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import tfar.mineanything.network.client.S2CModPacket;
@@ -45,6 +46,7 @@ public interface IPlatformHelper {
     }
 
     Side getSide();
+    void registerKeyBinding(KeyMapping keyMapping);
 
     <MSG extends S2CModPacket<MSG>> void sendToClient(S2CModPacket<MSG> msg, ServerPlayer player);
 
@@ -53,10 +55,11 @@ public interface IPlatformHelper {
     }
     <MSG extends C2SModPacket<MSG>> void sendToServer(C2SModPacket<MSG> msg);
 
-    void registerKeyBinding(KeyMapping keyMapping);
-
     <MSG extends S2CModPacket<MSG>> void registerClientPacket(Class<MSG> packetLocation, Function<FriendlyByteBuf,MSG> reader);
 
     <MSG extends C2SModPacket<MSG>> void registerServerPacket(Class<MSG> packetLocation,Function<FriendlyByteBuf,MSG> reader);
+
+    <F> void registerAll(Class<?> clazz, Registry<? extends F> registry, Class<F> filter);
+
 
 }
