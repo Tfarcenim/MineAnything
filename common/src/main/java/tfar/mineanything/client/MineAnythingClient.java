@@ -1,13 +1,17 @@
 package tfar.mineanything.client;
 
+import com.google.common.collect.ImmutableMap;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.minecraft.MinecraftProfileTexture;
 import net.minecraft.Util;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
+import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.EntityRenderers;
+import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.client.resources.DefaultPlayerSkin;
 import net.minecraft.client.resources.SkinManager;
 import net.minecraft.core.UUIDUtil;
@@ -18,6 +22,7 @@ import net.minecraft.world.level.Level;
 import org.apache.commons.lang3.ArrayUtils;
 import tfar.mineanything.client.render.ClonePlayerEntityRenderer;
 import tfar.mineanything.client.render.PlayerBodyBlockEntityRenderer;
+import tfar.mineanything.entity.ClonePlayerEntity;
 import tfar.mineanything.init.ModBlockEntities;
 import tfar.mineanything.init.ModEntities;
 import tfar.mineanything.network.server.C2SKeyActionPacket;
@@ -79,9 +84,27 @@ public class MineAnythingClient {
                 DefaultPlayerSkin.getDefaultSkin(UUIDUtil.getOrCreatePlayerUUID(gameProfile));
     }
 
+    private static final Map<String, EntityRendererProvider<ClonePlayerEntity>> CLONE_PROVIDERS = ImmutableMap.of("default", ($$0) -> {
+        return new ClonePlayerEntityRenderer($$0, false);
+    }, "slim", ($$0) -> {
+        return new ClonePlayerEntityRenderer($$0, true);
+    });
+
     public static void registerRenderers() {
         BlockEntityRenderers.register(ModBlockEntities.PLAYER_BODY, PlayerBodyBlockEntityRenderer::new);
-        EntityRenderers.register(ModEntities.CLONE_PLAYER, context -> new ClonePlayerEntityRenderer(context,false));
+        //EntityRenderers.register(ModEntities.CLONE_PLAYER, context -> new ClonePlayerEntityRenderer(context,false));
+    }
+
+    public static Map<String, EntityRenderer<ClonePlayerEntity>> createCloneRenderers(EntityRendererProvider.Context $$0) {
+        ImmutableMap.Builder<String, EntityRenderer<ClonePlayerEntity>> $$1 = ImmutableMap.builder();
+        CLONE_PROVIDERS.forEach(($$2, $$3) -> {
+            try {
+                $$1.put($$2, $$3.create($$0));
+            } catch (Exception var5) {
+                throw new IllegalArgumentException("Failed to create player model for " + $$2, var5);
+            }
+        });
+        return $$1.build();
     }
 
     public static void registerKeybinding(KeyMapping keyMapping) {
