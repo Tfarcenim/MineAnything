@@ -3,6 +3,8 @@ package tfar.mineanything.client;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.KeyMapping;
 import org.lwjgl.glfw.GLFW;
+import tfar.mineanything.network.server.C2SKeyActionPacket;
+import tfar.mineanything.platform.Services;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -10,14 +12,11 @@ import java.util.List;
 
 public class ModKeybinds {
     public static final List<ModKeybind> KEYS = new ArrayList<>();
-    public static final ModKeybind LEVEL_UP = new ModKeybind("level_up", GLFW.GLFW_KEY_L,"mineanything",new Runnable(){
-        @Override
-        public void run() {
+    static final String CAT = "mineanything";
+    public static final ModKeybind LEVEL_UP = new ModKeybind("level_up", GLFW.GLFW_KEY_L,CAT, () -> Services.PLATFORM.sendToServer(new C2SKeyActionPacket(C2SKeyActionPacket.Action.LEVEL_UP)));
 
-        }
-    });
-
-    public static final ModKeybind PING = new ModKeybind("ping", GLFW.GLFW_KEY_P,"mineanything", MineAnythingClient::spawnPingParticles);
+    public static final ModKeybind PING = new ModKeybind("ping", GLFW.GLFW_KEY_P,CAT, MineAnythingClient::spawnPingParticles);
+    public static final ModKeybind CLONE = new ModKeybind("clone",GLFW.GLFW_KEY_COMMA,CAT,() -> Services.PLATFORM.sendToServer(new C2SKeyActionPacket(C2SKeyActionPacket.Action.CLONE)));
 
     public static class ModKeybind extends KeyMapping {
 

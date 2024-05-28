@@ -1,3 +1,4 @@
 {
-  "block.mineanything.player_body": "Player Body"
+  "block.mineanything.player_body": "Player Body",
+  "entity.mineanything.clone_player": "Clone Player"
 }

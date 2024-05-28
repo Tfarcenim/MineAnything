@@ -4,6 +4,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
@@ -13,6 +14,8 @@ import net.minecraftforge.registries.RegisterEvent;
 import org.apache.commons.lang3.tuple.Pair;
 import tfar.mineanything.client.MineAnythingClientForge;
 import tfar.mineanything.datagen.Datagen;
+import tfar.mineanything.entity.ClonePlayerEntity;
+import tfar.mineanything.init.ModEntities;
 import tfar.mineanything.platform.Side;
 
 import java.util.HashMap;
@@ -28,6 +31,7 @@ public class MineAnythingForge {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         bus.addListener(this::register);
         bus.addListener(this::setup);
+        bus.addListener(this::attributes);
         bus.addListener(Datagen::gather);
         MinecraftForge.EVENT_BUS.addListener(this::onDeath);
         if (MineAnything.SIDE == Side.CLIENT) {
@@ -48,6 +52,10 @@ public class MineAnythingForge {
     private void setup(FMLCommonSetupEvent event) {
         registerLater.clear();
         MineAnything.setup();
+    }
+
+    private void attributes(EntityAttributeCreationEvent event) {
+        event.put(ModEntities.CLONE_PLAYER, ClonePlayerEntity.createAttributes().build());
     }
 
     private void onDeath(LivingDeathEvent event) {

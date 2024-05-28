@@ -4,6 +4,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -13,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import tfar.mineanything.blockentity.PlayerBodyBlockEntity;
 import tfar.mineanything.init.ModBlockEntities;
 import tfar.mineanything.init.ModBlocks;
+import tfar.mineanything.init.ModEntities;
 import tfar.mineanything.network.PacketHandler;
 import tfar.mineanything.platform.Services;
 import tfar.mineanything.platform.Side;
@@ -35,6 +37,7 @@ public class MineAnything {
         SIDE = Services.PLATFORM.getSide();
         Services.PLATFORM.registerAll(ModBlocks.class, BuiltInRegistries.BLOCK, Block.class);
         Services.PLATFORM.registerAll(ModBlockEntities.class, BuiltInRegistries.BLOCK_ENTITY_TYPE, BlockEntityType.class);
+        Services.PLATFORM.registerAll(ModEntities.class, BuiltInRegistries.ENTITY_TYPE, EntityType.class);
 
     }
 

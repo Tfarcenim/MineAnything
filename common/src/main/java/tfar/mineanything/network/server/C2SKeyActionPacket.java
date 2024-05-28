@@ -1,7 +1,21 @@
 package tfar.mineanything.network.server;
 
+import com.mojang.authlib.GameProfile;
+import com.mojang.authlib.minecraft.MinecraftProfileTexture;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.PlayerHeadItem;
+import tfar.mineanything.entity.ClonePlayerEntity;
+import tfar.mineanything.init.ModEntities;
+
+import java.util.Map;
 
 public class C2SKeyActionPacket implements C2SModPacket<C2SKeyActionPacket> {
 
@@ -25,11 +39,35 @@ public class C2SKeyActionPacket implements C2SModPacket<C2SKeyActionPacket> {
             case PING -> {
 
             }
+            case CLONE -> {
+                ItemStack stack = player.getItemBySlot(EquipmentSlot.HEAD);
+                if (stack.is(Items.PLAYER_HEAD)) {
+                    CompoundTag tag = stack.getTag();
+                    if (tag != null && tag.contains(PlayerHeadItem.TAG_SKULL_OWNER)) {
+                        GameProfile gameProfile = NbtUtils.readGameProfile(tag.getCompound(PlayerHeadItem.TAG_SKULL_OWNER));
+                        if (gameProfile != null) {
+                            Map<MinecraftProfileTexture.Type, MinecraftProfileTexture> textures = player.server.getSessionService()
+                                    .getTextures(gameProfile, false);
+
+                            if (textures.isEmpty()) {
+
+                            }
+
+                            EntityType<ClonePlayerEntity> clonePlayerEntityEntityType = ModEntities.CLONE_PLAYER;
+                            for (int i = 0; i < 1;i++) {
+                                ClonePlayerEntity clonePlayerEntity = clonePlayerEntityEntityType.spawn(player.serverLevel(),player.blockPosition(), MobSpawnType.COMMAND);
+                                clonePlayerEntity.setClone(gameProfile.getId());
+                                clonePlayerEntity.setOwnerUUID(player.getUUID());
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 
     public enum Action{
-        PING;
+        PING,LEVEL_UP,CLONE;
     }
 
 }
