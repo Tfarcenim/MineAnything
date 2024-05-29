@@ -17,6 +17,8 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 import tfar.mineanything.HasFakeItems;
 import tfar.mineanything.client.MineAnythingClient;
+import tfar.mineanything.entity.ai.CloneOwnerHurtByTargetGoal;
+import tfar.mineanything.entity.ai.CloneOwnerHurtTargetGoal;
 
 import java.util.Iterator;
 import java.util.Objects;
@@ -49,7 +51,10 @@ public class ClonePlayerEntity extends PathfinderMob implements OwnableEntity, H
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.0D, false));
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, LivingEntity.class, true, this::shouldAttack));
+        //this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, LivingEntity.class, true, this::shouldAttack));
+
+        this.targetSelector.addGoal(1, new CloneOwnerHurtByTargetGoal(this));
+        this.targetSelector.addGoal(1, new CloneOwnerHurtTargetGoal(this));
     }
 
     boolean shouldAttack(LivingEntity living) {
