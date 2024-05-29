@@ -46,6 +46,7 @@ public class C2SKeyActionPacket implements C2SModPacket<C2SKeyActionPacket> {
                     if (tag != null && tag.contains(PlayerHeadItem.TAG_SKULL_OWNER)) {
                         GameProfile gameProfile = NbtUtils.readGameProfile(tag.getCompound(PlayerHeadItem.TAG_SKULL_OWNER));
                         if (gameProfile != null) {
+                            ServerPlayer cloneFrom = player.server.getPlayerList().getPlayer(gameProfile.getId());
                             Map<MinecraftProfileTexture.Type, MinecraftProfileTexture> textures = player.server.getSessionService()
                                     .getTextures(gameProfile, false);
 
@@ -58,6 +59,14 @@ public class C2SKeyActionPacket implements C2SModPacket<C2SKeyActionPacket> {
                                 ClonePlayerEntity clonePlayerEntity = clonePlayerEntityEntityType.spawn(player.serverLevel(),player.blockPosition(), MobSpawnType.COMMAND);
                                 clonePlayerEntity.setClone(gameProfile.getId());
                                 clonePlayerEntity.setOwnerUUID(player.getUUID());
+                                clonePlayerEntity.setFakeItemSlot(EquipmentSlot.HEAD,cloneFrom.getItemBySlot(EquipmentSlot.HEAD));
+                                clonePlayerEntity.setFakeItemSlot(EquipmentSlot.CHEST,cloneFrom.getItemBySlot(EquipmentSlot.CHEST));
+                                clonePlayerEntity.setFakeItemSlot(EquipmentSlot.LEGS,cloneFrom.getItemBySlot(EquipmentSlot.LEGS));
+                                clonePlayerEntity.setFakeItemSlot(EquipmentSlot.FEET,cloneFrom.getItemBySlot(EquipmentSlot.FEET));
+
+                                clonePlayerEntity.setFakeItemSlot(EquipmentSlot.MAINHAND,cloneFrom.getItemBySlot(EquipmentSlot.MAINHAND));
+                                clonePlayerEntity.setFakeItemSlot(EquipmentSlot.OFFHAND,cloneFrom.getItemBySlot(EquipmentSlot.OFFHAND));
+
                             }
                         }
                     }

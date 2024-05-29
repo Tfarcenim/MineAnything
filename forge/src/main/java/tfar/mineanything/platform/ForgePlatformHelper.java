@@ -1,13 +1,22 @@
 package tfar.mineanything.platform;
 
 import net.minecraft.client.KeyMapping;
+import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.model.Model;
+import net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer;
 import net.minecraft.core.MappedRegistry;
 import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fml.loading.FMLEnvironment;
+import net.minecraftforge.network.PacketDistributor;
 import org.apache.commons.lang3.tuple.Pair;
+import org.jetbrains.annotations.Nullable;
 import tfar.mineanything.MineAnything;
 import tfar.mineanything.MineAnythingForge;
 import tfar.mineanything.client.MineAnythingClient;
@@ -61,6 +70,11 @@ public class ForgePlatformHelper implements IPlatformHelper {
     }
 
     @Override
+    public <MSG extends S2CModPacket<MSG>> void sendToTrackingClients(S2CModPacket<MSG> msg, Entity entity) {
+        PacketHandlerForge.INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> entity),msg);
+    }
+
+    @Override
     public <MSG extends C2SModPacket<MSG>> void sendToServer(C2SModPacket<MSG> msg) {
         PacketHandlerForge.sendToServer(msg);
     }
@@ -94,5 +108,13 @@ public class ForgePlatformHelper implements IPlatformHelper {
         }
     }
 
+    @Override
+    public <T extends LivingEntity, M extends HumanoidModel<T>, A extends HumanoidModel<T>> Model getForgeModel(T entity, ItemStack itemStack, EquipmentSlot slot, A model) {
+        return net.minecraftforge.client.ForgeHooksClient.getArmorModel(entity, itemStack, slot, model);
+    }
 
+    @Override
+    public <T extends LivingEntity, M extends HumanoidModel<T>, A extends HumanoidModel<T>> ResourceLocation getArmorResource(HumanoidArmorLayer<T, M, A> layer, Entity entity, ItemStack stack, EquipmentSlot slot, @Nullable String type) {
+        return layer.getArmorResource(entity, stack, slot, type);
+    }
 }

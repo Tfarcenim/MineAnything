@@ -6,3 +6,10 @@ extendable class net/minecraft/world/level/block/entity/BlockEntityType$BlockEnt
 
 accessible method net/minecraft/client/renderer/blockentity/BlockEntityRenderers register (Lnet/minecraft/world/level/block/entity/BlockEntityType;Lnet/minecraft/client/renderer/blockentity/BlockEntityRendererProvider;)V
 accessible method net/minecraft/client/renderer/entity/EntityRenderers register (Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/client/renderer/entity/EntityRendererProvider;)V
+
+extendable method net/minecraft/client/renderer/entity/layers/HumanoidArmorLayer renderArmorPiece (Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/entity/EquipmentSlot;ILnet/minecraft/client/model/HumanoidModel;)V
+accessible method net/minecraft/client/renderer/entity/layers/HumanoidArmorLayer renderModel (Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;ILnet/minecraft/world/item/ArmorItem;ZLnet/minecraft/client/model/HumanoidModel;ZFFFLjava/lang/String;)V
+accessible method net/minecraft/client/renderer/entity/layers/HumanoidArmorLayer renderGlint (Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;ILnet/minecraft/client/model/HumanoidModel;)V
+accessible method net/minecraft/client/renderer/entity/layers/HumanoidArmorLayer renderTrim (Lnet/minecraft/world/item/ArmorMaterial;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;ILnet/minecraft/world/item/armortrim/ArmorTrim;Lnet/minecraft/client/model/HumanoidModel;Z)V
+accessible method net/minecraft/client/renderer/entity/layers/HumanoidArmorLayer usesInnerModel (Lnet/minecraft/world/entity/EquipmentSlot;)Z
+accessible field net/minecraft/client/renderer/entity/layers/HumanoidArmorLayer armorTrimAtlas Lnet/minecraft/client/renderer/texture/TextureAtlas;

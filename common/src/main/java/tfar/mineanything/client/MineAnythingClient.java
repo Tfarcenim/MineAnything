@@ -3,28 +3,29 @@ package tfar.mineanything.client;
 import com.google.common.collect.ImmutableMap;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.minecraft.MinecraftProfileTexture;
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.Util;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.EntityRenderers;
-import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.client.resources.DefaultPlayerSkin;
 import net.minecraft.client.resources.SkinManager;
 import net.minecraft.core.UUIDUtil;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.apache.commons.lang3.ArrayUtils;
+import tfar.mineanything.HasFakeItems;
 import tfar.mineanything.client.render.ClonePlayerEntityRenderer;
 import tfar.mineanything.client.render.PlayerBodyBlockEntityRenderer;
 import tfar.mineanything.entity.ClonePlayerEntity;
 import tfar.mineanything.init.ModBlockEntities;
-import tfar.mineanything.init.ModEntities;
 import tfar.mineanything.network.server.C2SKeyActionPacket;
 import tfar.mineanything.platform.Services;
 
@@ -105,6 +106,13 @@ public class MineAnythingClient {
             }
         });
         return $$1.build();
+    }
+
+    public static void setFakeClientEquipment(int entityId, List<Pair<EquipmentSlot, ItemStack>> slots) {
+        Entity entity = Minecraft.getInstance().level.getEntity(entityId);
+        if (entity instanceof HasFakeItems hasFakeItems) {
+            slots.forEach((pair) -> hasFakeItems.setFakeItemSlot(pair.getFirst(), pair.getSecond()));
+        }
     }
 
     public static void registerKeybinding(KeyMapping keyMapping) {
