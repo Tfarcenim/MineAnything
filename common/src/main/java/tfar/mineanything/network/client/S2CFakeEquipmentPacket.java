@@ -32,7 +32,6 @@ public class S2CFakeEquipmentPacket implements S2CModPacket<S2CFakeEquipmentPack
             ItemStack itemstack = pBuffer.readItem();
             this.slots.add(Pair.of(equipmentslot, itemstack));
         } while((i & CONTINUE_MASK) != 0);
-
     }
 
     @Override
