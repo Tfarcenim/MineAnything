@@ -3,6 +3,7 @@ package tfar.mineanything.client;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.minecraft.MinecraftProfileTexture;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.multiplayer.PlayerInfo;
 import net.minecraft.client.player.LocalPlayer;
@@ -24,16 +25,16 @@ import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import org.codehaus.plexus.util.CachedMap;
 import tfar.mineanything.MineAnything;
+import tfar.mineanything.PlayerDuck;
+import tfar.mineanything.mixin.LivingEntityRendererAccess;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 public class MineAnythingClientForge {
 
@@ -41,19 +42,21 @@ public class MineAnythingClientForge {
         bus.addListener(MineAnythingClientForge::clientSetup);
         bus.addListener(MineAnythingClientForge::registerRenderers);
         MinecraftForge.EVENT_BUS.addListener(MineAnythingClientForge::clientTick);
-        MinecraftForge.EVENT_BUS.addListener(MineAnythingClientForge::renderPlayer);
+        MinecraftForge.EVENT_BUS.addListener(MineAnythingClientForge::renderPlayerPre);
+        MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL,true,MineAnythingClientForge::renderPlayerPost);
         MinecraftForge.EVENT_BUS.addListener(MineAnythingClientForge::clientPlayerTick);
     }
 
     static void clientSetup(FMLClientSetupEvent event) {
         MineAnythingClient.clientSetup();
     }
+
     static void clientTick(TickEvent.ClientTickEvent event) {
         MineAnythingClient.clientTick();
     }
 
     static void clientPlayerTick(TickEvent.PlayerTickEvent event) {
-        if (event.side == LogicalSide.CLIENT && event.phase == TickEvent.Phase.START) {
+        if (event.phase == TickEvent.Phase.START) {
             Player player = event.player;
             ItemStack headItem = player.getItemBySlot(EquipmentSlot.HEAD);
             if (headItem.is(Items.PLAYER_HEAD)) {
@@ -61,86 +64,50 @@ public class MineAnythingClientForge {
                 if (tag != null && tag.contains(PlayerHeadItem.TAG_SKULL_OWNER)) {
                     GameProfile gameProfile = NbtUtils.readGameProfile(tag.getCompound(PlayerHeadItem.TAG_SKULL_OWNER));
                     if (!Objects.equals(player.getGameProfile(), gameProfile)) {
-                        RemotePlayer fakePlayer = playerCache.computeIfAbsent(gameProfile.getId(),uuid -> new RemotePlayer((ClientLevel)player.level(), gameProfile));
-                        fakePlayer.tick();
+                        PlayerDuck.of(player).setDisguise(gameProfile);
+                        return;
                     }
                 }
             }
+            PlayerDuck.of(player).setDisguise(null);
         }
     }
+    static PlayerModel<?> original;
 
-    private static final Map<UUID, RemotePlayer> playerCache = new HashMap<>();
+    static Map<EquipmentSlot,ItemStack> originalItems = new EnumMap<>(EquipmentSlot.class);
 
-    public static boolean isDisguised(Player player) {
-        ItemStack headItem = player.getItemBySlot(EquipmentSlot.HEAD);
-        if (headItem.is(Items.PLAYER_HEAD)) {
-            CompoundTag tag = headItem.getTag();
-            if (tag != null && tag.contains(PlayerHeadItem.TAG_SKULL_OWNER)) {
-                GameProfile gameProfile = NbtUtils.readGameProfile(tag.getCompound(PlayerHeadItem.TAG_SKULL_OWNER));
-                if (!Objects.equals(player.getGameProfile(), gameProfile)) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-
-    static void renderPlayer(RenderPlayerEvent.Pre event) {
+    static void renderPlayerPre(RenderPlayerEvent.Pre event) {
         Player player = event.getEntity();
-        ItemStack headItem = player.getItemBySlot(EquipmentSlot.HEAD);
-        if (headItem.is(Items.PLAYER_HEAD)) {
-            CompoundTag tag = headItem.getTag();
-            if (tag != null && tag.contains(PlayerHeadItem.TAG_SKULL_OWNER)) {
-                GameProfile gameProfile = NbtUtils.readGameProfile(tag.getCompound(PlayerHeadItem.TAG_SKULL_OWNER));
-                if (!Objects.equals(player.getGameProfile(),gameProfile)) {
 
-                    String modelInfo = getModelInfo(gameProfile);
+        GameProfile disguise = PlayerDuck.of(player).disguise();
 
-                    PlayerRenderer playerRenderer = (PlayerRenderer) Minecraft.getInstance().getEntityRenderDispatcher().getSkinMap().get(modelInfo);
+        if (disguise != null) {
+            String modelInfo = getModelInfo(disguise);
+            original = event.getRenderer().getModel();
+            PlayerModel<?> newPlayerModel = ((PlayerRenderer) Minecraft.getInstance().getEntityRenderDispatcher().getSkinMap().get(modelInfo)).getModel();
 
-                    RemotePlayer fakePlayer = playerCache.computeIfAbsent(gameProfile.getId(),uuid -> new RemotePlayer((ClientLevel)player.level(), gameProfile));
+            ((LivingEntityRendererAccess)event.getRenderer()).setModel(newPlayerModel);
 
-                    Player imitate = Minecraft.getInstance().level.getPlayerByUUID(gameProfile.getId());
+            Player imitate = Minecraft.getInstance().level.getPlayerByUUID(disguise.getId());
 
-                    if (imitate != null) {
-                        for (EquipmentSlot slot : EquipmentSlot.values()) {
-                            fakePlayer.setItemSlot(slot,imitate.getItemBySlot(slot));
-                        }
-                    }
-
-                    float yaw = Mth.lerp(event.getPartialTick(), player.yRotO, player.getYRot());
-
-                    fakePlayer.setXRot(player.getXRot());
-                    fakePlayer.setYRot(player.getYRot());
-
-                    fakePlayer.xRotO = player.xRotO;
-                    fakePlayer.yRotO = player.yRotO;
-
-                    fakePlayer.yHeadRotO = player.yHeadRotO;
-                    fakePlayer.yHeadRot = player.yHeadRot;
-
-                    fakePlayer.yBodyRotO = player.yBodyRotO;
-                    fakePlayer.yBodyRot = player.yBodyRot;
-                    fakePlayer.setDeltaMovement(player.getDeltaMovement());
-                    ;
-                    playerRenderer.render(fakePlayer,yaw,event.getPartialTick(),event.getPoseStack(),event.getMultiBufferSource(),event.getPackedLight());
-
-
-                    event.setCanceled(true);
+            if (imitate != null) {//todo, use a packet to send items?
+                for (EquipmentSlot slot : EquipmentSlot.values()) {
+                    originalItems.put(slot,player.getItemBySlot(slot));
+                    player.setItemSlot(slot, imitate.getItemBySlot(slot));
                 }
             }
         }
     }
 
-    public static ResourceLocation getPlayerSkin(GameProfile gameProfile) {
-        Minecraft minecraft = Minecraft.getInstance();
-        SkinManager skinManager = minecraft.getSkinManager();
-        Map<MinecraftProfileTexture.Type, MinecraftProfileTexture> map = skinManager.getInsecureSkinInformation(gameProfile);
-        return map.containsKey(MinecraftProfileTexture.Type.SKIN) ? skinManager.registerTexture(map.get(MinecraftProfileTexture.Type.SKIN), MinecraftProfileTexture.Type.SKIN) :
-                DefaultPlayerSkin.getDefaultSkin(UUIDUtil.getOrCreatePlayerUUID(gameProfile));
-    }
+    static void renderPlayerPost(RenderPlayerEvent.Post event) {
+        Player player = event.getEntity();
 
+        GameProfile disguise = PlayerDuck.of(player).disguise();
+        if (disguise != null) {
+            ((LivingEntityRendererAccess)event.getRenderer()).setModel(original);
+            originalItems.forEach(player::setItemSlot);
+        }
+    }
     public static String getModelInfo(GameProfile gameProfile) {
 
         Minecraft minecraft = Minecraft.getInstance();

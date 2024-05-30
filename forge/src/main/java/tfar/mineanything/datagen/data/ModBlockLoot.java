@@ -23,6 +23,8 @@ public class ModBlockLoot extends VanillaBlockLoot {
                         .add(LootItem.lootTableItem(Items.PLAYER_HEAD).apply(CopyNbtFunction.copyData(ContextNbtProvider.BLOCK_ENTITY)
                                 .copy("GameProfile", "SkullOwner")
                                 .copy("note_block_sound", String.format(Locale.ROOT, "%s.%s", "BlockEntityTag", "note_block_sound")))))));
+
+        dropSelf(ModBlocks.MINEABLE_WATER);
     }
 
     @Override
