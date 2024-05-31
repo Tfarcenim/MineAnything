@@ -11,6 +11,8 @@ import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.EntityRenderers;
+import net.minecraft.client.renderer.entity.TntRenderer;
 import net.minecraft.client.resources.DefaultPlayerSkin;
 import net.minecraft.client.resources.SkinManager;
 import net.minecraft.core.UUIDUtil;
@@ -24,9 +26,11 @@ import net.minecraft.world.level.Level;
 import org.apache.commons.lang3.ArrayUtils;
 import tfar.mineanything.HasFakeItems;
 import tfar.mineanything.client.render.ClonePlayerEntityRenderer;
+import tfar.mineanything.client.render.LavaTntRenderer;
 import tfar.mineanything.client.render.PlayerBodyBlockEntityRenderer;
 import tfar.mineanything.entity.ClonePlayerEntity;
 import tfar.mineanything.init.ModBlockEntities;
+import tfar.mineanything.init.ModEntities;
 import tfar.mineanything.init.ModItems;
 import tfar.mineanything.network.server.C2SKeyActionPacket;
 import tfar.mineanything.platform.Services;
@@ -93,6 +97,7 @@ public class MineAnythingClient {
 
     public static void registerRenderers() {
         BlockEntityRenderers.register(ModBlockEntities.PLAYER_BODY, PlayerBodyBlockEntityRenderer::new);
+        EntityRenderers.register(ModEntities.LAVA_TNT, LavaTntRenderer::new);
         //EntityRenderers.register(ModEntities.CLONE_PLAYER, context -> new ClonePlayerEntityRenderer(context,false));
     }
 

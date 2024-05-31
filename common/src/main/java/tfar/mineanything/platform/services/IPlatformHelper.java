@@ -4,6 +4,7 @@ import net.minecraft.client.KeyMapping;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -12,6 +13,9 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Explosion;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import tfar.mineanything.network.client.S2CModPacket;
 import tfar.mineanything.network.server.C2SModPacket;
 import tfar.mineanything.platform.Side;
@@ -76,5 +80,15 @@ public interface IPlatformHelper {
     <T extends LivingEntity, M extends HumanoidModel<T>, A extends HumanoidModel<T>> Model getForgeModel(T entity, ItemStack itemStack, EquipmentSlot slot, A model);
 
     <T extends LivingEntity, M extends HumanoidModel<T>, A extends HumanoidModel<T>> ResourceLocation getArmorResource(HumanoidArmorLayer<T,M,A> layer,Entity entity, ItemStack stack, EquipmentSlot slot, @Nullable String type);
+
+
+    //forge hooks
+    boolean canDropFromExplosion(BlockState blockState, Level level, BlockPos pos, Explosion explosion);
+
+    void onBlockExploded(BlockState blockState, Level level, BlockPos pos, Explosion explosion);
+
+    boolean onExplosionStart(Level level, Explosion explosion);
+
+    boolean getMobGriefingEvent(Level level,Entity source);
 
 }

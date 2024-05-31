@@ -1,12 +1,16 @@
 package tfar.mineanything.datagen.data;
 
+import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.data.loot.packs.VanillaBlockLoot;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.TntBlock;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.CopyNbtFunction;
+import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.providers.nbt.ContextNbtProvider;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import tfar.mineanything.datagen.Datagen;
@@ -26,6 +30,10 @@ public class ModBlockLoot extends VanillaBlockLoot {
 
         dropSelf(ModBlocks.MINEABLE_WATER);
         dropSelf(ModBlocks.MINEABLE_LAVA);
+        this.add(ModBlocks.LAVA_TNT, LootTable.lootTable()
+                .withPool(this.applyExplosionCondition(ModBlocks.LAVA_TNT, LootPool.lootPool()
+                        .setRolls(ConstantValue.exactly(1.0F))
+                        .add(LootItem.lootTableItem(ModBlocks.LAVA_TNT).when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(ModBlocks.LAVA_TNT).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(TntBlock.UNSTABLE, false)))))));
     }
 
     @Override
