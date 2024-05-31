@@ -6,6 +6,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -15,6 +16,7 @@ import tfar.mineanything.blockentity.PlayerBodyBlockEntity;
 import tfar.mineanything.init.ModBlockEntities;
 import tfar.mineanything.init.ModBlocks;
 import tfar.mineanything.init.ModEntities;
+import tfar.mineanything.init.ModItems;
 import tfar.mineanything.network.PacketHandler;
 import tfar.mineanything.platform.Services;
 import tfar.mineanything.platform.Side;
@@ -36,6 +38,7 @@ public class MineAnything {
     public static void preInit() {
         SIDE = Services.PLATFORM.getSide();
         Services.PLATFORM.registerAll(ModBlocks.class, BuiltInRegistries.BLOCK, Block.class);
+        Services.PLATFORM.registerAll(ModItems.class, BuiltInRegistries.ITEM, Item.class);
         Services.PLATFORM.registerAll(ModBlockEntities.class, BuiltInRegistries.BLOCK_ENTITY_TYPE, BlockEntityType.class);
         Services.PLATFORM.registerAll(ModEntities.class, BuiltInRegistries.ENTITY_TYPE, EntityType.class);
 

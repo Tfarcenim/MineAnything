@@ -22,6 +22,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.PlayerHeadItem;
 import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
@@ -41,10 +42,15 @@ public class MineAnythingClientForge {
     public static void init(IEventBus bus) {
         bus.addListener(MineAnythingClientForge::clientSetup);
         bus.addListener(MineAnythingClientForge::registerRenderers);
+        bus.addListener(MineAnythingClientForge::itemColors);
         MinecraftForge.EVENT_BUS.addListener(MineAnythingClientForge::clientTick);
         MinecraftForge.EVENT_BUS.addListener(MineAnythingClientForge::renderPlayerPre);
         MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL,true,MineAnythingClientForge::renderPlayerPost);
         MinecraftForge.EVENT_BUS.addListener(MineAnythingClientForge::clientPlayerTick);
+    }
+
+    static void itemColors(RegisterColorHandlersEvent.Item event) {
+        MineAnythingClient.itemColors(event.getItemColors());
     }
 
     static void clientSetup(FMLClientSetupEvent event) {

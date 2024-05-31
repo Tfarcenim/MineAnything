@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "mineanything:block/mineable_water"
+    }
+  }
+}

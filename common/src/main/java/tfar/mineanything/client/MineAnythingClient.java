@@ -7,6 +7,7 @@ import com.mojang.datafixers.util.Pair;
 import net.minecraft.Util;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -26,6 +27,7 @@ import tfar.mineanything.client.render.ClonePlayerEntityRenderer;
 import tfar.mineanything.client.render.PlayerBodyBlockEntityRenderer;
 import tfar.mineanything.entity.ClonePlayerEntity;
 import tfar.mineanything.init.ModBlockEntities;
+import tfar.mineanything.init.ModItems;
 import tfar.mineanything.network.server.C2SKeyActionPacket;
 import tfar.mineanything.platform.Services;
 
@@ -85,27 +87,29 @@ public class MineAnythingClient {
                 DefaultPlayerSkin.getDefaultSkin(UUIDUtil.getOrCreatePlayerUUID(gameProfile));
     }
 
-    private static final Map<String, EntityRendererProvider<ClonePlayerEntity>> CLONE_PROVIDERS = ImmutableMap.of("default", ($$0) -> {
-        return new ClonePlayerEntityRenderer($$0, false);
-    }, "slim", ($$0) -> {
-        return new ClonePlayerEntityRenderer($$0, true);
-    });
+    private static final Map<String, EntityRendererProvider<ClonePlayerEntity>> CLONE_PROVIDERS = ImmutableMap.of(
+            "default", (context) -> new ClonePlayerEntityRenderer(context, false),
+            "slim", (context) -> new ClonePlayerEntityRenderer(context, true));
 
     public static void registerRenderers() {
         BlockEntityRenderers.register(ModBlockEntities.PLAYER_BODY, PlayerBodyBlockEntityRenderer::new);
         //EntityRenderers.register(ModEntities.CLONE_PLAYER, context -> new ClonePlayerEntityRenderer(context,false));
     }
 
-    public static Map<String, EntityRenderer<ClonePlayerEntity>> createCloneRenderers(EntityRendererProvider.Context $$0) {
-        ImmutableMap.Builder<String, EntityRenderer<ClonePlayerEntity>> $$1 = ImmutableMap.builder();
-        CLONE_PROVIDERS.forEach(($$2, $$3) -> {
+    public static Map<String, EntityRenderer<ClonePlayerEntity>> createCloneRenderers(EntityRendererProvider.Context context) {
+        ImmutableMap.Builder<String, EntityRenderer<ClonePlayerEntity>> builder = ImmutableMap.builder();
+        CLONE_PROVIDERS.forEach((s, provider) -> {
             try {
-                $$1.put($$2, $$3.create($$0));
+                builder.put(s, provider.create(context));
             } catch (Exception var5) {
-                throw new IllegalArgumentException("Failed to create player model for " + $$2, var5);
+                throw new IllegalArgumentException("Failed to create player model for " + s, var5);
             }
         });
-        return $$1.build();
+        return builder.build();
+    }
+
+    public static void itemColors(ItemColors itemColors) {
+        itemColors.register((itemStack, i) -> {return 0x6666ff;}, ModItems.MINEABLE_WATER);
     }
 
     public static void setFakeClientEquipment(int entityId, List<Pair<EquipmentSlot, ItemStack>> slots) {
