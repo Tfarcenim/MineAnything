@@ -12,6 +12,7 @@ import net.minecraftforge.data.event.GatherDataEvent;
 import tfar.mineanything.MineAnything;
 import tfar.mineanything.datagen.data.ModBlockTagsProvider;
 import tfar.mineanything.datagen.data.ModLootTableProvider;
+import tfar.mineanything.datagen.data.ModRecipeProvider;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Stream;
@@ -28,6 +29,7 @@ public class Datagen {
         dataGenerator.addProvider(client,new ModLangProvider(packOutput));
         dataGenerator.addProvider(true, ModLootTableProvider.create(packOutput));
         dataGenerator.addProvider(true,new ModBlockTagsProvider(packOutput,lookupProvider,existingFileHelper));
+        dataGenerator.addProvider(true,new ModRecipeProvider(packOutput));
 
     }
 
