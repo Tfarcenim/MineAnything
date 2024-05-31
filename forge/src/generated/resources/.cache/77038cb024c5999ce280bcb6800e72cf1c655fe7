@@ -1,5 +1,7 @@
-// 1.20.1	2024-05-30T19:07:26.8761443	Model Definitions
-dc1bb399ea333dee55b1222afdbc110d1e11a910 assets/mineanything/blockstates/mineable_water.json
+// 1.20.1	2024-05-30T21:55:11.1994781	Model Definitions
+48f52499a4fec1ce201bd7e81455507510c190b8 assets/mineanything/blockstates/mineable_lava.json
+e5a33b4a2db42195222fa1709b3d9533ac41e453 assets/mineanything/blockstates/mineable_water.json
 94ee00eebd82061338b6db439a84b3fdf98f3942 assets/mineanything/blockstates/player_body.json
+ef1c8a62be5ac5435d07b8996037c113374bcd04 assets/mineanything/models/item/mineable_lava.json
 30ace9a2473c25a41b8d678a208106940f060cb1 assets/mineanything/models/item/mineable_water.json
 a5137f381146466da673bf43fda6967800cc6703 assets/minecraft/models/block/skull.json

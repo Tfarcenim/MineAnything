@@ -1,4 +1,5 @@
 {
+  "block.mineanything.mineable_lava": "Lava",
   "block.mineanything.mineable_water": "Water",
   "block.mineanything.player_body": "Player Body",
   "entity.mineanything.clone_player": "Clone Player"

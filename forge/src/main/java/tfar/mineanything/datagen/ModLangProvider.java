@@ -21,6 +21,7 @@ public class ModLangProvider extends LanguageProvider {
     @Override
     protected void addTranslations() {
         addBlock(() -> ModBlocks.MINEABLE_WATER,"Water");
+        addBlock(() -> ModBlocks.MINEABLE_LAVA,"Lava");
         addDefaultBlock(() -> ModBlocks.PLAYER_BODY);
         addDefaultEntityType(() -> ModEntities.CLONE_PLAYER);
     }

@@ -24,13 +24,14 @@ public class ModItemModelProvider extends ItemModelGenerators {
 
     @Override
     public void run() {
-        this.generateFluidItem(ModItems.MINEABLE_WATER, ModelTemplates.FLAT_ITEM);
+        this.generateFluidItem(ModItems.MINEABLE_WATER, ModelTemplates.FLAT_ITEM,"water");
+        this.generateFluidItem(ModItems.MINEABLE_LAVA, ModelTemplates.FLAT_ITEM,"lava");
     }
 
 
 
-    public void generateFluidItem(Item pItem, ModelTemplate pModelTemplate) {
-        pModelTemplate.create(ModelLocationUtils.getModelLocation(pItem), TextureMapping.layer0(new ResourceLocation("water_still").withPrefix("block/")), this.output);
+    public void generateFluidItem(Item pItem, ModelTemplate pModelTemplate,String fluid) {
+        pModelTemplate.create(ModelLocationUtils.getModelLocation(pItem), TextureMapping.layer0(new ResourceLocation(fluid+"_still").withPrefix("block/")), this.output);
     }
 
     public static ResourceLocation getModelLocation(Item pItem) {

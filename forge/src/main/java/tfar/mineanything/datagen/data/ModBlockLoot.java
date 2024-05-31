@@ -25,6 +25,7 @@ public class ModBlockLoot extends VanillaBlockLoot {
                                 .copy("note_block_sound", String.format(Locale.ROOT, "%s.%s", "BlockEntityTag", "note_block_sound")))))));
 
         dropSelf(ModBlocks.MINEABLE_WATER);
+        dropSelf(ModBlocks.MINEABLE_LAVA);
     }
 
     @Override

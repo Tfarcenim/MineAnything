@@ -34,12 +34,6 @@ public class MineableLiquidBlock extends LiquidBlock {
         return Shapes.block();//it's that easy
     }
 
-    @Override
-    public void onRemove(BlockState $$0, Level level, BlockPos pos, BlockState $$3, boolean $$4) {
-        super.onRemove($$0, level, pos, $$3, $$4);
-      //  level.setBlock(pos, Blocks.AIR.defaultBlockState(),3);
-    }
-
     //super removes block drops
     @Override
     public List<ItemStack> getDrops(BlockState pState, LootParams.Builder pParams) {
