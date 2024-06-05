@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "minecraft:tnt"
+    },
+    {
+      "item": "mineanything:mineable_lava"
+    }
+  ],
+  "result": {
+    "item": "mineanything:lava_tnt"
+  }
+}

@@ -10,13 +10,11 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.material.Fluid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import tfar.mineanything.blockentity.PlayerBodyBlockEntity;
-import tfar.mineanything.init.ModBlockEntities;
-import tfar.mineanything.init.ModBlocks;
-import tfar.mineanything.init.ModEntities;
-import tfar.mineanything.init.ModItems;
+import tfar.mineanything.init.*;
 import tfar.mineanything.network.PacketHandler;
 import tfar.mineanything.platform.Services;
 import tfar.mineanything.platform.Side;
@@ -37,6 +35,7 @@ public class MineAnything {
     public static Side SIDE;
     public static void preInit() {
         SIDE = Services.PLATFORM.getSide();
+        //Services.PLATFORM.registerAll(ModFluids.class, BuiltInRegistries.FLUID, Fluid.class);
         Services.PLATFORM.registerAll(ModBlocks.class, BuiltInRegistries.BLOCK, Block.class);
         Services.PLATFORM.registerAll(ModItems.class, BuiltInRegistries.ITEM, Item.class);
         Services.PLATFORM.registerAll(ModBlockEntities.class, BuiltInRegistries.BLOCK_ENTITY_TYPE, BlockEntityType.class);

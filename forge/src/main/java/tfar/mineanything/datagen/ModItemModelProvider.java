@@ -26,6 +26,7 @@ public class ModItemModelProvider extends ItemModelGenerators {
     public void run() {
         this.generateFluidItem(ModItems.MINEABLE_WATER, ModelTemplates.FLAT_ITEM,"water");
         this.generateFluidItem(ModItems.MINEABLE_LAVA, ModelTemplates.FLAT_ITEM,"lava");
+        this.generateFlatItem(ModItems.CREEPER_WATER_BUCKET,ModelTemplates.FLAT_ITEM);
     }
 
 

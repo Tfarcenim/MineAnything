@@ -18,6 +18,8 @@ public class ModRecipeProvider extends RecipeProvider {
     @Override
     protected void buildRecipes(Consumer<FinishedRecipe> pWriter) {
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.LAVA_TNT).requires(Items.TNT)
-                .requires(ModItems.MINEABLE_LAVA).save(pWriter);
+                .requires(ModItems.MINEABLE_LAVA)
+                .unlockedBy(getHasName(ModItems.MINEABLE_LAVA),has(ModItems.MINEABLE_LAVA))
+                .save(pWriter);
     }
 }

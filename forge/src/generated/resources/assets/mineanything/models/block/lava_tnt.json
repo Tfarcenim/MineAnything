@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "bottom": "mineanything:block/lava_tnt_bottom",
+    "side": "mineanything:block/lava_tnt_side",
+    "top": "mineanything:block/lava_tnt_top"
+  }
+}
