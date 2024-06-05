@@ -3,14 +3,13 @@ package tfar.mineanything.network.client;
 import com.google.common.collect.Lists;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
 import tfar.mineanything.client.MineAnythingClient;
 
 import java.util.List;
 
-public class S2CFakeEquipmentPacket implements S2CModPacket<S2CFakeEquipmentPacket>{
+public class S2CFakeEquipmentPacket implements S2CModPacket {
     private static final byte CONTINUE_MASK = Byte.MIN_VALUE;
     private final int entity;
     private final List<Pair<EquipmentSlot, ItemStack>> slots;

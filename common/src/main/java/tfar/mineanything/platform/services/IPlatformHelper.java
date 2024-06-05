@@ -61,19 +61,19 @@ public interface IPlatformHelper {
     Side getSide();
     void registerKeyBinding(KeyMapping keyMapping);
 
-    <MSG extends S2CModPacket<MSG>> void sendToClient(S2CModPacket<MSG> msg, ServerPlayer player);
+    void sendToClient(S2CModPacket msg, ServerPlayer player);
 
-    default <MSG extends S2CModPacket<MSG>> void sendToClients(S2CModPacket<MSG> msg, Collection<ServerPlayer> playerList) {
+    default void sendToClients(S2CModPacket msg, Collection<ServerPlayer> playerList) {
         playerList.forEach(player -> sendToClient(msg,player));
     }
 
-    <MSG extends S2CModPacket<MSG>> void sendToTrackingClients(S2CModPacket<MSG> msg, Entity entity);
+    void sendToTrackingClients(S2CModPacket msg, Entity entity);
 
-    <MSG extends C2SModPacket<MSG>> void sendToServer(C2SModPacket<MSG> msg);
+    void sendToServer(C2SModPacket msg);
 
-    <MSG extends S2CModPacket<MSG>> void registerClientPacket(Class<MSG> packetLocation, Function<FriendlyByteBuf,MSG> reader);
+    <MSG extends S2CModPacket> void registerClientPacket(Class<MSG> packetLocation, Function<FriendlyByteBuf,MSG> reader);
 
-    <MSG extends C2SModPacket<MSG>> void registerServerPacket(Class<MSG> packetLocation,Function<FriendlyByteBuf,MSG> reader);
+    <MSG extends C2SModPacket> void registerServerPacket(Class<MSG> packetLocation, Function<FriendlyByteBuf,MSG> reader);
 
     <F> void registerAll(Class<?> clazz, Registry<? extends F> registry, Class<F> filter);
 

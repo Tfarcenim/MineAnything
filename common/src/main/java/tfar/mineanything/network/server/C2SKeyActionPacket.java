@@ -17,7 +17,7 @@ import tfar.mineanything.init.ModEntities;
 
 import java.util.Map;
 
-public class C2SKeyActionPacket implements C2SModPacket<C2SKeyActionPacket> {
+public class C2SKeyActionPacket implements C2SModPacket {
 
     final Action action;
     public C2SKeyActionPacket(FriendlyByteBuf buf) {

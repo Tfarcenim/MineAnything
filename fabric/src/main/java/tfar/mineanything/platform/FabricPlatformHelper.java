@@ -50,22 +50,22 @@ public class FabricPlatformHelper implements IPlatformHelper {
     }
 
     @Override
-    public <MSG extends S2CModPacket<MSG>> void sendToClient(S2CModPacket<MSG> msg, ServerPlayer player) {
+    public void sendToClient(S2CModPacket msg, ServerPlayer player) {
 
     }
 
     @Override
-    public <MSG extends C2SModPacket<MSG>> void sendToServer(C2SModPacket<MSG> msg) {
+    public void sendToServer(C2SModPacket msg) {
 
     }
 
     @Override
-    public <MSG extends S2CModPacket<MSG>> void registerClientPacket(Class<MSG> packetLocation, Function<FriendlyByteBuf, MSG> reader) {
+    public <MSG extends S2CModPacket> void registerClientPacket(Class<MSG> packetLocation, Function<FriendlyByteBuf, MSG> reader) {
 
     }
 
     @Override
-    public <MSG extends C2SModPacket<MSG>> void registerServerPacket(Class<MSG> packetLocation, Function<FriendlyByteBuf, MSG> reader) {
+    public <MSG extends C2SModPacket> void registerServerPacket(Class<MSG> packetLocation, Function<FriendlyByteBuf, MSG> reader) {
 
     }
 

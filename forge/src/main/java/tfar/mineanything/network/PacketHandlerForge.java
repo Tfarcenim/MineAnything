@@ -16,14 +16,14 @@ public class PacketHandlerForge {
 
     public static SimpleChannel INSTANCE = NetworkRegistry.newSimpleChannel(MineAnything.id(MineAnything.MOD_ID), () -> "1.0", s -> true, s -> true);;
 
-    public static <MSG extends S2CModPacket<MSG>> BiConsumer<MSG, Supplier<NetworkEvent.Context>> wrapS2C() {
+    public static <MSG extends S2CModPacket> BiConsumer<MSG, Supplier<NetworkEvent.Context>> wrapS2C() {
         return ((msg, contextSupplier) -> {
             contextSupplier.get().enqueueWork(msg::handleClient);
             contextSupplier.get().setPacketHandled(true);
         });
     }
 
-    public static <MSG extends C2SModPacket<MSG>> BiConsumer<MSG, Supplier<NetworkEvent.Context>> wrapC2S() {
+    public static <MSG extends C2SModPacket> BiConsumer<MSG, Supplier<NetworkEvent.Context>> wrapC2S() {
         return ((msg, contextSupplier) -> {
             ServerPlayer player = contextSupplier.get().getSender();
             contextSupplier.get().enqueueWork(() -> msg.handleServer(player));

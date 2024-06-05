@@ -4,6 +4,7 @@ import com.google.gson.JsonElement;
 import net.minecraft.data.models.BlockModelGenerators;
 import net.minecraft.data.models.blockstates.BlockStateGenerator;
 import net.minecraft.data.models.model.ModelLocationUtils;
+import net.minecraft.data.models.model.TexturedModel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Blocks;
@@ -24,7 +25,7 @@ public class ModBlockModelProvider extends BlockModelGenerators {
         this.blockEntityModels(ModelLocationUtils.decorateBlockModelLocation("skull"), Blocks.SOUL_SAND).createWithoutBlockItem(ModBlocks.PLAYER_BODY);
         this.createNonTemplateModelBlock(ModBlocks.MINEABLE_WATER,Blocks.WATER);
         this.createNonTemplateModelBlock(ModBlocks.MINEABLE_LAVA,Blocks.LAVA);
-
+        this.createTrivialBlock(ModBlocks.LAVA_TNT, TexturedModel.CUBE_TOP_BOTTOM);
     }
 
 
