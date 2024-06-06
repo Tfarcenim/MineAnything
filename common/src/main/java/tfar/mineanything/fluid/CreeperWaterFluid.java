@@ -19,6 +19,9 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.material.*;
+import tfar.mineanything.init.ModBlocks;
+import tfar.mineanything.init.ModFluids;
+import tfar.mineanything.init.ModItems;
 
 import javax.annotation.Nullable;
 import java.util.Optional;
@@ -28,15 +31,15 @@ public abstract class CreeperWaterFluid extends FlowingFluid {
         }
 
         public Fluid getFlowing() {
-            return Fluids.FLOWING_WATER;
+            return ModFluids.FLOWING_CREEPER_WATER;
         }
 
         public Fluid getSource() {
-            return Fluids.WATER;
+            return ModFluids.CREEPER_WATER;
         }
 
         public Item getBucket() {
-            return Items.WATER_BUCKET;
+            return ModItems.CREEPER_WATER_BUCKET;
         }
 
         public void animateTick(Level level, BlockPos pos, FluidState $$2, RandomSource $$3) {
@@ -69,11 +72,11 @@ public abstract class CreeperWaterFluid extends FlowingFluid {
         }
 
         public BlockState createLegacyBlock(FluidState $$0) {
-            return Blocks.WATER.defaultBlockState().setValue(LiquidBlock.LEVEL, getLegacyLevel($$0));
+            return ModBlocks.CREEPER_WATER.defaultBlockState().setValue(LiquidBlock.LEVEL, getLegacyLevel($$0));
         }
 
         public boolean isSame(Fluid $$0) {
-            return $$0 == Fluids.WATER || $$0 == Fluids.FLOWING_WATER;
+            return $$0 == ModFluids.CREEPER_WATER || $$0 == ModFluids.FLOWING_CREEPER_WATER;
         }
 
         public int getDropOff(LevelReader $$0) {

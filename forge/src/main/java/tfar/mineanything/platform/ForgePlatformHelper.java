@@ -17,6 +17,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.network.PacketDistributor;
@@ -24,6 +25,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.Nullable;
 import tfar.mineanything.MineAnything;
 import tfar.mineanything.MineAnythingForge;
+import tfar.mineanything.block.ForgeCreeperWaterFluid;
 import tfar.mineanything.client.MineAnythingClient;
 import tfar.mineanything.network.PacketHandlerForge;
 import tfar.mineanything.network.client.S2CModPacket;
@@ -141,5 +143,15 @@ public class ForgePlatformHelper implements IPlatformHelper {
     @Override
     public boolean getMobGriefingEvent(Level level, Entity source) {
         return net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(level, source);
+    }
+
+    @Override
+    public FlowingFluid createCreeperWaterFluid() {
+        return new ForgeCreeperWaterFluid.Source();
+    }
+
+    @Override
+    public FlowingFluid createCreeperWaterFlowingFluid() {
+        return new ForgeCreeperWaterFluid.Flowing();
     }
 }

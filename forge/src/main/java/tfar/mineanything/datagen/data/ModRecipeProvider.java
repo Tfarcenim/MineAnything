@@ -21,5 +21,15 @@ public class ModRecipeProvider extends RecipeProvider {
                 .requires(ModItems.MINEABLE_LAVA)
                 .unlockedBy(getHasName(ModItems.MINEABLE_LAVA),has(ModItems.MINEABLE_LAVA))
                 .save(pWriter);
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.CREEPER_WATER_BUCKET).requires(Items.WATER_BUCKET)
+                .requires(Items.CREEPER_HEAD)
+                .unlockedBy(getHasName(Items.CREEPER_HEAD),has(Items.CREEPER_HEAD))
+                .save(pWriter);
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.SKELETON_BOW).requires(Items.BOW)
+                .requires(Items.SKELETON_SKULL)
+                .unlockedBy(getHasName(Items.SKELETON_SKULL),has(Items.SKELETON_SKULL))
+                .save(pWriter);
     }
 }

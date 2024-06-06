@@ -16,6 +16,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.FlowingFluid;
 import tfar.mineanything.network.client.S2CModPacket;
 import tfar.mineanything.network.server.C2SModPacket;
 import tfar.mineanything.platform.Side;
@@ -90,5 +91,8 @@ public interface IPlatformHelper {
     boolean onExplosionStart(Level level, Explosion explosion);
 
     boolean getMobGriefingEvent(Level level,Entity source);
+
+    FlowingFluid createCreeperWaterFluid();
+    FlowingFluid createCreeperWaterFlowingFluid();
 
 }
