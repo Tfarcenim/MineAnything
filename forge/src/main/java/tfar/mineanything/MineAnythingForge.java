@@ -3,6 +3,7 @@ package tfar.mineanything;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.monster.Zombie;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
@@ -56,6 +57,7 @@ public class MineAnythingForge {
 
     private void attributes(EntityAttributeCreationEvent event) {
         event.put(ModEntities.CLONE_PLAYER, ClonePlayerEntity.createAttributes().build());
+        event.put(ModEntities.MINER_ZOMBIE, Zombie.createAttributes().build());
     }
 
     private void onDeath(LivingDeathEvent event) {

@@ -10,6 +10,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.*;
+import net.minecraft.client.renderer.item.ClampedItemPropertyFunction;
+import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.client.resources.DefaultPlayerSkin;
 import net.minecraft.client.resources.SkinManager;
 import net.minecraft.core.UUIDUtil;
@@ -19,6 +21,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import org.apache.commons.lang3.ArrayUtils;
 import tfar.mineanything.HasFakeItems;
@@ -27,6 +30,7 @@ import tfar.mineanything.client.render.LavaTntRenderer;
 import tfar.mineanything.client.render.PlayerBodyBlockEntityRenderer;
 import tfar.mineanything.client.render.SkeletonArrowRenderer;
 import tfar.mineanything.entity.ClonePlayerEntity;
+import tfar.mineanything.entity.MinerZombieEntity;
 import tfar.mineanything.init.ModBlockEntities;
 import tfar.mineanything.init.ModEntities;
 import tfar.mineanything.init.ModItems;
@@ -48,8 +52,22 @@ public class MineAnythingClient {
         }
     }
 
+
     public static void clientSetup() {
         ModKeybinds.KEYS.forEach(Services.PLATFORM::registerKeyBinding);
+
+        ItemProperties.register(ModItems.SKELETON_BOW, new ResourceLocation("pull"), (itemStack, clientLevel, livingEntity, i) -> {
+            if (livingEntity == null) {
+                return 0.0F;
+            } else {
+                return livingEntity.getUseItem() != itemStack ? 0.0F : (itemStack.getUseDuration() - livingEntity.getUseItemRemainingTicks()) / 20.0F;
+            }
+        });
+
+        ItemProperties.register(ModItems.SKELETON_BOW, new ResourceLocation("pulling"), (itemStack, clientLevel, livingEntity, i) -> {
+            return livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack ? 1.0F : 0.0F;
+        });
+
     }
 
     public static void spawnPingParticles() {
@@ -93,10 +111,13 @@ public class MineAnythingClient {
             "default", (context) -> new ClonePlayerEntityRenderer(context, false),
             "slim", (context) -> new ClonePlayerEntityRenderer(context, true));
 
+
+
     public static void registerRenderers() {
         BlockEntityRenderers.register(ModBlockEntities.PLAYER_BODY, PlayerBodyBlockEntityRenderer::new);
         EntityRenderers.register(ModEntities.LAVA_TNT, LavaTntRenderer::new);
         EntityRenderers.register(ModEntities.SKELETON_ARROW, SkeletonArrowRenderer::new);
+        EntityRenderers.register(ModEntities.MINER_ZOMBIE, ZombieRenderer::new);
         //EntityRenderers.register(ModEntities.CLONE_PLAYER, context -> new ClonePlayerEntityRenderer(context,false));
     }
 

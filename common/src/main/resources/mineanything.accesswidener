@@ -1,9 +1,12 @@
 accessWidener v1 named
 
+# Registering keybinds
 mutable field net/minecraft/client/Options keyMappings [Lnet/minecraft/client/KeyMapping;
 
+# Registering blockentities
 extendable class net/minecraft/world/level/block/entity/BlockEntityType$BlockEntitySupplier
 
+# Registering BlockEntity and Entity renderers
 accessible method net/minecraft/client/renderer/blockentity/BlockEntityRenderers register (Lnet/minecraft/world/level/block/entity/BlockEntityType;Lnet/minecraft/client/renderer/blockentity/BlockEntityRendererProvider;)V
 accessible method net/minecraft/client/renderer/entity/EntityRenderers register (Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/client/renderer/entity/EntityRendererProvider;)V
 
@@ -17,3 +20,6 @@ accessible field net/minecraft/client/renderer/entity/layers/HumanoidArmorLayer 
 accessible method net/minecraft/world/level/Explosion addBlockDrops (Lit/unimi/dsi/fastutil/objects/ObjectArrayList;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/core/BlockPos;)V
 
 extendable method net/minecraft/world/entity/item/PrimedTnt explode ()V
+
+# Registering custom model predicate providers for item models
+accessible method net/minecraft/client/renderer/item/ItemProperties register (Lnet/minecraft/world/item/Item;Lnet/minecraft/resources/ResourceLocation;Lnet/minecraft/client/renderer/item/ClampedItemPropertyFunction;)V

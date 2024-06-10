@@ -1,15 +1,8 @@
 package tfar.mineanything.init;
 
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.BowItem;
-import net.minecraft.world.item.BucketItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.SoundType;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.MapColor;
-import tfar.mineanything.block.LavaTntBlock;
+import net.minecraft.world.item.*;
 import tfar.mineanything.item.SkeletonBowItem;
+import tfar.mineanything.item.ZombieSwordItem;
 
 public class ModItems {
 
@@ -18,6 +11,7 @@ public class ModItems {
     public static final BlockItem LAVA_TNT = new BlockItem(ModBlocks.LAVA_TNT,new Item.Properties());
     public static final Item CREEPER_WATER_BUCKET = new BucketItem(ModFluids.CREEPER_WATER,new Item.Properties());
     public static final Item SKELETON_BOW = new SkeletonBowItem(new Item.Properties().durability(1000));
+    public static final Item ZOMBIE_SWORD = new ZombieSwordItem(Tiers.NETHERITE, 3, -2.4F, new Item.Properties().fireResistant());
 
 
 }
