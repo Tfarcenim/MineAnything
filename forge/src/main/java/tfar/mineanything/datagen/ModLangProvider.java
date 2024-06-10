@@ -9,6 +9,7 @@ import net.minecraftforge.common.data.LanguageProvider;
 import org.codehaus.plexus.util.StringUtils;
 import tfar.mineanything.MineAnything;
 import tfar.mineanything.init.ModBlocks;
+import tfar.mineanything.init.ModEnchantments;
 import tfar.mineanything.init.ModEntities;
 import tfar.mineanything.init.ModItems;
 
@@ -25,9 +26,12 @@ public class ModLangProvider extends LanguageProvider {
         addBlock(() -> ModBlocks.MINEABLE_LAVA,"Lava");
         addDefaultItem(() -> ModItems.CREEPER_WATER_BUCKET);
         addDefaultItem(() -> ModItems.SKELETON_BOW);
+        addDefaultItem(() -> ModItems.PICKAXE);
+
         addDefaultBlock(() -> ModBlocks.LAVA_TNT);
         addDefaultBlock(() -> ModBlocks.PLAYER_BODY);
         addDefaultEntityType(() -> ModEntities.CLONE_PLAYER);
+        addDefaultEnchantment(() -> ModEnchantments.MINE_ANYTHING);
     }
 
 

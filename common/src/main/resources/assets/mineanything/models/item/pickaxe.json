@@ -1,0 +1,29 @@
+{
+  "parent": "mineanything:item/pickaxe/mob_miner",
+  "overrides": [
+    {
+      "predicate": {
+        "mineanything:level": 1
+      },
+      "model": "mineanything:item/pickaxe/mob_miner"
+    },
+    {
+      "predicate": {
+        "mineanything:level": 2
+      },
+      "model": "mineanything:item/pickaxe/bedrock_breaker"
+    },
+    {
+      "predicate": {
+        "mineanything:level": 3
+      },
+      "model": "mineanything:item/pickaxe/dimension_destroyer"
+    },
+    {
+      "predicate": {
+        "mineanything:level": 4
+      },
+      "model": "mineanything:item/pickaxe/dragon_tamer"
+    }
+  ]
+}

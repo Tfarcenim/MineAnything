@@ -8,6 +8,7 @@ import net.minecraft.Util;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.item.ItemColors;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.*;
 import net.minecraft.client.renderer.item.ClampedItemPropertyFunction;
@@ -19,12 +20,16 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import org.apache.commons.lang3.ArrayUtils;
+import org.jetbrains.annotations.Nullable;
 import tfar.mineanything.HasFakeItems;
+import tfar.mineanything.MineAnything;
 import tfar.mineanything.client.render.ClonePlayerEntityRenderer;
 import tfar.mineanything.client.render.LavaTntRenderer;
 import tfar.mineanything.client.render.PlayerBodyBlockEntityRenderer;
@@ -32,6 +37,7 @@ import tfar.mineanything.client.render.SkeletonArrowRenderer;
 import tfar.mineanything.entity.ClonePlayerEntity;
 import tfar.mineanything.entity.MinerZombieEntity;
 import tfar.mineanything.init.ModBlockEntities;
+import tfar.mineanything.init.ModEnchantments;
 import tfar.mineanything.init.ModEntities;
 import tfar.mineanything.init.ModItems;
 import tfar.mineanything.network.server.C2SKeyActionPacket;
@@ -66,6 +72,19 @@ public class MineAnythingClient {
 
         ItemProperties.register(ModItems.SKELETON_BOW, new ResourceLocation("pulling"), (itemStack, clientLevel, livingEntity, i) -> {
             return livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack ? 1.0F : 0.0F;
+        });
+
+        ItemProperties.register(ModItems.PICKAXE, MineAnything.id("level"), new ClampedItemPropertyFunction() {
+            @Override
+            public float unclampedCall(ItemStack itemStack, @Nullable ClientLevel clientLevel, @Nullable LivingEntity livingEntity, int i) {
+                int enchantmentLevel = EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.MINE_ANYTHING, itemStack);
+                return enchantmentLevel;
+            }
+
+            @Override
+            public float call(ItemStack $$0, @Nullable ClientLevel $$1, @Nullable LivingEntity $$2, int $$3) {
+                return unclampedCall($$0, $$1, $$2, $$3);
+            }
         });
 
     }
