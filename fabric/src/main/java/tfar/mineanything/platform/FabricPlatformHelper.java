@@ -4,6 +4,7 @@ import net.minecraft.client.KeyMapping;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -12,6 +13,10 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Explosion;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.FlowingFluid;
 import org.jetbrains.annotations.Nullable;
 import tfar.mineanything.network.client.S2CModPacket;
 import tfar.mineanything.network.server.C2SModPacket;
@@ -55,6 +60,11 @@ public class FabricPlatformHelper implements IPlatformHelper {
     }
 
     @Override
+    public void sendToTrackingClients(S2CModPacket msg, Entity entity) {
+
+    }
+
+    @Override
     public void sendToServer(C2SModPacket msg) {
 
     }
@@ -81,6 +91,36 @@ public class FabricPlatformHelper implements IPlatformHelper {
 
     @Override
     public <T extends LivingEntity, M extends HumanoidModel<T>, A extends HumanoidModel<T>> ResourceLocation getArmorResource(HumanoidArmorLayer<T, M, A> layer, Entity entity, ItemStack stack, EquipmentSlot slot, @Nullable String type) {
+        return null;
+    }
+
+    @Override
+    public boolean canDropFromExplosion(BlockState blockState, Level level, BlockPos pos, Explosion explosion) {
+        return false;
+    }
+
+    @Override
+    public void onBlockExploded(BlockState blockState, Level level, BlockPos pos, Explosion explosion) {
+
+    }
+
+    @Override
+    public boolean onExplosionStart(Level level, Explosion explosion) {
+        return false;
+    }
+
+    @Override
+    public boolean getMobGriefingEvent(Level level, Entity source) {
+        return false;
+    }
+
+    @Override
+    public FlowingFluid createCreeperWaterFluid() {
+        return null;
+    }
+
+    @Override
+    public FlowingFluid createCreeperWaterFlowingFluid() {
         return null;
     }
 }
