@@ -27,6 +27,7 @@ public class ModBlockModelProvider extends BlockModelGenerators {
         this.createNonTemplateModelBlock(ModBlocks.MINEABLE_LAVA,Blocks.LAVA);
         this.createTrivialBlock(ModBlocks.LAVA_TNT, TexturedModel.CUBE_TOP_BOTTOM);
         this.createNonTemplateModelBlock(ModBlocks.CREEPER_WATER,Blocks.WATER);
+        this.createTrivialBlock(ModBlocks.FORTIFIED_SPAWNER,TexturedModel.CUBE_TOP_BOTTOM);
     }
 
 

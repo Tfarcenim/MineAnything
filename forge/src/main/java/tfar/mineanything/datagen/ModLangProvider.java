@@ -26,12 +26,14 @@ public class ModLangProvider extends LanguageProvider {
         addBlock(() -> ModBlocks.MINEABLE_LAVA,"Lava");
         addDefaultItem(() -> ModItems.CREEPER_WATER_BUCKET);
         addDefaultItem(() -> ModItems.SKELETON_BOW);
+        addDefaultItem(() -> ModItems.ZOMBIE_SWORD);
         addDefaultItem(() -> ModItems.PICKAXE);
 
         addDefaultBlock(() -> ModBlocks.LAVA_TNT);
         addDefaultBlock(() -> ModBlocks.PLAYER_BODY);
         addDefaultEntityType(() -> ModEntities.CLONE_PLAYER);
         addDefaultEnchantment(() -> ModEnchantments.MINE_ANYTHING);
+        addDefaultBlock(() -> ModBlocks.FORTIFIED_SPAWNER);
     }
 
 

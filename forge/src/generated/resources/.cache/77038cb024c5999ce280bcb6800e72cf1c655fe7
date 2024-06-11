@@ -1,11 +1,14 @@
-// 1.20.1	2024-06-05T04:39:27.5640797	Model Definitions
+// 1.20.1	2024-06-11T18:42:02.4793863	Model Definitions
 e5a33b4a2db42195222fa1709b3d9533ac41e453 assets/mineanything/blockstates/creeper_water.json
+cd81011f1dd680e82da3a2ec0283e3a4a1e6bf59 assets/mineanything/blockstates/fortified_spawner.json
 80c28763a0bb13fc52c24e894d124b0c040720ce assets/mineanything/blockstates/lava_tnt.json
 48f52499a4fec1ce201bd7e81455507510c190b8 assets/mineanything/blockstates/mineable_lava.json
 e5a33b4a2db42195222fa1709b3d9533ac41e453 assets/mineanything/blockstates/mineable_water.json
 94ee00eebd82061338b6db439a84b3fdf98f3942 assets/mineanything/blockstates/player_body.json
+e08b9f7574d460ca4dfb3b28d8aef0bd7d70e015 assets/mineanything/models/block/fortified_spawner.json
 b327cffc88cd303f92318f5d2a5d91522f89c706 assets/mineanything/models/block/lava_tnt.json
 b8bf9fed12c85096da488de87030114d5a79a73f assets/mineanything/models/item/creeper_water_bucket.json
+cf00a9c47265ae4aa4231b78c73c27f790ba7ba2 assets/mineanything/models/item/fortified_spawner.json
 97895d451a35c4346e9867936a0b57f1d766bcd3 assets/mineanything/models/item/lava_tnt.json
 ef1c8a62be5ac5435d07b8996037c113374bcd04 assets/mineanything/models/item/mineable_lava.json
 30ace9a2473c25a41b8d678a208106940f060cb1 assets/mineanything/models/item/mineable_water.json

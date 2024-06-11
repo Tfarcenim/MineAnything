@@ -13,6 +13,6 @@ public class ModItems {
     public static final Item CREEPER_WATER_BUCKET = new BucketItem(ModFluids.CREEPER_WATER,new Item.Properties());
     public static final Item SKELETON_BOW = new SkeletonBowItem(new Item.Properties().durability(1000));
     public static final Item ZOMBIE_SWORD = new ZombieSwordItem(Tiers.NETHERITE, 3, -2.4F, new Item.Properties().fireResistant());
-
+    public static final Item FORTIFIED_SPAWNER = new BlockItem(ModBlocks.FORTIFIED_SPAWNER,new Item.Properties());
 
 }

@@ -4,6 +4,8 @@ import com.mojang.authlib.GameProfile;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.Model;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.MappedRegistry;
@@ -18,8 +20,10 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FlowingFluid;
+import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.common.util.FakePlayerFactory;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.fml.loading.FMLEnvironment;
@@ -161,5 +165,15 @@ public class ForgePlatformHelper implements IPlatformHelper {
     @Override
     public ServerPlayer makeFakePlayer(ServerLevel level, GameProfile profile) {
         return FakePlayerFactory.get(level,profile);
+    }
+
+    @Override
+    public void registerRenderLayer(Block block, RenderType renderType) {
+        ItemBlockRenderTypes.setRenderLayer(block,renderType);
+    }
+
+    @Override
+    public void registerRenderLayer(Fluid fluid, RenderType renderType) {
+        ItemBlockRenderTypes.setRenderLayer(fluid,renderType);
     }
 }

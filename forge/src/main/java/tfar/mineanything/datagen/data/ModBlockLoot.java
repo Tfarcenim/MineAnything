@@ -4,7 +4,6 @@ import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.data.loot.packs.VanillaBlockLoot;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.TntBlock;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -34,6 +33,7 @@ public class ModBlockLoot extends VanillaBlockLoot {
                 .withPool(this.applyExplosionCondition(ModBlocks.LAVA_TNT, LootPool.lootPool()
                         .setRolls(ConstantValue.exactly(1.0F))
                         .add(LootItem.lootTableItem(ModBlocks.LAVA_TNT).when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(ModBlocks.LAVA_TNT).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(TntBlock.UNSTABLE, false)))))));
+        this.add(ModBlocks.FORTIFIED_SPAWNER,noDrop());
     }
 
     @Override

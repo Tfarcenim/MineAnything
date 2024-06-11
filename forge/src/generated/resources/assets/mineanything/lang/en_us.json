@@ -1,4 +1,5 @@
 {
+  "block.mineanything.fortified_spawner": "Fortified Spawner",
   "block.mineanything.lava_tnt": "Lava Tnt",
   "block.mineanything.mineable_lava": "Lava",
   "block.mineanything.mineable_water": "Water",
@@ -7,5 +8,6 @@
   "entity.mineanything.clone_player": "Clone Player",
   "item.mineanything.creeper_water_bucket": "Creeper Water Bucket",
   "item.mineanything.pickaxe": "Pickaxe",
-  "item.mineanything.skeleton_bow": "Skeleton Bow"
+  "item.mineanything.skeleton_bow": "Skeleton Bow",
+  "item.mineanything.zombie_sword": "Zombie Sword"
 }

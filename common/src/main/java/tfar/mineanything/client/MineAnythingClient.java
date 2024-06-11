@@ -9,6 +9,7 @@ import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.*;
 import net.minecraft.client.renderer.item.ClampedItemPropertyFunction;
@@ -36,10 +37,7 @@ import tfar.mineanything.client.render.PlayerBodyBlockEntityRenderer;
 import tfar.mineanything.client.render.SkeletonArrowRenderer;
 import tfar.mineanything.entity.ClonePlayerEntity;
 import tfar.mineanything.entity.MinerZombieEntity;
-import tfar.mineanything.init.ModBlockEntities;
-import tfar.mineanything.init.ModEnchantments;
-import tfar.mineanything.init.ModEntities;
-import tfar.mineanything.init.ModItems;
+import tfar.mineanything.init.*;
 import tfar.mineanything.network.server.C2SKeyActionPacket;
 import tfar.mineanything.platform.Services;
 
@@ -87,6 +85,10 @@ public class MineAnythingClient {
             }
         });
 
+        Services.PLATFORM.registerRenderLayer(ModFluids.CREEPER_WATER,RenderType.translucent());
+        Services.PLATFORM.registerRenderLayer(ModFluids.FLOWING_CREEPER_WATER,RenderType.translucent());
+
+        Services.PLATFORM.registerRenderLayer(ModBlocks.FORTIFIED_SPAWNER, RenderType.cutoutMipped());
     }
 
     public static void spawnPingParticles() {
