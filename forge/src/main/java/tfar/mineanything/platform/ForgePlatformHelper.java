@@ -1,5 +1,6 @@
 package tfar.mineanything.platform;
 
+import com.mojang.authlib.GameProfile;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.Model;
@@ -9,6 +10,7 @@ import net.minecraft.core.MappedRegistry;
 import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -18,6 +20,7 @@ import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FlowingFluid;
+import net.minecraftforge.common.util.FakePlayerFactory;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.network.PacketDistributor;
@@ -153,5 +156,10 @@ public class ForgePlatformHelper implements IPlatformHelper {
     @Override
     public FlowingFluid createCreeperWaterFlowingFluid() {
         return new ForgeCreeperWaterFluid.Flowing();
+    }
+
+    @Override
+    public ServerPlayer makeFakePlayer(ServerLevel level, GameProfile profile) {
+        return FakePlayerFactory.get(level,profile);
     }
 }

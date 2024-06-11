@@ -1,5 +1,6 @@
 package tfar.mineanything.platform;
 
+import com.mojang.authlib.GameProfile;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.Model;
@@ -8,6 +9,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -121,6 +123,11 @@ public class FabricPlatformHelper implements IPlatformHelper {
 
     @Override
     public FlowingFluid createCreeperWaterFlowingFluid() {
+        return null;
+    }
+
+    @Override
+    public ServerPlayer makeFakePlayer(ServerLevel level, GameProfile profile) {
         return null;
     }
 }

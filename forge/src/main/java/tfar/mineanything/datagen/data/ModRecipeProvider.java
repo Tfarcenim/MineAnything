@@ -5,6 +5,7 @@ import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 import tfar.mineanything.init.ModItems;
 
@@ -27,9 +28,14 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy(getHasName(Items.CREEPER_HEAD),has(Items.CREEPER_HEAD))
                 .save(pWriter);
 
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.SKELETON_BOW).requires(Items.BOW)
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.COMBAT, ModItems.SKELETON_BOW).requires(Items.BOW)
                 .requires(Items.SKELETON_SKULL)
                 .unlockedBy(getHasName(Items.SKELETON_SKULL),has(Items.SKELETON_SKULL))
+                .save(pWriter);
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.COMBAT, ModItems.ZOMBIE_SWORD).requires(ItemTags.SWORDS)
+                .requires(Items.ZOMBIE_HEAD)
+                .unlockedBy(getHasName(Items.ZOMBIE_HEAD),has(Items.ZOMBIE_HEAD))
                 .save(pWriter);
     }
 }

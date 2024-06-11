@@ -7,7 +7,10 @@
   "mixins": [
     "ExplosionAccess",
     "FluidsMixin",
-    "PlayerMixin"
+    "LivingEntityMixin",
+    "NearestAttackableTargetGoalMixin",
+    "PlayerMixin",
+    "TargetingConditionsAccess"
   ],
   "client": [
     "DebugRendererMixin",

@@ -1,34 +1,59 @@
 package tfar.mineanything.entity;
 
+import com.mojang.authlib.GameProfile;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.level.pathfinder.NodeEvaluator;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.Nullable;
+import tfar.mineanything.platform.Services;
 
-public class MinerZombieEntity extends Zombie {
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
+public class MinerZombieEntity extends Zombie implements OwnableEntity {
+
+    protected UUID owner;
 
     private Direction direction;
     private int mined;
     private BlockPos target;
 
+    private ServerPlayer fakePlayer;
+
+    static final UUID uuif = UUID.fromString("8433bdf9-3917-4038-8911-51e6338181c2");
+
     public MinerZombieEntity(EntityType<? extends Zombie> $$0, Level $$1) {
         super($$0, $$1);
         moveControl = new GolemMoveControl(this);
+        if (!$$1.isClientSide) {
+            fakePlayer = Services.PLATFORM.makeFakePlayer((ServerLevel) $$1,new GameProfile(uuif,"miner_zombie"));
+        }
     }
 
     @Override
@@ -88,6 +113,15 @@ public class MinerZombieEntity extends Zombie {
         }
     }
 
+    @Nullable
+    @Override
+    public UUID getOwnerUUID() {
+        return owner;
+    }
+
+    public void setOwnerUUID(UUID owner) {
+        this.owner = owner;
+    }
 
 
     public BlockPos findClosestBlock(int max) {
@@ -103,35 +137,62 @@ public class MinerZombieEntity extends Zombie {
     void break3x3() {
         BlockPos base = blockPosition();
         BlockPos offset = base.relative(direction);
-        level().destroyBlock(offset,true);
+
+        List<BlockPos> extraPos = new ArrayList<>();
+        extraPos.add(offset);
         switch (direction) {
             case NORTH,SOUTH -> {
-                level().destroyBlock(new BlockPos(offset.offset(-1,0,0)),true);
-                level().destroyBlock(new BlockPos(offset.offset(1,0,0)),true);
+                extraPos.add(new BlockPos(offset.offset(-1,0,0)));
+                extraPos.add(new BlockPos(offset.offset(1,0,0)));
 
-                level().destroyBlock(new BlockPos(offset.offset(-1,1,0)),true);
-                level().destroyBlock(new BlockPos(offset.offset(0,1,0)),true);
-                level().destroyBlock(new BlockPos(offset.offset(1,1,0)),true);
+                extraPos.add(new BlockPos(offset.offset(-1,1,0)));
+                extraPos.add(new BlockPos(offset.offset(0,1,0)));
+                extraPos.add(new BlockPos(offset.offset(1,1,0)));
 
-                level().destroyBlock(new BlockPos(offset.offset(-1,2,0)),true);
-                level().destroyBlock(new BlockPos(offset.offset(0,2,0)),true);
-                level().destroyBlock(new BlockPos(offset.offset(1,2,0)),true);
+                extraPos.add(new BlockPos(offset.offset(-1,2,0)));
+                extraPos.add(new BlockPos(offset.offset(0,2,0)));
+                extraPos.add(new BlockPos(offset.offset(1,2,0)));
             }
 
             case EAST,WEST -> {
-                level().destroyBlock(new BlockPos(offset.offset(0,0,-1)),true);
-                level().destroyBlock(new BlockPos(offset.offset(0,0,1)),true);
+                extraPos.add(new BlockPos(offset.offset(0,0,-1)));
+                extraPos.add(new BlockPos(offset.offset(0,0,1)));
 
-                level().destroyBlock(new BlockPos(offset.offset(0,1,-1)),true);
-                level().destroyBlock(new BlockPos(offset.offset(0,1,0)),true);
-                level().destroyBlock(new BlockPos(offset.offset(0,1,1)),true);
+                extraPos.add(new BlockPos(offset.offset(0,1,-1)));
+                extraPos.add(new BlockPos(offset.offset(0,1,0)));
+                extraPos.add(new BlockPos(offset.offset(0,1,1)));
 
-                level().destroyBlock(new BlockPos(offset.offset(0,2,-1)),true);
-                level().destroyBlock(new BlockPos(offset.offset(0,2,0)),true);
-                level().destroyBlock(new BlockPos(offset.offset(0,2,1)),true);
+                extraPos.add(new BlockPos(offset.offset(0,2,-1)));
+                extraPos.add(new BlockPos(offset.offset(0,2,0)));
+                extraPos.add(new BlockPos(offset.offset(0,2,1)));
             }
         }
+
+        for (BlockPos blockPos : extraPos) {
+            BlockState state = level().getBlockState(blockPos);
+            if (fakePlayer.hasCorrectToolForDrops(state)) {
+                LivingEntity own = getOwner();
+                if (own != null) {
+                    List<ItemStack> drops = Block.getDrops(state, (ServerLevel) level(), blockPos, level().getBlockEntity(blockPos), fakePlayer, getItemInHand(InteractionHand.MAIN_HAND));
+                    for (ItemStack stack : drops) {
+                        if (own instanceof Player player) {
+                            player.getInventory().add(stack);
+                        }
+                    }
+                    level().destroyBlock(blockPos, false, fakePlayer);
+                } else {
+                    level().destroyBlock(blockPos, true, fakePlayer);
+                }
+            }
+        }
+        advance();
         target = null;
+    }
+
+    @Override
+    public void setItemInHand(InteractionHand $$0, ItemStack $$1) {
+        super.setItemInHand($$0, $$1);
+        fakePlayer.setItemInHand($$0,$$1);
     }
 
     public static class GolemMoveControl extends MoveControl {
@@ -210,7 +271,7 @@ public class MinerZombieEntity extends Zombie {
     }
 
     public boolean canHarvest(BlockState state) {
-        return !state.isAir();
+        return fakePlayer.hasCorrectToolForDrops(state);
     }
 
     boolean isThereABlock() {
@@ -226,6 +287,9 @@ public class MinerZombieEntity extends Zombie {
         super.addAdditionalSaveData(tag);
         tag.putInt("direction",direction.ordinal());
         tag.putInt("mined",mined);
+        if (owner != null) {
+            tag.putUUID("owner",owner);
+        }
 
     }
 
@@ -244,5 +308,8 @@ public class MinerZombieEntity extends Zombie {
         super.readAdditionalSaveData(tag);
         direction = Direction.values()[tag.getInt("direction")];
         mined = tag.getInt("mined");
+        if (tag.hasUUID("owner")) {
+            setOwnerUUID(tag.getUUID("owner"));
+        }
     }
 }

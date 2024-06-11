@@ -6,6 +6,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.SwordItem;
@@ -29,6 +30,10 @@ public class ZombieSwordItem extends SwordItem {
             MinerZombieEntity minerZombieEntity = ModEntities.MINER_ZOMBIE.spawn((ServerLevel) level,pos.above(), MobSpawnType.EVENT);
             minerZombieEntity.setDirection(context.getHorizontalDirection());
             minerZombieEntity.setItemInHand(InteractionHand.MAIN_HAND,new ItemStack(Items.NETHERITE_PICKAXE));
+            Player player = context.getPlayer();
+            if (player != null) {
+                minerZombieEntity.setOwnerUUID(player.getUUID());
+            }
         }
 
         return InteractionResult.SUCCESS;

@@ -3,9 +3,12 @@ package tfar.mineanything;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.Level;
@@ -16,9 +19,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import tfar.mineanything.blockentity.PlayerBodyBlockEntity;
 import tfar.mineanything.init.*;
+import tfar.mineanything.mixin.TargetingConditionsAccess;
 import tfar.mineanything.network.PacketHandler;
 import tfar.mineanything.platform.Services;
 import tfar.mineanything.platform.Side;
+
+import java.util.function.Predicate;
 
 // This class is part of the common project meaning it is shared between all supported loaders. Code written here can only
 // import and access the vanilla codebase, libraries used by vanilla, and optionally third party libraries that provide
@@ -56,6 +62,20 @@ public class MineAnything {
             if (level.getBlockEntity(serverPlayer.blockPosition()) instanceof PlayerBodyBlockEntity playerBodyBlockEntity) {
                 playerBodyBlockEntity.setGameProfile(serverPlayer.getGameProfile());
             }
+        }
+    }
+
+    public static final Predicate<LivingEntity> TEST = living -> !living.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.ZOMBIE_SWORD) && !living.getItemInHand(InteractionHand.OFF_HAND).is(ModItems.ZOMBIE_SWORD);
+
+    public static void modifyTargetingConditions(TargetingConditions conditions, Class<?> clazz) {
+        if (clazz.isAssignableFrom(Player.class)) {
+
+            Predicate<LivingEntity> oldSelector = ((TargetingConditionsAccess)conditions).getSelector();
+
+
+            Predicate<LivingEntity> newSelector = oldSelector != null  ? oldSelector.and(TEST) : TEST;
+
+            conditions.selector(newSelector);
         }
     }
 

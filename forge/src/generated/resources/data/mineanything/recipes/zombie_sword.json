@@ -3,13 +3,13 @@
   "category": "equipment",
   "ingredients": [
     {
-      "item": "minecraft:bow"
+      "tag": "minecraft:swords"
     },
     {
-      "item": "minecraft:skeleton_skull"
+      "item": "minecraft:zombie_head"
     }
   ],
   "result": {
-    "item": "mineanything:skeleton_bow"
+    "item": "mineanything:zombie_sword"
   }
 }
