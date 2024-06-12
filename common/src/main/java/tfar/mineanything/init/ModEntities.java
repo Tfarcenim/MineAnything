@@ -15,6 +15,6 @@ public class ModEntities {
 
     public static final EntityType<BedrockBlazeBossEntity> BEDROCK_BLAZE_BOSS = EntityType.Builder.of(BedrockBlazeBossEntity::new, MobCategory.MONSTER).fireImmune().sized(0.6F, 1.8F).clientTrackingRange(8).build("");
     public static final EntityType<BedrockSilverfishEntity> FORTIFIED_SILVERFISH = EntityType.Builder
-            .of(BedrockSilverfishEntity::new, MobCategory.MONSTER).fireImmune().sized(0.6F, 1.8F).clientTrackingRange(8).build("");
+            .of(BedrockSilverfishEntity::new, MobCategory.MONSTER).sized(2* 0.4F,2* 0.3F).clientTrackingRange(8).build("");
 
 }

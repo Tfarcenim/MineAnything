@@ -1,6 +1,7 @@
-// 1.20.1	2024-06-11T18:39:27.1482149	Loot Tables
+// 1.20.1	2024-06-12T19:15:12.6015647	Loot Tables
 c21b0bf7043328714c724a74ddef660396440adb data/mineanything/loot_tables/blocks/fortified_spawner.json
 349134a89478b09506c8ab978441a8e301ba2c8d data/mineanything/loot_tables/blocks/lava_tnt.json
 60748c5807e2a7d13e71cff3b9baf7a3578d7059 data/mineanything/loot_tables/blocks/mineable_lava.json
 8a631582daa4ab1844774701d673d151c1fd977d data/mineanything/loot_tables/blocks/mineable_water.json
 43a6c75d28e475fce7d9c215d9406015af4913c7 data/mineanything/loot_tables/blocks/player_body.json
+025fe05733e02e4aa660480faf456debc8ef4377 data/mineanything/loot_tables/blocks/pointed_bedrock.json

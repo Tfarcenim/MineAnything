@@ -42,7 +42,11 @@ public class ModBlocks {
     };
 
 
-    public static final Block FORTIFIED_SPAWNER = new FortifiedSpawnerBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(-1.0F, 3600000.0F).sound(SoundType.METAL).noOcclusion());
+    public static final Block FORTIFIED_SPAWNER = new FortifiedSpawnerBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.BASEDRUM).strength(-1.0F, 3600000.0F).sound(SoundType.METAL).noOcclusion());
+
+    public static final Block POINTED_BEDROCK = new PointedDripstoneBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).forceSolidOn().instrument(NoteBlockInstrument.BASEDRUM).noOcclusion().sound(SoundType.POINTED_DRIPSTONE).randomTicks().strength(-1.0F, 3600000.0F).dynamicShape().offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY).isRedstoneConductor(ModBlocks::never));
+
+
 
     private static boolean never(BlockState $$0, BlockGetter $$1, BlockPos $$2) {
         return false;

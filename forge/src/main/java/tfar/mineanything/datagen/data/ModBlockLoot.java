@@ -34,6 +34,7 @@ public class ModBlockLoot extends VanillaBlockLoot {
                         .setRolls(ConstantValue.exactly(1.0F))
                         .add(LootItem.lootTableItem(ModBlocks.LAVA_TNT).when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(ModBlocks.LAVA_TNT).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(TntBlock.UNSTABLE, false)))))));
         this.add(ModBlocks.FORTIFIED_SPAWNER,noDrop());
+        this.add(ModBlocks.POINTED_BEDROCK,noDrop());
     }
 
     @Override

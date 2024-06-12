@@ -2,11 +2,13 @@ package tfar.mineanything.entity;
 
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Blaze;
+import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.SmallFireball;
 import net.minecraft.world.level.Level;
@@ -17,6 +19,12 @@ public class BedrockBlazeBossEntity extends Blaze {
     public BedrockBlazeBossEntity(EntityType<? extends Blaze> $$0, Level $$1) {
         super($$0, $$1);
     }
+
+
+    public static AttributeSupplier.Builder createBossAttributes() {
+        return Monster.createMonsterAttributes().add(Attributes.ATTACK_DAMAGE, 6.0).add(Attributes.MOVEMENT_SPEED, 0.23).add(Attributes.FOLLOW_RANGE, 48.0).add(Attributes.MAX_HEALTH,100);
+    }
+
 
 
     protected void registerGoals() {
@@ -117,7 +125,8 @@ public class BedrockBlazeBossEntity extends Blaze {
                                 double randZ = (blaze.getRandom().nextDouble() -.5) *.25;
 
                                 SmallFireball fireball = new SmallFireball(this.blaze.level(), this.blaze, randX, fireballY,randZ);
-
+                                fireball.setPos(fireball.getX(), this.blaze.getY(0.5) + 0.5, fireball.getZ());
+                                this.blaze.level().addFreshEntity(fireball);
                             }
                         }
                     }

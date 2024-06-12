@@ -85,6 +85,7 @@ public class MineAnythingClient {
         Services.PLATFORM.registerRenderLayer(ModFluids.FLOWING_CREEPER_WATER,RenderType.translucent());
 
         Services.PLATFORM.registerRenderLayer(ModBlocks.FORTIFIED_SPAWNER, RenderType.cutoutMipped());
+        Services.PLATFORM.registerRenderLayer(ModBlocks.POINTED_BEDROCK,RenderType.cutoutMipped());
     }
 
     public static void spawnPingParticles() {
