@@ -25,19 +25,14 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import org.apache.commons.lang3.ArrayUtils;
 import org.jetbrains.annotations.Nullable;
 import tfar.mineanything.HasFakeItems;
 import tfar.mineanything.MineAnything;
-import tfar.mineanything.client.render.ClonePlayerEntityRenderer;
-import tfar.mineanything.client.render.LavaTntRenderer;
-import tfar.mineanything.client.render.PlayerBodyBlockEntityRenderer;
-import tfar.mineanything.client.render.SkeletonArrowRenderer;
+import tfar.mineanything.client.render.*;
 import tfar.mineanything.entity.ClonePlayerEntity;
-import tfar.mineanything.entity.MinerZombieEntity;
 import tfar.mineanything.init.*;
 import tfar.mineanything.network.server.C2SKeyActionPacket;
 import tfar.mineanything.platform.Services;
@@ -141,6 +136,8 @@ public class MineAnythingClient {
         EntityRenderers.register(ModEntities.LAVA_TNT, LavaTntRenderer::new);
         EntityRenderers.register(ModEntities.SKELETON_ARROW, SkeletonArrowRenderer::new);
         EntityRenderers.register(ModEntities.MINER_ZOMBIE, ZombieRenderer::new);
+        EntityRenderers.register(ModEntities.BEDROCK_BLAZE_BOSS, BedrockBlazeBossRenderer::new);
+        EntityRenderers.register(ModEntities.FORTIFIED_SILVERFISH,BedrockSilverFishRenderer::new);
         //EntityRenderers.register(ModEntities.CLONE_PLAYER, context -> new ClonePlayerEntityRenderer(context,false));
     }
 

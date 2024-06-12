@@ -2,10 +2,7 @@ package tfar.mineanything.init;
 
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
-import tfar.mineanything.entity.ClonePlayerEntity;
-import tfar.mineanything.entity.MinerZombieEntity;
-import tfar.mineanything.entity.PrimedLavaTnt;
-import tfar.mineanything.entity.SkeletonArrowEntity;
+import tfar.mineanything.entity.*;
 
 public class ModEntities {
 
@@ -15,4 +12,9 @@ public class ModEntities {
             .sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20).build("");
     public static final EntityType<MinerZombieEntity> MINER_ZOMBIE = EntityType.Builder.<MinerZombieEntity>of(MinerZombieEntity::new,MobCategory.MONSTER)
             .sized(.8f,1.8f).build("");
+
+    public static final EntityType<BedrockBlazeBossEntity> BEDROCK_BLAZE_BOSS = EntityType.Builder.of(BedrockBlazeBossEntity::new, MobCategory.MONSTER).fireImmune().sized(0.6F, 1.8F).clientTrackingRange(8).build("");
+    public static final EntityType<BedrockSilverfishEntity> FORTIFIED_SILVERFISH = EntityType.Builder
+            .of(BedrockSilverfishEntity::new, MobCategory.MONSTER).fireImmune().sized(0.6F, 1.8F).clientTrackingRange(8).build("");
+
 }

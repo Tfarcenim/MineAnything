@@ -16,4 +16,7 @@ public class ModItems {
     public static final Item ZOMBIE_SWORD = new ZombieSwordItem(Tiers.NETHERITE, 3, -2.4F, new Item.Properties().fireResistant());
     public static final Item FORTIFIED_SPAWNER = new ReusableBlockItem(ModBlocks.FORTIFIED_SPAWNER,new Item.Properties(),200);
 
+    public static final Item BEDROCK_BLAZE_SPAWN_EGG = new SpawnEggItem(ModEntities.BEDROCK_BLAZE_BOSS,0,0,new Item.Properties());
+    public static final Item FORTIFIED_SILVERFISH_SPAWN_EGG = new SpawnEggItem(ModEntities.FORTIFIED_SILVERFISH,0,0,new Item.Properties());
+
 }

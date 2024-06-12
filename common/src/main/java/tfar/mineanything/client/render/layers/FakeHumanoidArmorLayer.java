@@ -1,4 +1,4 @@
-package tfar.mineanything.client.render;
+package tfar.mineanything.client.render.layers;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;

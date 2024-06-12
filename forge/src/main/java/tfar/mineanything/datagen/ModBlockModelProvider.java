@@ -7,8 +7,10 @@ import net.minecraft.data.models.model.ModelLocationUtils;
 import net.minecraft.data.models.model.TexturedModel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.block.Blocks;
 import tfar.mineanything.init.ModBlocks;
+import tfar.mineanything.init.ModItems;
 
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
@@ -28,6 +30,8 @@ public class ModBlockModelProvider extends BlockModelGenerators {
         this.createTrivialBlock(ModBlocks.LAVA_TNT, TexturedModel.CUBE_TOP_BOTTOM);
         this.createNonTemplateModelBlock(ModBlocks.CREEPER_WATER,Blocks.WATER);
         this.createTrivialBlock(ModBlocks.FORTIFIED_SPAWNER,TexturedModel.CUBE_TOP_BOTTOM);
+        this.delegateItemModel(ModItems.BEDROCK_BLAZE_SPAWN_EGG, ModelLocationUtils.decorateItemModelLocation("template_spawn_egg"));
+        this.delegateItemModel(ModItems.FORTIFIED_SILVERFISH_SPAWN_EGG, ModelLocationUtils.decorateItemModelLocation("template_spawn_egg"));
     }
 
 

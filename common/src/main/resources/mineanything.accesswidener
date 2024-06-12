@@ -25,3 +25,5 @@ extendable method net/minecraft/world/entity/item/PrimedTnt explode ()V
 accessible method net/minecraft/client/renderer/item/ItemProperties register (Lnet/minecraft/world/item/Item;Lnet/minecraft/resources/ResourceLocation;Lnet/minecraft/client/renderer/item/ClampedItemPropertyFunction;)V
 
 accessible method net/minecraft/world/item/BlockItem updateBlockStateFromTag (Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/Level;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/level/block/state/BlockState;
+
+accessible method net/minecraft/world/entity/monster/Blaze setCharged (Z)V
