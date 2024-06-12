@@ -1,0 +1,15 @@
+{
+  "type": "mineanything:fortified_spawner",
+  "category": "equipment",
+  "ingredients": [
+    {
+      "item": "minecraft:spawner"
+    },
+    {
+      "item": "minecraft:bedrock"
+    }
+  ],
+  "result": {
+    "item": "mineanything:fortified_spawner"
+  }
+}

@@ -1,6 +1,7 @@
 package tfar.mineanything.init;
 
 import net.minecraft.world.item.*;
+import tfar.mineanything.item.ReusableBlockItem;
 import tfar.mineanything.item.SkeletonBowItem;
 import tfar.mineanything.item.ZombieSwordItem;
 
@@ -13,6 +14,6 @@ public class ModItems {
     public static final Item CREEPER_WATER_BUCKET = new BucketItem(ModFluids.CREEPER_WATER,new Item.Properties());
     public static final Item SKELETON_BOW = new SkeletonBowItem(new Item.Properties().durability(1000));
     public static final Item ZOMBIE_SWORD = new ZombieSwordItem(Tiers.NETHERITE, 3, -2.4F, new Item.Properties().fireResistant());
-    public static final Item FORTIFIED_SPAWNER = new BlockItem(ModBlocks.FORTIFIED_SPAWNER,new Item.Properties());
+    public static final Item FORTIFIED_SPAWNER = new ReusableBlockItem(ModBlocks.FORTIFIED_SPAWNER,new Item.Properties(),200);
 
 }

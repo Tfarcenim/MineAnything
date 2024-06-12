@@ -1,5 +1,6 @@
 package tfar.mineanything;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -10,13 +11,16 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.material.Fluid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import tfar.mineanything.blockentity.FortifiedSpawnerBlockEntity;
 import tfar.mineanything.blockentity.PlayerBodyBlockEntity;
 import tfar.mineanything.init.*;
 import tfar.mineanything.mixin.TargetingConditionsAccess;
@@ -48,6 +52,7 @@ public class MineAnything {
         Services.PLATFORM.registerAll(ModBlockEntities.class, BuiltInRegistries.BLOCK_ENTITY_TYPE, BlockEntityType.class);
         Services.PLATFORM.registerAll(ModEntities.class, BuiltInRegistries.ENTITY_TYPE, EntityType.class);
         Services.PLATFORM.registerAll(ModEnchantments.class, BuiltInRegistries.ENCHANTMENT, Enchantment.class);
+        Services.PLATFORM.registerAll(ModRecipeSerializers.class, BuiltInRegistries.RECIPE_SERIALIZER, RecipeSerializer.class);
 
     }
 
@@ -63,6 +68,15 @@ public class MineAnything {
                 playerBodyBlockEntity.setGameProfile(serverPlayer.getGameProfile());
             }
         }
+
+        BlockPos spawnerPos = ((EntityDuck)entity).getSpawnerPos();
+        if (spawnerPos != null) {
+            BlockEntity blockEntity = entity.level().getBlockEntity(spawnerPos);
+            if (blockEntity instanceof FortifiedSpawnerBlockEntity fortifiedSpawnerBlockEntity) {
+                fortifiedSpawnerBlockEntity.destroy();
+            }
+        }
+
     }
 
     public static final Predicate<LivingEntity> TEST = living -> !living.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.ZOMBIE_SWORD) && !living.getItemInHand(InteractionHand.OFF_HAND).is(ModItems.ZOMBIE_SWORD);

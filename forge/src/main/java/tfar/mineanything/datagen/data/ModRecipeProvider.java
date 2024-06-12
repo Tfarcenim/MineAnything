@@ -37,5 +37,8 @@ public class ModRecipeProvider extends RecipeProvider {
                 .requires(Items.ZOMBIE_HEAD)
                 .unlockedBy(getHasName(Items.ZOMBIE_HEAD),has(Items.ZOMBIE_HEAD))
                 .save(pWriter);
+
+        SpawnerRecipeBuilder.shapeless(RecipeCategory.TOOLS,ModItems.FORTIFIED_SPAWNER).requires(Items.SPAWNER).requires(Items.BEDROCK)
+                .unlockedBy(getHasName(Items.BEDROCK),has(Items.BEDROCK)).save(pWriter);
     }
 }

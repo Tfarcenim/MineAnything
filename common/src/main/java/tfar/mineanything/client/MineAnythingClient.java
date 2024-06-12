@@ -11,6 +11,7 @@ import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
+import net.minecraft.client.renderer.blockentity.SpawnerRenderer;
 import net.minecraft.client.renderer.entity.*;
 import net.minecraft.client.renderer.item.ClampedItemPropertyFunction;
 import net.minecraft.client.renderer.item.ItemProperties;
@@ -136,6 +137,7 @@ public class MineAnythingClient {
 
     public static void registerRenderers() {
         BlockEntityRenderers.register(ModBlockEntities.PLAYER_BODY, PlayerBodyBlockEntityRenderer::new);
+        BlockEntityRenderers.register(ModBlockEntities.FORTIFIED_SPAWNER, SpawnerRenderer::new);
         EntityRenderers.register(ModEntities.LAVA_TNT, LavaTntRenderer::new);
         EntityRenderers.register(ModEntities.SKELETON_ARROW, SkeletonArrowRenderer::new);
         EntityRenderers.register(ModEntities.MINER_ZOMBIE, ZombieRenderer::new);

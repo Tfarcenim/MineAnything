@@ -13,6 +13,7 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.Vec3;
+import tfar.mineanything.block.FortifiedSpawnerBlock;
 import tfar.mineanything.block.LavaTntBlock;
 import tfar.mineanything.block.MineableLiquidBlock;
 import tfar.mineanything.block.PlayerBodyBlock;
@@ -41,7 +42,7 @@ public class ModBlocks {
     };
 
 
-    public static final Block FORTIFIED_SPAWNER = new SpawnerBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(5.0F).sound(SoundType.METAL).noOcclusion()){};
+    public static final Block FORTIFIED_SPAWNER = new FortifiedSpawnerBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(-1.0F, 3600000.0F).sound(SoundType.METAL).noOcclusion());
 
     private static boolean never(BlockState $$0, BlockGetter $$1, BlockPos $$2) {
         return false;

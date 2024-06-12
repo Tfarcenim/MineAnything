@@ -3,16 +3,21 @@ package tfar.mineanything;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.level.BaseSpawner;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.living.MobSpawnEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.RegisterEvent;
 import org.apache.commons.lang3.tuple.Pair;
+import tfar.mineanything.blockentity.FortifiedSpawnerBlockEntity;
 import tfar.mineanything.client.MineAnythingClientForge;
 import tfar.mineanything.datagen.Datagen;
 import tfar.mineanything.entity.ClonePlayerEntity;
@@ -35,6 +40,7 @@ public class MineAnythingForge {
         bus.addListener(this::attributes);
         bus.addListener(Datagen::gather);
         MinecraftForge.EVENT_BUS.addListener(this::onDeath);
+        MinecraftForge.EVENT_BUS.addListener(this::onSpawn);
         if (MineAnything.SIDE == Side.CLIENT) {
             MineAnythingClientForge.init(bus);
         }
@@ -53,6 +59,18 @@ public class MineAnythingForge {
     private void setup(FMLCommonSetupEvent event) {
         registerLater.clear();
         MineAnything.setup();
+    }
+
+    private void onSpawn(MobSpawnEvent.FinalizeSpawn event) {
+        if (event.getSpawnType() == MobSpawnType.SPAWNER) {
+            BaseSpawner baseSpawner = event.getSpawner();
+            if (baseSpawner != null) {
+                BlockEntity blockEntity = baseSpawner.getSpawnerBlockEntity();
+                if (blockEntity instanceof FortifiedSpawnerBlockEntity fortifiedSpawnerBlockEntity) {
+                    ((EntityDuck)event.getEntity()).setSpawnerPos(fortifiedSpawnerBlockEntity.getBlockPos());
+                }
+            }
+        }
     }
 
     private void attributes(EntityAttributeCreationEvent event) {
