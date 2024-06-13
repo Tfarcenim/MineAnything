@@ -6,6 +6,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
@@ -24,6 +25,8 @@ public class MineableMobBlockEntity extends BlockEntity {
 
     public void setDisplayEntity(Entity displayEntity) {
         data.putString("id", BuiltInRegistries.ENTITY_TYPE.getKey(displayEntity.getType()).toString());
+
+        displayEntity.save(data);
         level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
         setChanged();
     }
@@ -31,8 +34,21 @@ public class MineableMobBlockEntity extends BlockEntity {
     public Entity getOrCreateDisplayEntity() {
         if (displayEntity == null) {
            displayEntity = EntityType.loadEntityRecursive(data, level, Function.identity());
+           fixJitter();
         }
         return displayEntity;
+    }
+
+    protected void fixJitter() {
+        if (displayEntity != null) {
+            displayEntity.xRotO = displayEntity.getXRot();
+            displayEntity.yRotO = displayEntity.getYRot();
+            if (displayEntity instanceof LivingEntity livingEntity) {
+
+                livingEntity.yBodyRotO = livingEntity.yBodyRot;
+                livingEntity.yHeadRotO = livingEntity.yHeadRot;
+            }
+        }
     }
 
     @Override
