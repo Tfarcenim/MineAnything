@@ -3,6 +3,7 @@ package tfar.mineanything;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.monster.Blaze;
 import net.minecraft.world.entity.monster.Zombie;
@@ -83,6 +84,7 @@ public class MineAnythingForge {
         event.put(ModEntities.MINER_ZOMBIE, Zombie.createAttributes().build());
         event.put(ModEntities.BEDROCK_BLAZE_BOSS, BedrockBlazeBossEntity.createBossAttributes().build());
         event.put(ModEntities.FORTIFIED_SILVERFISH, BedrockSilverfishEntity.createBossAttributes().build());
+        event.put(ModEntities.DEAD_DRAGON, Mob.createMobAttributes().build());
     }
 
     private void onDeath(LivingDeathEvent event) {

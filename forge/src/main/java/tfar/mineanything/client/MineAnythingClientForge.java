@@ -8,6 +8,7 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.multiplayer.PlayerInfo;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.player.RemotePlayer;
+import net.minecraft.client.renderer.entity.ArmorStandRenderer;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.client.resources.DefaultPlayerSkin;
 import net.minecraft.client.resources.SkinManager;
@@ -16,6 +17,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -33,6 +35,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import org.codehaus.plexus.util.CachedMap;
 import tfar.mineanything.MineAnything;
 import tfar.mineanything.PlayerDuck;
+import tfar.mineanything.client.render.layers.DragonElytraLayer;
 import tfar.mineanything.mixin.LivingEntityRendererAccess;
 
 import java.util.*;
@@ -43,6 +46,7 @@ public class MineAnythingClientForge {
         bus.addListener(MineAnythingClientForge::clientSetup);
         bus.addListener(MineAnythingClientForge::registerRenderers);
         bus.addListener(MineAnythingClientForge::itemColors);
+        bus.addListener(MineAnythingClientForge::layers);
         MinecraftForge.EVENT_BUS.addListener(MineAnythingClientForge::clientTick);
         MinecraftForge.EVENT_BUS.addListener(MineAnythingClientForge::renderPlayerPre);
         MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL,true,MineAnythingClientForge::renderPlayerPost);
@@ -59,6 +63,16 @@ public class MineAnythingClientForge {
 
     static void clientTick(TickEvent.ClientTickEvent event) {
         MineAnythingClient.clientTick();
+    }
+
+    static void layers(EntityRenderersEvent.AddLayers event) {
+
+        for (String model : new String[]{"default","slim"}) {
+            PlayerRenderer playerRenderer = event.getSkin(model);
+            playerRenderer.addLayer(new DragonElytraLayer<>(playerRenderer,event.getEntityModels()));
+        }
+        ArmorStandRenderer renderer = event.getRenderer(EntityType.ARMOR_STAND);
+        renderer.addLayer(new DragonElytraLayer<>(renderer,event.getEntityModels()));
     }
 
     static void clientPlayerTick(TickEvent.PlayerTickEvent event) {

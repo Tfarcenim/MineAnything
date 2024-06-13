@@ -6,8 +6,12 @@
   "block.mineanything.player_body": "Player Body",
   "enchantment.mineanything.mine_anything": "Mine Anything",
   "entity.mineanything.clone_player": "Clone Player",
+  "item.mineanything.bedrock_blaze_spawn_egg": "Bedrock Blaze Spawn Egg",
   "item.mineanything.creeper_water_bucket": "Creeper Water Bucket",
+  "item.mineanything.dragon_elytra": "Dragon Elytra",
+  "item.mineanything.fortified_silverfish_spawn_egg": "Fortified Silverfish Spawn Egg",
   "item.mineanything.pickaxe": "Pickaxe",
   "item.mineanything.skeleton_bow": "Skeleton Bow",
+  "item.mineanything.void_ray": "Void Ray",
   "item.mineanything.zombie_sword": "Zombie Sword"
 }

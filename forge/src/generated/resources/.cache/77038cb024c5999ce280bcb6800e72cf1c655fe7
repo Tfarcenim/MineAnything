@@ -1,4 +1,4 @@
-// 1.20.1	2024-06-12T20:43:14.0005755	Model Definitions
+// 1.20.1	2024-06-13T17:50:53.0939969	Model Definitions
 e5a33b4a2db42195222fa1709b3d9533ac41e453 assets/mineanything/blockstates/creeper_water.json
 cd81011f1dd680e82da3a2ec0283e3a4a1e6bf59 assets/mineanything/blockstates/fortified_spawner.json
 80c28763a0bb13fc52c24e894d124b0c040720ce assets/mineanything/blockstates/lava_tnt.json
@@ -21,6 +21,7 @@ b6709db90a74a76b0b8a326df5587f5bd2b2d459 assets/mineanything/models/block/pointe
 9dcf5758a93b72abd2f5a4d66e87a5db29452faf assets/mineanything/models/block/pointed_bedrock_up_tip_merge.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/mineanything/models/item/bedrock_blaze_spawn_egg.json
 b8bf9fed12c85096da488de87030114d5a79a73f assets/mineanything/models/item/creeper_water_bucket.json
+8d58fc6692e6e18a61414b4b4f1ec8ad11d55f94 assets/mineanything/models/item/dragon_elytra.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/mineanything/models/item/fortified_silverfish_spawn_egg.json
 cf00a9c47265ae4aa4231b78c73c27f790ba7ba2 assets/mineanything/models/item/fortified_spawner.json
 97895d451a35c4346e9867936a0b57f1d766bcd3 assets/mineanything/models/item/lava_tnt.json

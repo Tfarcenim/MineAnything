@@ -21,5 +21,6 @@ public class ModItems {
     public static final Item FORTIFIED_SILVERFISH_SPAWN_EGG = new SpawnEggItem(ModEntities.FORTIFIED_SILVERFISH,0,0,new Item.Properties());
 
     public static final Item VOID_RAY = new VoidRayItem(new Item.Properties());
+    public static final ElytraItem DRAGON_ELYTRA = new ElytraItem(new Item.Properties().durability(432*4).rarity(Rarity.RARE));
 
 }

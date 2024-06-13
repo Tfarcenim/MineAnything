@@ -4,14 +4,13 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
+import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -26,6 +25,7 @@ import org.slf4j.LoggerFactory;
 import tfar.mineanything.blockentity.FortifiedSpawnerBlockEntity;
 import tfar.mineanything.blockentity.MineableMobBlockEntity;
 import tfar.mineanything.blockentity.PlayerBodyBlockEntity;
+import tfar.mineanything.entity.DeadDragonEntity;
 import tfar.mineanything.init.*;
 import tfar.mineanything.mixin.TargetingConditionsAccess;
 import tfar.mineanything.network.PacketHandler;
@@ -88,6 +88,15 @@ public class MineAnything {
         if (attacker instanceof Player && entity instanceof Mob) {
             ItemStack stack = ((Player) attacker).getItemInHand(InteractionHand.MAIN_HAND);
             if (stack.is(ModItems.PICKAXE)) {
+
+                if (entity instanceof EnderDragon enderDragon) {
+                    DeadDragonEntity deadDragonEntity = ModEntities.DEAD_DRAGON.spawn((ServerLevel) entity.level(),entity.blockPosition(), MobSpawnType.SPAWN_EGG);
+                    deadDragonEntity.setDisplayEntity(enderDragon);
+                    entity.discard();
+                    return;
+                }
+
+
                 entity.level().setBlock(entity.blockPosition(),ModBlocks.MINEABLE_MOB.defaultBlockState(),3);
 
                 BlockEntity blockEntity = entity.level().getBlockEntity(entity.blockPosition());

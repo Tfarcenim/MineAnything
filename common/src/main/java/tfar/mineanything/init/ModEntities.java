@@ -20,4 +20,5 @@ public class ModEntities {
     public static final EntityType<VoidRayEntity> VOID_RAY = EntityType.Builder.<VoidRayEntity>of(VoidRayEntity::new,MobCategory.MISC)
             .sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20).build("");
 
+    public static final EntityType<DeadDragonEntity> DEAD_DRAGON = EntityType.Builder.of(DeadDragonEntity::new,MobCategory.MISC).sized(3,3).clientTrackingRange(8).build("");
 }
