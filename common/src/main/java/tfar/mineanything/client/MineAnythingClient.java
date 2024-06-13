@@ -140,6 +140,7 @@ public class MineAnythingClient {
         EntityRenderers.register(ModEntities.MINER_ZOMBIE, ZombieRenderer::new);
         EntityRenderers.register(ModEntities.BEDROCK_BLAZE_BOSS, BedrockBlazeBossRenderer::new);
         EntityRenderers.register(ModEntities.FORTIFIED_SILVERFISH,BedrockSilverFishRenderer::new);
+        EntityRenderers.register(ModEntities.VOID_RAY,VoidRayRenderer::new);
         //EntityRenderers.register(ModEntities.CLONE_PLAYER, context -> new ClonePlayerEntityRenderer(context,false));
     }
 

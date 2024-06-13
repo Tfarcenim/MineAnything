@@ -3,6 +3,7 @@ package tfar.mineanything.init;
 import net.minecraft.world.item.*;
 import tfar.mineanything.item.ReusableBlockItem;
 import tfar.mineanything.item.SkeletonBowItem;
+import tfar.mineanything.item.VoidRayItem;
 import tfar.mineanything.item.ZombieSwordItem;
 
 public class ModItems {
@@ -18,5 +19,7 @@ public class ModItems {
 
     public static final Item BEDROCK_BLAZE_SPAWN_EGG = new SpawnEggItem(ModEntities.BEDROCK_BLAZE_BOSS,0,0,new Item.Properties());
     public static final Item FORTIFIED_SILVERFISH_SPAWN_EGG = new SpawnEggItem(ModEntities.FORTIFIED_SILVERFISH,0,0,new Item.Properties());
+
+    public static final Item VOID_RAY = new VoidRayItem(new Item.Properties());
 
 }

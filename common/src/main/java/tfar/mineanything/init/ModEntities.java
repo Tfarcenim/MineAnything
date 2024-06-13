@@ -17,4 +17,7 @@ public class ModEntities {
     public static final EntityType<BedrockSilverfishEntity> FORTIFIED_SILVERFISH = EntityType.Builder
             .of(BedrockSilverfishEntity::new, MobCategory.MONSTER).sized(2* 0.4F,2* 0.3F).clientTrackingRange(8).build("");
 
+    public static final EntityType<VoidRayEntity> VOID_RAY = EntityType.Builder.<VoidRayEntity>of(VoidRayEntity::new,MobCategory.MISC)
+            .sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20).build("");
+
 }

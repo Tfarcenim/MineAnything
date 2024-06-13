@@ -28,6 +28,7 @@ public class ModLangProvider extends LanguageProvider {
         addDefaultItem(() -> ModItems.SKELETON_BOW);
         addDefaultItem(() -> ModItems.ZOMBIE_SWORD);
         addDefaultItem(() -> ModItems.PICKAXE);
+        addDefaultItem(() -> ModItems.VOID_RAY);
 
         addDefaultBlock(() -> ModBlocks.LAVA_TNT);
         addDefaultBlock(() -> ModBlocks.PLAYER_BODY);
