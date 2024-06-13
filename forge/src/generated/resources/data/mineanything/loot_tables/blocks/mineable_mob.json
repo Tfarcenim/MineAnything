@@ -1,0 +1,4 @@
+{
+  "type": "minecraft:block",
+  "random_sequence": "mineanything:blocks/mineable_mob"
+}

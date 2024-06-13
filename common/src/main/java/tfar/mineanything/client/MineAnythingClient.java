@@ -134,6 +134,7 @@ public class MineAnythingClient {
     public static void registerRenderers() {
         BlockEntityRenderers.register(ModBlockEntities.PLAYER_BODY, PlayerBodyBlockEntityRenderer::new);
         BlockEntityRenderers.register(ModBlockEntities.FORTIFIED_SPAWNER, SpawnerRenderer::new);
+        BlockEntityRenderers.register(ModBlockEntities.MINEABLE_MOB,MineableMobBlockEntityRenderer::new);
         EntityRenderers.register(ModEntities.LAVA_TNT, LavaTntRenderer::new);
         EntityRenderers.register(ModEntities.SKELETON_ARROW, SkeletonArrowRenderer::new);
         EntityRenderers.register(ModEntities.MINER_ZOMBIE, ZombieRenderer::new);

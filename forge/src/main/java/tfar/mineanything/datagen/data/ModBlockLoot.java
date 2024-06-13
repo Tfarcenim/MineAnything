@@ -35,6 +35,7 @@ public class ModBlockLoot extends VanillaBlockLoot {
                         .add(LootItem.lootTableItem(ModBlocks.LAVA_TNT).when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(ModBlocks.LAVA_TNT).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(TntBlock.UNSTABLE, false)))))));
         this.add(ModBlocks.FORTIFIED_SPAWNER,noDrop());
         this.add(ModBlocks.POINTED_BEDROCK,noDrop());
+        this.add(ModBlocks.MINEABLE_MOB,noDrop());
     }
 
     @Override

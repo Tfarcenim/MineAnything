@@ -2,25 +2,29 @@ package tfar.mineanything;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.material.Fluid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import tfar.mineanything.blockentity.FortifiedSpawnerBlockEntity;
+import tfar.mineanything.blockentity.MineableMobBlockEntity;
 import tfar.mineanything.blockentity.PlayerBodyBlockEntity;
 import tfar.mineanything.init.*;
 import tfar.mineanything.mixin.TargetingConditionsAccess;
@@ -77,7 +81,23 @@ public class MineAnything {
                 fortifiedSpawnerBlockEntity.destroy();
             }
         }
+    }
 
+    public static void onDamage(LivingEntity entity, DamageSource source) {
+        Entity attacker = source.getEntity();
+        if (attacker instanceof Player && entity instanceof Mob) {
+            ItemStack stack = ((Player) attacker).getItemInHand(InteractionHand.MAIN_HAND);
+            if (stack.is(ModItems.PICKAXE)) {
+                entity.level().setBlock(entity.blockPosition(),ModBlocks.MINEABLE_MOB.defaultBlockState(),3);
+
+                BlockEntity blockEntity = entity.level().getBlockEntity(entity.blockPosition());
+                if (blockEntity instanceof MineableMobBlockEntity mineableMobBlockEntity) {
+                    mineableMobBlockEntity.setDisplayEntity(entity);
+                }
+
+                entity.discard();
+            }
+        }
     }
 
     public static final Predicate<LivingEntity> TEST = living -> !living.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.ZOMBIE_SWORD) && !living.getItemInHand(InteractionHand.OFF_HAND).is(ModItems.ZOMBIE_SWORD);

@@ -10,6 +10,7 @@ import net.minecraft.world.level.BaseSpawner;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
+import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.MobSpawnEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -43,6 +44,7 @@ public class MineAnythingForge {
         bus.addListener(this::attributes);
         bus.addListener(Datagen::gather);
         MinecraftForge.EVENT_BUS.addListener(this::onDeath);
+        MinecraftForge.EVENT_BUS.addListener(this::onDamage);
         MinecraftForge.EVENT_BUS.addListener(this::onSpawn);
         if (MineAnything.SIDE == Side.CLIENT) {
             MineAnythingClientForge.init(bus);
@@ -85,6 +87,10 @@ public class MineAnythingForge {
 
     private void onDeath(LivingDeathEvent event) {
         MineAnything.onDeath(event.getEntity(),event.getSource());
+    }
+
+    private void onDamage(LivingDamageEvent event) {
+        MineAnything.onDamage(event.getEntity(),event.getSource());
     }
 
 }

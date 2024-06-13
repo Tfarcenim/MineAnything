@@ -13,10 +13,7 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.Vec3;
-import tfar.mineanything.block.FortifiedSpawnerBlock;
-import tfar.mineanything.block.LavaTntBlock;
-import tfar.mineanything.block.MineableLiquidBlock;
-import tfar.mineanything.block.PlayerBodyBlock;
+import tfar.mineanything.block.*;
 
 public class ModBlocks {
     public static final Block PLAYER_BODY = new PlayerBodyBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BROWN).instrument(NoteBlockInstrument.COW_BELL).strength(0.5F).speedFactor(0.4F).sound(SoundType.SOUL_SAND).noOcclusion());
@@ -45,8 +42,7 @@ public class ModBlocks {
     public static final Block FORTIFIED_SPAWNER = new FortifiedSpawnerBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.BASEDRUM).strength(-1.0F, 3600000.0F).sound(SoundType.METAL).noOcclusion());
 
     public static final Block POINTED_BEDROCK = new PointedDripstoneBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).forceSolidOn().instrument(NoteBlockInstrument.BASEDRUM).noOcclusion().sound(SoundType.POINTED_DRIPSTONE).randomTicks().strength(-1.0F, 3600000.0F).dynamicShape().offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY).isRedstoneConductor(ModBlocks::never));
-
-
+    public static final Block MINEABLE_MOB = new MineableMobBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BROWN).instrument(NoteBlockInstrument.COW_BELL).strength(0.5F).speedFactor(0.4F).sound(SoundType.SOUL_SAND).noOcclusion());
 
     private static boolean never(BlockState $$0, BlockGetter $$1, BlockPos $$2) {
         return false;

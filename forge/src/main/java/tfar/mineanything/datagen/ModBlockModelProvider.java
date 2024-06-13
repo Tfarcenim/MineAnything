@@ -29,7 +29,7 @@ public class ModBlockModelProvider extends BlockModelGenerators {
 
     @Override
     public void run() {
-        this.blockEntityModels(ModelLocationUtils.decorateBlockModelLocation("skull"), Blocks.SOUL_SAND).createWithoutBlockItem(ModBlocks.PLAYER_BODY);
+        this.blockEntityModels(ModelLocationUtils.decorateBlockModelLocation("skull"), Blocks.SOUL_SAND).createWithoutBlockItem(ModBlocks.PLAYER_BODY,ModBlocks.MINEABLE_MOB);
         this.createNonTemplateModelBlock(ModBlocks.MINEABLE_WATER,Blocks.WATER);
         this.createNonTemplateModelBlock(ModBlocks.MINEABLE_LAVA,Blocks.LAVA);
         this.createTrivialBlock(ModBlocks.LAVA_TNT, TexturedModel.CUBE_TOP_BOTTOM);
