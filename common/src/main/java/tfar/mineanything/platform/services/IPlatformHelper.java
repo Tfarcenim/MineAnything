@@ -15,7 +15,9 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ShieldItem;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -104,5 +106,6 @@ public interface IPlatformHelper {
 
     void registerRenderLayer(Block block, RenderType renderType);
     void registerRenderLayer(Fluid fluid, RenderType renderType);
+    ShieldItem fortifiedShield(Item.Properties properties);
 
 }

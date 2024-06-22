@@ -17,7 +17,9 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ShieldItem;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -34,6 +36,7 @@ import tfar.mineanything.MineAnything;
 import tfar.mineanything.MineAnythingForge;
 import tfar.mineanything.block.ForgeCreeperWaterFluid;
 import tfar.mineanything.client.MineAnythingClient;
+import tfar.mineanything.item.ShieldItemForge;
 import tfar.mineanything.network.PacketHandlerForge;
 import tfar.mineanything.network.client.S2CModPacket;
 import tfar.mineanything.network.server.C2SModPacket;
@@ -175,5 +178,10 @@ public class ForgePlatformHelper implements IPlatformHelper {
     @Override
     public void registerRenderLayer(Fluid fluid, RenderType renderType) {
         ItemBlockRenderTypes.setRenderLayer(fluid,renderType);
+    }
+
+    @Override
+    public ShieldItem fortifiedShield(Item.Properties properties) {
+        return new ShieldItemForge(properties);
     }
 }

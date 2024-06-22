@@ -4,6 +4,7 @@ import com.mojang.authlib.GameProfile;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.Model;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
@@ -14,11 +15,15 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ShieldItem;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FlowingFluid;
+import net.minecraft.world.level.material.Fluid;
 import org.jetbrains.annotations.Nullable;
 import tfar.mineanything.network.client.S2CModPacket;
 import tfar.mineanything.network.server.C2SModPacket;
@@ -128,6 +133,21 @@ public class FabricPlatformHelper implements IPlatformHelper {
 
     @Override
     public ServerPlayer makeFakePlayer(ServerLevel level, GameProfile profile) {
+        return null;
+    }
+
+    @Override
+    public void registerRenderLayer(Block block, RenderType renderType) {
+
+    }
+
+    @Override
+    public void registerRenderLayer(Fluid fluid, RenderType renderType) {
+
+    }
+
+    @Override
+    public ShieldItem fortifiedShield(Item.Properties properties) {
         return null;
     }
 }

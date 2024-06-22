@@ -17,6 +17,7 @@
     "DebugRendererMixin",
     "EntityRenderDispatcherMixin",
     "LivingEntityRendererAccess",
+    "ModelBakeryMixin",
     "PlayerRendererMixin"
   ],
   "server": [

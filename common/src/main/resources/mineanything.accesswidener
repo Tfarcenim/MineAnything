@@ -29,3 +29,6 @@ accessible method net/minecraft/world/item/BlockItem updateBlockStateFromTag (Ln
 accessible method net/minecraft/world/entity/monster/Blaze setCharged (Z)V
 
 extendable method net/minecraft/world/entity/projectile/Projectile <init> (Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world/level/Level;)V
+
+accessible field net/minecraft/client/renderer/block/BlockRenderDispatcher blockEntityRenderer Lnet/minecraft/client/renderer/BlockEntityWithoutLevelRenderer;
+accessible field net/minecraft/client/renderer/BlockEntityWithoutLevelRenderer shieldModel Lnet/minecraft/client/model/ShieldModel;

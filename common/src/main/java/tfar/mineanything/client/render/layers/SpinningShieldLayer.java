@@ -13,6 +13,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import tfar.mineanything.init.ModItems;
 
 public class SpinningShieldLayer<T extends LivingEntity, M extends EntityModel<T>> extends RenderLayer<T,M> {
 
@@ -26,7 +27,7 @@ public class SpinningShieldLayer<T extends LivingEntity, M extends EntityModel<T
     }
 
     public void render(PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight, T pLivingEntity, float pLimbSwing, float pLimbSwingAmount, float pPartialTicks, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch) {
-        ItemStack itemstack = new ItemStack(Items.SHIELD);
+        ItemStack itemstack = new ItemStack(ModItems.FORTIFIED_SHIELD);
         pPoseStack.pushPose();
         if (this.getParentModel().young) {
             float f = 0.5F;
