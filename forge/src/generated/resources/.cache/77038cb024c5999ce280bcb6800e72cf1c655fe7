@@ -1,4 +1,4 @@
-// 1.20.1	2024-06-13T17:50:53.0939969	Model Definitions
+// 1.20.1	2024-06-23T16:31:48.5864833	Model Definitions
 e5a33b4a2db42195222fa1709b3d9533ac41e453 assets/mineanything/blockstates/creeper_water.json
 cd81011f1dd680e82da3a2ec0283e3a4a1e6bf59 assets/mineanything/blockstates/fortified_spawner.json
 80c28763a0bb13fc52c24e894d124b0c040720ce assets/mineanything/blockstates/lava_tnt.json
@@ -27,4 +27,5 @@ cf00a9c47265ae4aa4231b78c73c27f790ba7ba2 assets/mineanything/models/item/fortifi
 97895d451a35c4346e9867936a0b57f1d766bcd3 assets/mineanything/models/item/lava_tnt.json
 ef1c8a62be5ac5435d07b8996037c113374bcd04 assets/mineanything/models/item/mineable_lava.json
 30ace9a2473c25a41b8d678a208106940f060cb1 assets/mineanything/models/item/mineable_water.json
+0c2a72faf75f4de72cf3ced4610c35078c8f2362 assets/mineanything/models/item/nether_portal.json
 a5137f381146466da673bf43fda6967800cc6703 assets/minecraft/models/block/skull.json

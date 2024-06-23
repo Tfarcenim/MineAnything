@@ -4,6 +4,7 @@ import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.data.loot.packs.VanillaBlockLoot;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.TntBlock;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -14,7 +15,10 @@ import net.minecraft.world.level.storage.loot.providers.nbt.ContextNbtProvider;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import tfar.mineanything.datagen.Datagen;
 import tfar.mineanything.init.ModBlocks;
+import tfar.mineanything.init.ModItems;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 public class ModBlockLoot extends VanillaBlockLoot {
@@ -36,10 +40,14 @@ public class ModBlockLoot extends VanillaBlockLoot {
         this.add(ModBlocks.FORTIFIED_SPAWNER,noDrop());
         this.add(ModBlocks.POINTED_BEDROCK,noDrop());
         this.add(ModBlocks.MINEABLE_MOB,noDrop());
+        this.dropOther(Blocks.NETHER_PORTAL, ModItems.NETHER_PORTAL);
     }
 
     @Override
     protected Iterable<Block> getKnownBlocks() {
-        return Datagen.getKnownBlocks().toList();
+        List<Block> blocks = new ArrayList<>();
+        blocks.add(Blocks.NETHER_PORTAL);
+        blocks.addAll(Datagen.getKnownBlocks().toList());
+        return blocks;
     }
 }

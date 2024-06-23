@@ -1,5 +1,6 @@
 package tfar.mineanything;
 
+import com.google.common.collect.ImmutableList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
@@ -18,8 +19,10 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import tfar.mineanything.blockentity.FortifiedSpawnerBlockEntity;
@@ -27,6 +30,7 @@ import tfar.mineanything.blockentity.MineableMobBlockEntity;
 import tfar.mineanything.blockentity.PlayerBodyBlockEntity;
 import tfar.mineanything.entity.DeadDragonEntity;
 import tfar.mineanything.init.*;
+import tfar.mineanything.mixin.BlockStateBaseAccess;
 import tfar.mineanything.mixin.TargetingConditionsAccess;
 import tfar.mineanything.network.PacketHandler;
 import tfar.mineanything.platform.Services;
@@ -63,6 +67,11 @@ public class MineAnything {
 
     public static void setup() {
         PacketHandler.registerPackets();
+        ImmutableList<BlockState> possibleStates = Blocks.NETHER_PORTAL.getStateDefinition().getPossibleStates();
+
+        for (BlockState blockState : possibleStates) {
+            ((BlockStateBaseAccess)blockState).setDestroySpeed(1);
+        }
     }
 
     public static void onDeath(LivingEntity entity, DamageSource source) {

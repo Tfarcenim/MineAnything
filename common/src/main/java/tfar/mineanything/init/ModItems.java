@@ -1,6 +1,7 @@
 package tfar.mineanything.init;
 
 import net.minecraft.world.item.*;
+import net.minecraft.world.level.block.Blocks;
 import tfar.mineanything.item.ReusableBlockItem;
 import tfar.mineanything.item.SkeletonBowItem;
 import tfar.mineanything.item.VoidRayItem;
@@ -24,5 +25,7 @@ public class ModItems {
     public static final Item VOID_RAY = new VoidRayItem(new Item.Properties());
     public static final ElytraItem DRAGON_ELYTRA = new ElytraItem(new Item.Properties().durability(432*4).rarity(Rarity.RARE));
     public static final ShieldItem FORTIFIED_SHIELD = Services.PLATFORM.fortifiedShield(new Item.Properties());
+
+    public static final BlockItem NETHER_PORTAL = new BlockItem(Blocks.NETHER_PORTAL,new Item.Properties());
 
 }

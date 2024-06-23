@@ -26,10 +26,14 @@ public class ModItemModelProvider extends ItemModelGenerators {
     public void run() {
         this.generateFluidItem(ModItems.MINEABLE_WATER, ModelTemplates.FLAT_ITEM,"water");
         this.generateFluidItem(ModItems.MINEABLE_LAVA, ModelTemplates.FLAT_ITEM,"lava");
+        this.generatePortalItem(ModItems.NETHER_PORTAL,ModelTemplates.FLAT_ITEM);
         this.generateFlatItem(ModItems.CREEPER_WATER_BUCKET,ModelTemplates.FLAT_ITEM);
         this.generateFlatItem(ModItems.DRAGON_ELYTRA,ModelTemplates.FLAT_ITEM);
     }
 
+    public void generatePortalItem(Item pItem, ModelTemplate pModelTemplate) {
+        pModelTemplate.create(ModelLocationUtils.getModelLocation(pItem), TextureMapping.layer0(new ResourceLocation("nether_portal").withPrefix("block/")), this.output);
+    }
 
 
     public void generateFluidItem(Item pItem, ModelTemplate pModelTemplate,String fluid) {
