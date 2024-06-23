@@ -41,12 +41,14 @@ public class ModBlockLoot extends VanillaBlockLoot {
         this.add(ModBlocks.POINTED_BEDROCK,noDrop());
         this.add(ModBlocks.MINEABLE_MOB,noDrop());
         this.dropOther(Blocks.NETHER_PORTAL, ModItems.NETHER_PORTAL);
+        this.dropSelf(Blocks.REINFORCED_DEEPSLATE);
     }
 
     @Override
     protected Iterable<Block> getKnownBlocks() {
         List<Block> blocks = new ArrayList<>();
         blocks.add(Blocks.NETHER_PORTAL);
+        blocks.add(Blocks.REINFORCED_DEEPSLATE);
         blocks.addAll(Datagen.getKnownBlocks().toList());
         return blocks;
     }
