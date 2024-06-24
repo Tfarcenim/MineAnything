@@ -19,6 +19,8 @@ public class MineableMobBlockEntity extends BlockEntity {
     private @Nullable Entity displayEntity;
     CompoundTag data = new CompoundTag();
 
+    protected boolean wings =true;
+
     public MineableMobBlockEntity(BlockPos $$1, BlockState $$2) {
         super(ModBlockEntities.MINEABLE_MOB, $$1, $$2);
     }
@@ -27,7 +29,6 @@ public class MineableMobBlockEntity extends BlockEntity {
         data.putString("id", BuiltInRegistries.ENTITY_TYPE.getKey(displayEntity.getType()).toString());
 
         displayEntity.save(data);
-        level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
         setChanged();
     }
 
@@ -52,6 +53,21 @@ public class MineableMobBlockEntity extends BlockEntity {
     }
 
     @Override
+    public void setChanged() {
+        level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
+        super.setChanged();
+    }
+
+    public boolean isWings() {
+        return wings;
+    }
+
+    public void setWings(boolean wings) {
+        this.wings = wings;
+        setChanged();
+    }
+
+    @Override
     public CompoundTag getUpdateTag() {
         return saveWithoutMetadata();
     }
@@ -64,11 +80,13 @@ public class MineableMobBlockEntity extends BlockEntity {
     protected void saveAdditional(CompoundTag tag) {
         super.saveAdditional(tag);
         tag.put("data", data);
+        tag.putBoolean("wings",wings);
     }
 
     @Override
     public void load(CompoundTag tag) {
         super.load(tag);
         data = tag.getCompound("data");
+        wings = tag.getBoolean("wings");
     }
 }

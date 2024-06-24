@@ -1,23 +1,29 @@
 package tfar.mineanything.block;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import tfar.mineanything.blockentity.MineableMobBlockEntity;
+import tfar.mineanything.init.ModEntities;
+import tfar.mineanything.init.ModItems;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +39,51 @@ public class MineableMobBlock extends Block implements EntityBlock {
         return new MineableMobBlockEntity(blockPos,blockState);
     }
 
+   /* @Override
+    public void playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
+        super.playerWillDestroy(level, pos, state, player);
+    }
+
+    @Override
+    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState blockState, boolean pistonPush) {
+
+    }*/
+
+    /**
+     * Called when a player removes a block.  This is responsible for
+     * actually destroying the block, and the block is intact at time of call.
+     * This is called regardless of whether the player can harvest the block or
+     * not.
+     *
+     * Return true if the block is actually destroyed.
+     *
+     * Note: When used in multiplayer, this is called on both client and
+     * server sides!
+     *
+     * @param state The current state.
+     * @param level The current level
+     * @param player The player damaging the block, may be null
+     * @param pos Block position in level
+     * @param willHarvest True if Block.harvestBlock will be called after this, if the return in true.
+     *        Can be useful to delay the destruction of tile entities till after harvestBlock
+     * @param fluid The current fluid state at current position
+     * @return True if the block is actually destroyed.
+     */
+    public boolean onDestroyedByPlayer(BlockState state, Level level, BlockPos pos, Player player, boolean willHarvest, FluidState fluid) {
+        if (player.isCreative()) {
+              playerWillDestroy(level, pos, state, player);
+            return level.setBlock(pos, fluid.createLegacyBlock(), level.isClientSide ? 11 : 3);
+        }
+        BlockEntity blockEntity = level.getBlockEntity(pos);
+        if (blockEntity instanceof MineableMobBlockEntity mineableMobBlockEntity) {
+            if (mineableMobBlockEntity.isWings()) {
+                mineableMobBlockEntity.setWings(false);
+                player.addItem(new ItemStack(ModItems.DRAGON_ELYTRA));
+            }
+        }
+
+        return false;
+    }
 
     /**
      * The type of render function called. MODEL for mixed tesr and static model, MODELBLOCK_ANIMATED for TESR-only,
@@ -71,6 +122,8 @@ public class MineableMobBlock extends Block implements EntityBlock {
 
                 else if (type == EntityType.PIGLIN) {
                     drops.add(new ItemStack(Items.PIGLIN_HEAD));
+                } else if (type == ModEntities.DEAD_DRAGON) {
+                    drops.add(new ItemStack(ModItems.DRAGON_ELYTRA));
                 }
 
             }

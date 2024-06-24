@@ -4,9 +4,14 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.entity.EnderDragonRenderer;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
+import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
 import tfar.mineanything.blockentity.MineableMobBlockEntity;
+import tfar.mineanything.mixin.DragonModelAccess;
+import tfar.mineanything.mixin.EnderDragonRenderAccess;
 
 public class MineableMobBlockEntityRenderer implements BlockEntityRenderer<MineableMobBlockEntity> {
 
@@ -22,9 +27,24 @@ public class MineableMobBlockEntityRenderer implements BlockEntityRenderer<Minea
 
         Entity entity = pBlockEntity.getOrCreateDisplayEntity();
         if (entity != null) {
+
+            if (entity instanceof EnderDragon enderDragon) {
+                boolean showWings = pBlockEntity.isWings();
+                EnderDragonRenderer entityRenderer1 = (EnderDragonRenderer) entityRenderer.getRenderer(enderDragon);
+                EnderDragonRenderer.DragonModel dragonModel = ((EnderDragonRenderAccess)entityRenderer1).getModel();
+                DragonModelAccess dragonModelAccess = (DragonModelAccess) dragonModel;
+                dragonModelAccess.getRightWing().visible = showWings;
+                dragonModelAccess.getLeftWing().visible = showWings;
+            }
+
             this.entityRenderer.render(entity, 0.0D, 0.0D, 0.0D, 0.0F, pPartialTick, pPoseStack, pBuffer, pPackedLight);
         }
 
         pPoseStack.popPose();
+    }
+
+    @Override
+    public boolean shouldRenderOffScreen(MineableMobBlockEntity $$0) {
+        return true;
     }
 }

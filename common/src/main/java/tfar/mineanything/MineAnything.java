@@ -3,9 +3,7 @@ package tfar.mineanything;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
@@ -18,6 +16,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -28,7 +27,6 @@ import org.slf4j.LoggerFactory;
 import tfar.mineanything.blockentity.FortifiedSpawnerBlockEntity;
 import tfar.mineanything.blockentity.MineableMobBlockEntity;
 import tfar.mineanything.blockentity.PlayerBodyBlockEntity;
-import tfar.mineanything.entity.DeadDragonEntity;
 import tfar.mineanything.init.*;
 import tfar.mineanything.mixin.BlockStateBaseAccess;
 import tfar.mineanything.mixin.TargetingConditionsAccess;
@@ -99,8 +97,15 @@ public class MineAnything {
             if (stack.is(ModItems.PICKAXE)) {
 
                 if (entity instanceof EnderDragon enderDragon) {
-                    DeadDragonEntity deadDragonEntity = ModEntities.DEAD_DRAGON.spawn((ServerLevel) entity.level(),entity.blockPosition(), MobSpawnType.SPAWN_EGG);
-                    deadDragonEntity.setDisplayEntity(enderDragon);
+
+                    entity.level().setBlock(entity.blockPosition(),ModBlocks.MINEABLE_MOB.defaultBlockState(),3);
+
+                    BlockEntity blockEntity = entity.level().getBlockEntity(entity.blockPosition());
+                    if (blockEntity instanceof MineableMobBlockEntity mineableMobBlockEntity) {
+                        mineableMobBlockEntity.setDisplayEntity(entity);
+                    }
+                   // DeadDragonEntity deadDragonEntity = ModEntities.DEAD_DRAGON.spawn((ServerLevel) entity.level(),entity.blockPosition(), MobSpawnType.SPAWN_EGG);
+                    //deadDragonEntity.setDisplayEntity(enderDragon);
                     entity.discard();
                     return;
                 }

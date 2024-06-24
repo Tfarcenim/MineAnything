@@ -16,6 +16,8 @@
   ],
   "client": [
     "DebugRendererMixin",
+    "DragonModelAccess",
+    "EnderDragonRenderAccess",
     "EntityRenderDispatcherMixin",
     "LivingEntityRendererAccess",
     "ModelBakeryMixin",

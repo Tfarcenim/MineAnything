@@ -8,12 +8,14 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.monster.Blaze;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.level.BaseSpawner;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.MobSpawnEvent;
+import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -47,6 +49,7 @@ public class MineAnythingForge {
         MinecraftForge.EVENT_BUS.addListener(this::onDeath);
         MinecraftForge.EVENT_BUS.addListener(this::onDamage);
         MinecraftForge.EVENT_BUS.addListener(this::onSpawn);
+        MinecraftForge.EVENT_BUS.addListener(this::onBreak);
         if (MineAnything.SIDE == Side.CLIENT) {
             MineAnythingClientForge.init(bus);
         }
@@ -65,6 +68,10 @@ public class MineAnythingForge {
     private void setup(FMLCommonSetupEvent event) {
         registerLater.clear();
         MineAnything.setup();
+    }
+
+    private void onBreak(BlockEvent.BreakEvent event) {
+
     }
 
     private void onSpawn(MobSpawnEvent.FinalizeSpawn event) {
