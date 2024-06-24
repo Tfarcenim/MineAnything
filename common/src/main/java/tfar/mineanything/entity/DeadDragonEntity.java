@@ -1,15 +1,15 @@
 package tfar.mineanything.entity;
 
 import net.minecraft.client.renderer.entity.EnderDragonRenderer;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
@@ -41,6 +41,32 @@ public class DeadDragonEntity extends Mob {
         setEntity(tag);
     }
 
+    @Override
+    public void aiStep() {
+        super.aiStep();
+        if (this.onGround()) {
+            this.setDeltaMovement(this.getDeltaMovement().add((this.random.nextFloat() * 2.0F - 1.0F) * 0.4F, 0.5D, (this.random.nextFloat() * 2.0F - 1.0F) * 0.4F));
+            this.setYRot(this.random.nextFloat() * 360.0F);
+            this.setOnGround(false);
+            this.hasImpulse = true;
+            if (!level().isClientSide) {
+                AreaEffectCloud areaeffectcloud = new AreaEffectCloud(this.level(), this.getX(), this.getY(), this.getZ());
+               // Entity entity = this.getOwner();
+               // if (entity instanceof LivingEntity) {
+               //     areaeffectcloud.setOwner((LivingEntity)entity);
+              //  }
+
+                areaeffectcloud.setParticle(ParticleTypes.DRAGON_BREATH);
+                areaeffectcloud.setRadius(3.0F);
+                areaeffectcloud.setDuration(600);
+                areaeffectcloud.setRadiusPerTick((7.0F - areaeffectcloud.getRadius()) / (float)areaeffectcloud.getDuration());
+                areaeffectcloud.addEffect(new MobEffectInstance(MobEffects.HARM, 1, 1));
+
+                this.level().addFreshEntity(areaeffectcloud);
+            }
+        }
+    }
+
     public Entity getOrCreateDisplayEntity() {
         if (displayEntity == null) {
             displayEntity = EntityType.loadEntityRecursive(getEntity(), level(), Function.identity());
@@ -59,6 +85,11 @@ public class DeadDragonEntity extends Mob {
                 livingEntity.yHeadRotO = livingEntity.yHeadRot;
             }
         }
+    }
+
+    @Override
+    public boolean addEffect(MobEffectInstance $$0, @Nullable Entity $$1) {
+        return false;
     }
 
     public void setEntity(CompoundTag tag) {
