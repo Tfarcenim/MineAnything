@@ -42,6 +42,7 @@ public class ModBlockLoot extends VanillaBlockLoot {
         this.add(ModBlocks.MINEABLE_MOB,noDrop());
         this.dropOther(Blocks.NETHER_PORTAL, ModItems.NETHER_PORTAL);
         this.dropSelf(Blocks.REINFORCED_DEEPSLATE);
+        this.add(ModBlocks.BLUE_PORTAL,noDrop());
     }
 
     @Override

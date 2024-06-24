@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "mineanything:block/blue_portal_ns"
+    },
+    "axis=z": {
+      "model": "mineanything:block/blue_portal_ew"
+    }
+  }
+}

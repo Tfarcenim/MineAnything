@@ -37,9 +37,17 @@ public class ModBlockModelProvider extends BlockModelGenerators {
         this.createTrivialBlock(ModBlocks.FORTIFIED_SPAWNER,TexturedModel.CUBE_TOP_BOTTOM);
         this.delegateItemModel(ModItems.BEDROCK_BLAZE_SPAWN_EGG, ModelLocationUtils.decorateItemModelLocation("template_spawn_egg"));
         this.delegateItemModel(ModItems.FORTIFIED_SILVERFISH_SPAWN_EGG, ModelLocationUtils.decorateItemModelLocation("template_spawn_egg"));
-
+        createBluePortalBlock();
         this.createPointedBedrockDripstone();
     }
+
+    public void createBluePortalBlock() {
+        this.blockStateOutput.accept(MultiVariantGenerator.multiVariant(ModBlocks.BLUE_PORTAL)
+                .with(PropertyDispatch.property(BlockStateProperties.HORIZONTAL_AXIS)
+                        .select(Direction.Axis.X, Variant.variant().with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(ModBlocks.BLUE_PORTAL, "_ns")))
+                        .select(Direction.Axis.Z, Variant.variant().with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(ModBlocks.BLUE_PORTAL, "_ew")))));
+    }
+
 
     public void createPointedBedrockDripstone() {
         this.skipAutoItemBlock(ModBlocks.POINTED_BEDROCK);

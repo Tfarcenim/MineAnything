@@ -1,4 +1,5 @@
-// 1.20.1	2024-06-23T16:40:21.3412488	Loot Tables
+// 1.20.1	2024-06-23T18:21:30.4358105	Loot Tables
+492804b26b82617596976194f22fdc494238745d data/mineanything/loot_tables/blocks/blue_portal.json
 c21b0bf7043328714c724a74ddef660396440adb data/mineanything/loot_tables/blocks/fortified_spawner.json
 349134a89478b09506c8ab978441a8e301ba2c8d data/mineanything/loot_tables/blocks/lava_tnt.json
 60748c5807e2a7d13e71cff3b9baf7a3578d7059 data/mineanything/loot_tables/blocks/mineable_lava.json

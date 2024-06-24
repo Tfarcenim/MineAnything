@@ -43,6 +43,7 @@ public class ModBlocks {
 
     public static final Block POINTED_BEDROCK = new PointedDripstoneBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_BROWN).forceSolidOn().instrument(NoteBlockInstrument.BASEDRUM).noOcclusion().sound(SoundType.POINTED_DRIPSTONE).randomTicks().strength(-1.0F, 3600000.0F).dynamicShape().offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY).isRedstoneConductor(ModBlocks::never));
     public static final Block MINEABLE_MOB = new MineableMobBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BROWN).instrument(NoteBlockInstrument.COW_BELL).strength(0.5F).speedFactor(0.4F).sound(SoundType.SOUL_SAND).noOcclusion());
+    public static final Block BLUE_PORTAL = new BluePortalBlock(BlockBehaviour.Properties.of().noCollission().randomTicks().strength(2).sound(SoundType.GLASS).lightLevel(state -> 11).pushReaction(PushReaction.BLOCK));
 
     private static boolean never(BlockState $$0, BlockGetter $$1, BlockPos $$2) {
         return false;

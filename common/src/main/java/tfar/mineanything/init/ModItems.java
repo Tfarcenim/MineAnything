@@ -1,7 +1,13 @@
 package tfar.mineanything.init;
 
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.Nullable;
 import tfar.mineanything.item.ReusableBlockItem;
 import tfar.mineanything.item.SkeletonBowItem;
 import tfar.mineanything.item.VoidRayItem;
@@ -26,6 +32,25 @@ public class ModItems {
     public static final ElytraItem DRAGON_ELYTRA = new ElytraItem(new Item.Properties().durability(432*4).rarity(Rarity.RARE));
     public static final ShieldItem FORTIFIED_SHIELD = Services.PLATFORM.fortifiedShield(new Item.Properties());
 
-    public static final BlockItem NETHER_PORTAL = new BlockItem(Blocks.NETHER_PORTAL,new Item.Properties());
+    public static final BlockItem NETHER_PORTAL = new BlockItem(Blocks.NETHER_PORTAL,new Item.Properties()){
+        @Nullable
+        @Override
+        protected BlockState getPlacementState(BlockPlaceContext context) {
+            if (isNextToDeepSlate(context.getLevel(),context.getClickedPos())) {
+                return ModBlocks.BLUE_PORTAL.getStateForPlacement(context);
+            }
+            return super.getPlacementState(context);
+        }
+
+        public static boolean isNextToDeepSlate(Level level,BlockPos pos) {
+            for (Direction direction : Direction.values()) {
+                BlockPos pos1 = pos.relative(direction);
+                BlockState state = level.getBlockState(pos1);
+                if (state.is(Blocks.REINFORCED_DEEPSLATE)) return true;
+            }
+            return false;
+        }
+
+    };
 
 }
