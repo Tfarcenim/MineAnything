@@ -1,6 +1,7 @@
 package tfar.mineanything.mixin;
 
 import com.google.common.collect.ImmutableMap;
+import com.mojang.authlib.GameProfile;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.PlayerInfo;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
@@ -29,8 +30,8 @@ public class EntityRenderDispatcherMixin {
     @Inject(at = @At("HEAD"), method = "getRenderer",cancellable = true)
     private <T extends Entity> void init(T entity, CallbackInfoReturnable<EntityRenderer<? super T>> cir) {
         if (entity instanceof ClonePlayerEntity clonePlayerEntity) {
-            UUID clone = clonePlayerEntity.getClone();
-            PlayerInfo playerInfo = Minecraft.getInstance().getConnection().getPlayerInfo(clone);
+            GameProfile clone = clonePlayerEntity.getClone();
+            PlayerInfo playerInfo = Minecraft.getInstance().getConnection().getPlayerInfo(clone.getId());
             if (playerInfo != null) {
                 cir.setReturnValue((EntityRenderer<? super T>) cloneRenderers.get(playerInfo.getModelName()));
             } else {

@@ -140,6 +140,13 @@ public class MineAnything {
         }
     }
 
+    public static void playerTick(Player player){
+        PlayerDuck playerDuck = PlayerDuck.of(player);
+        if (playerDuck.getCloneCooldown() > 0) {
+            playerDuck.setCloneCooldown(playerDuck.getCloneCooldown() - 1);
+        }
+    }
+
     public static ResourceLocation id(String path) {
         return new ResourceLocation(MOD_ID,path);
     }

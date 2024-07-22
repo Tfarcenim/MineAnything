@@ -11,12 +11,14 @@ import net.minecraft.world.level.BaseSpawner;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.MobSpawnEvent;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -50,6 +52,7 @@ public class MineAnythingForge {
         MinecraftForge.EVENT_BUS.addListener(this::onDamage);
         MinecraftForge.EVENT_BUS.addListener(this::onSpawn);
         MinecraftForge.EVENT_BUS.addListener(this::onBreak);
+        MinecraftForge.EVENT_BUS.addListener(this::playerTick);
         if (MineAnything.SIDE == Side.CLIENT) {
             MineAnythingClientForge.init(bus);
         }
@@ -72,6 +75,12 @@ public class MineAnythingForge {
 
     private void onBreak(BlockEvent.BreakEvent event) {
 
+    }
+
+    private void playerTick(TickEvent.PlayerTickEvent event){
+        if (event.phase == TickEvent.Phase.START && event.side == LogicalSide.SERVER) {
+            MineAnything.playerTick(event.player);
+        }
     }
 
     private void onSpawn(MobSpawnEvent.FinalizeSpawn event) {

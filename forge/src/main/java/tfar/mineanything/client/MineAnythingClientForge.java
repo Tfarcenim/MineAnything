@@ -4,19 +4,14 @@ import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.minecraft.MinecraftProfileTexture;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.PlayerModel;
-import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.multiplayer.PlayerInfo;
-import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.client.player.RemotePlayer;
 import net.minecraft.client.renderer.entity.ArmorStandRenderer;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.client.resources.DefaultPlayerSkin;
 import net.minecraft.client.resources.SkinManager;
-import net.minecraft.core.UUIDUtil;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
@@ -25,15 +20,14 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.PlayerHeadItem;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
+import net.minecraftforge.client.event.RenderNameTagEvent;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import org.codehaus.plexus.util.CachedMap;
-import tfar.mineanything.MineAnything;
 import tfar.mineanything.PlayerDuck;
 import tfar.mineanything.client.render.layers.DragonElytraLayer;
 import tfar.mineanything.mixin.LivingEntityRendererAccess;
@@ -51,6 +45,24 @@ public class MineAnythingClientForge {
         MinecraftForge.EVENT_BUS.addListener(MineAnythingClientForge::renderPlayerPre);
         MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL,true,MineAnythingClientForge::renderPlayerPost);
         MinecraftForge.EVENT_BUS.addListener(MineAnythingClientForge::clientPlayerTick);
+        MinecraftForge.EVENT_BUS.addListener(MineAnythingClientForge::nameTag);
+    }
+
+    static void nameTag(RenderNameTagEvent event){
+        event.setResult(Event.Result.ALLOW);
+        Entity entity = event.getEntity();
+        if (entity instanceof Player player) {
+            ItemStack stack = player.getItemBySlot(EquipmentSlot.HEAD);
+            if (stack.is(Items.PLAYER_HEAD)) {
+                CompoundTag tag = stack.getTag();
+                if (tag != null && tag.contains(PlayerHeadItem.TAG_SKULL_OWNER)) {
+                    GameProfile gameProfile = NbtUtils.readGameProfile(tag.getCompound(PlayerHeadItem.TAG_SKULL_OWNER));
+                    if (!Objects.equals(player.getGameProfile(), gameProfile)) {
+                        event.setContent(Component.literal(gameProfile.getName()));
+                    }
+                }
+            }
+        }
     }
 
     static void itemColors(RegisterColorHandlersEvent.Item event) {

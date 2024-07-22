@@ -8,6 +8,7 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EntityType;
@@ -17,6 +18,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.PlayerHeadItem;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import tfar.mineanything.PlayerDuck;
 import tfar.mineanything.entity.ClonePlayerEntity;
 import tfar.mineanything.init.ModEnchantments;
 import tfar.mineanything.init.ModEntities;
@@ -46,33 +48,36 @@ public class C2SKeyActionPacket implements C2SModPacket {
 
             }
             case CLONE -> {
-                ItemStack stack = player.getItemBySlot(EquipmentSlot.HEAD);
-                if (stack.is(Items.PLAYER_HEAD)) {
-                    CompoundTag tag = stack.getTag();
-                    if (tag != null && tag.contains(PlayerHeadItem.TAG_SKULL_OWNER)) {
-                        GameProfile gameProfile = NbtUtils.readGameProfile(tag.getCompound(PlayerHeadItem.TAG_SKULL_OWNER));
-                        if (gameProfile != null) {
-                            ServerPlayer cloneFrom = player.server.getPlayerList().getPlayer(gameProfile.getId());
-                            Map<MinecraftProfileTexture.Type, MinecraftProfileTexture> textures = player.server.getSessionService()
-                                    .getTextures(gameProfile, false);
+                PlayerDuck playerDuck = PlayerDuck.of(player);
+                int cloneCooldown = playerDuck.getCloneCooldown();
+                if (cloneCooldown <=0) {
+                    ItemStack stack = player.getItemBySlot(EquipmentSlot.HEAD);
+                    if (stack.is(Items.PLAYER_HEAD)) {
+                        CompoundTag tag = stack.getTag();
+                        if (tag != null && tag.contains(PlayerHeadItem.TAG_SKULL_OWNER)) {
+                            GameProfile gameProfile = NbtUtils.readGameProfile(tag.getCompound(PlayerHeadItem.TAG_SKULL_OWNER));
+                            if (gameProfile != null) {
+                                ServerPlayer cloneFrom = player.server.getPlayerList().getPlayer(gameProfile.getId());
+                                Map<MinecraftProfileTexture.Type, MinecraftProfileTexture> textures = player.server.getSessionService()
+                                        .getTextures(gameProfile, false);
 
-                            if (textures.isEmpty()) {
+                                EntityType<ClonePlayerEntity> clonePlayerEntityEntityType = ModEntities.CLONE_PLAYER;
+                                for (int i = 0; i < 1; i++) {
+                                    ClonePlayerEntity clonePlayerEntity = clonePlayerEntityEntityType.spawn(player.serverLevel(), player.blockPosition(), MobSpawnType.COMMAND);
+                                    clonePlayerEntity.setClone(gameProfile);
+                                    clonePlayerEntity.setOwnerUUID(player.getUUID());
+                                    clonePlayerEntity.setCustomName(Component.literal(gameProfile.getName()));
+                                    if (cloneFrom != null) {
+                                        clonePlayerEntity.setFakeItemSlot(EquipmentSlot.HEAD, cloneFrom.getItemBySlot(EquipmentSlot.HEAD));
+                                        clonePlayerEntity.setFakeItemSlot(EquipmentSlot.CHEST, cloneFrom.getItemBySlot(EquipmentSlot.CHEST));
+                                        clonePlayerEntity.setFakeItemSlot(EquipmentSlot.LEGS, cloneFrom.getItemBySlot(EquipmentSlot.LEGS));
+                                        clonePlayerEntity.setFakeItemSlot(EquipmentSlot.FEET, cloneFrom.getItemBySlot(EquipmentSlot.FEET));
 
-                            }
-
-                            EntityType<ClonePlayerEntity> clonePlayerEntityEntityType = ModEntities.CLONE_PLAYER;
-                            for (int i = 0; i < 1;i++) {
-                                ClonePlayerEntity clonePlayerEntity = clonePlayerEntityEntityType.spawn(player.serverLevel(),player.blockPosition(), MobSpawnType.COMMAND);
-                                clonePlayerEntity.setClone(gameProfile.getId());
-                                clonePlayerEntity.setOwnerUUID(player.getUUID());
-                                clonePlayerEntity.setFakeItemSlot(EquipmentSlot.HEAD,cloneFrom.getItemBySlot(EquipmentSlot.HEAD));
-                                clonePlayerEntity.setFakeItemSlot(EquipmentSlot.CHEST,cloneFrom.getItemBySlot(EquipmentSlot.CHEST));
-                                clonePlayerEntity.setFakeItemSlot(EquipmentSlot.LEGS,cloneFrom.getItemBySlot(EquipmentSlot.LEGS));
-                                clonePlayerEntity.setFakeItemSlot(EquipmentSlot.FEET,cloneFrom.getItemBySlot(EquipmentSlot.FEET));
-
-                                clonePlayerEntity.setFakeItemSlot(EquipmentSlot.MAINHAND,cloneFrom.getItemBySlot(EquipmentSlot.MAINHAND));
-                                clonePlayerEntity.setFakeItemSlot(EquipmentSlot.OFFHAND,cloneFrom.getItemBySlot(EquipmentSlot.OFFHAND));
-
+                                        clonePlayerEntity.setFakeItemSlot(EquipmentSlot.MAINHAND, cloneFrom.getItemBySlot(EquipmentSlot.MAINHAND));
+                                        clonePlayerEntity.setFakeItemSlot(EquipmentSlot.OFFHAND, cloneFrom.getItemBySlot(EquipmentSlot.OFFHAND));
+                                    }
+                                }
+                                playerDuck.setCloneCooldown(100);
                             }
                         }
                     }

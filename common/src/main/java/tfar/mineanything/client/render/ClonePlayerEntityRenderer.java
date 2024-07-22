@@ -151,17 +151,20 @@ public class ClonePlayerEntityRenderer extends LivingEntityRenderer<ClonePlayerE
         this.renderHand($$0, $$1, $$2, $$3, this.model.leftArm, this.model.leftSleeve);
     }
 
-    private void renderHand(PoseStack $$0, MultiBufferSource $$1, int $$2, ClonePlayerEntity entity_303, ModelPart $$4, ModelPart $$5) {
+    private void renderHand(PoseStack $$0, MultiBufferSource buffer, int $$2, ClonePlayerEntity clonePlayer, ModelPart modelPart, ModelPart modelPart1) {
         PlayerModel<ClonePlayerEntity> model1 = this.getModel();
-        this.setModelProperties(entity_303);
+        this.setModelProperties(clonePlayer);
         model1.attackTime = 0.0F;
         model1.crouching = false;
         model1.swimAmount = 0.0F;
-        model1.setupAnim(entity_303, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F);
-        $$4.xRot = 0.0F;
-        $$4.render($$0, $$1.getBuffer(RenderType.entitySolid(getTextureLocation(entity_303))), $$2, OverlayTexture.NO_OVERLAY);
-        $$5.xRot = 0.0F;
-        $$5.render($$0, $$1.getBuffer(RenderType.entityTranslucent(getTextureLocation(entity_303))), $$2, OverlayTexture.NO_OVERLAY);
+        model1.setupAnim(clonePlayer, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F);
+        modelPart.xRot = 0.0F;
+
+        ResourceLocation texture = getTextureLocation(clonePlayer);
+
+        modelPart.render($$0, buffer.getBuffer(RenderType.entitySolid(texture)), $$2, OverlayTexture.NO_OVERLAY);
+        modelPart1.xRot = 0.0F;
+        modelPart1.render($$0, buffer.getBuffer(RenderType.entityTranslucent(texture)), $$2, OverlayTexture.NO_OVERLAY);
     }
 
     @Override
