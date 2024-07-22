@@ -32,15 +32,4 @@ public class Datagen {
         dataGenerator.addProvider(true,new ModRecipeProvider(packOutput));
 
     }
-
-    public static Stream<Block> getKnownBlocks() {
-        return getKnown(BuiltInRegistries.BLOCK);
-    }
-    public static Stream<Item> getKnownItems() {
-        return getKnown(BuiltInRegistries.ITEM);
-    }
-
-    public static <V> Stream<V> getKnown(Registry<V> registry) {
-        return registry.stream().filter(o -> registry.getKey(o).getNamespace().equals(MineAnything.MOD_ID));
-    }
 }

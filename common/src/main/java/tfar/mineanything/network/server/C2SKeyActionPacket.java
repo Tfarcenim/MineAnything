@@ -2,9 +2,13 @@ package tfar.mineanything.network.server;
 
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.minecraft.MinecraftProfileTexture;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtUtils;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -12,7 +16,9 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.PlayerHeadItem;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import tfar.mineanything.entity.ClonePlayerEntity;
+import tfar.mineanything.init.ModEnchantments;
 import tfar.mineanything.init.ModEntities;
 
 import java.util.Map;
@@ -69,6 +75,24 @@ public class C2SKeyActionPacket implements C2SModPacket {
 
                             }
                         }
+                    }
+                }
+            }
+            case LEVEL_UP -> {
+                ItemStack stack = player.getMainHandItem();
+                if (!stack.isEmpty()) {
+                    int mine_anything = EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.MINE_ANYTHING,stack);
+                    if (mine_anything > 0) {
+                        ListTag listTag = stack.getEnchantmentTags();
+                        for (Tag tag : listTag) {
+                            CompoundTag compoundTag = (CompoundTag) tag;
+                            ResourceLocation location = BuiltInRegistries.ENCHANTMENT.getKey(ModEnchantments.MINE_ANYTHING);
+                            if (compoundTag.getString("id").equals(location.toString())) {
+                                EnchantmentHelper.setEnchantmentLevel(compoundTag,mine_anything+1);
+                            }
+                        }
+                    }else {
+                        stack.enchant(ModEnchantments.MINE_ANYTHING,1);
                     }
                 }
             }

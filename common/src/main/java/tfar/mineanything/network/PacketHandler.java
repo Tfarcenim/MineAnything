@@ -11,7 +11,7 @@ public class PacketHandler {
 
     public static void registerPackets() {
         Services.PLATFORM.registerServerPacket(C2SKeyActionPacket.class, C2SKeyActionPacket::new);
-        if (Services.PLATFORM.getPlatformName().equals("Forge") || MineAnything.SIDE == Side.CLIENT) {
+        if (!Services.PLATFORM.getPlatformName().equals("Fabric") || MineAnything.SIDE == Side.CLIENT) {
             registerClientPackets();
         }
     }

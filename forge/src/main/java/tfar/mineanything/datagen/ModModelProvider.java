@@ -12,6 +12,7 @@ import net.minecraft.data.models.model.ModelLocationUtils;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import tfar.mineanything.MineAnything;
 
 import java.util.List;
 import java.util.Map;
@@ -49,11 +50,11 @@ public class ModModelProvider extends ModelProvider {
         Consumer<Item> consumer1 = set::add;
         new ModBlockModelProvider(consumer, biconsumer, consumer1).run();
         new ModItemModelProvider(biconsumer).run();
-        List<Block> list = Datagen.getKnownBlocks().filter((block) -> !map.containsKey(block)).toList();
+        List<Block> list = MineAnything.getKnownBlocks().filter((block) -> !map.containsKey(block)).toList();
         if (!list.isEmpty()) {
             throw new IllegalStateException("Missing blockstate definitions for: " + list);
         } else {
-            Datagen.getKnownBlocks().forEach((p_125128_) -> {
+            MineAnything.getKnownBlocks().forEach((p_125128_) -> {
                 Item item = Item.BY_BLOCK.get(p_125128_);
                 if (item != null) {
                     if (set.contains(item)) {

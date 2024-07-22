@@ -13,6 +13,7 @@ import net.minecraft.world.level.storage.loot.functions.CopyNbtFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.providers.nbt.ContextNbtProvider;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
+import tfar.mineanything.MineAnything;
 import tfar.mineanything.datagen.Datagen;
 import tfar.mineanything.init.ModBlocks;
 import tfar.mineanything.init.ModItems;
@@ -50,7 +51,7 @@ public class ModBlockLoot extends VanillaBlockLoot {
         List<Block> blocks = new ArrayList<>();
         blocks.add(Blocks.NETHER_PORTAL);
         blocks.add(Blocks.REINFORCED_DEEPSLATE);
-        blocks.addAll(Datagen.getKnownBlocks().toList());
+        blocks.addAll(MineAnything.getKnownBlocks().toList());
         return blocks;
     }
 }

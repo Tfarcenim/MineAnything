@@ -2,6 +2,7 @@ package tfar.mineanything;
 
 import com.google.common.collect.ImmutableList;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -11,6 +12,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -35,6 +37,7 @@ import tfar.mineanything.platform.Services;
 import tfar.mineanything.platform.Side;
 
 import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 // This class is part of the common project meaning it is shared between all supported loaders. Code written here can only
 // import and access the vanilla codebase, libraries used by vanilla, and optionally third party libraries that provide
@@ -60,7 +63,7 @@ public class MineAnything {
         Services.PLATFORM.registerAll(ModBlockEntities.class, BuiltInRegistries.BLOCK_ENTITY_TYPE, BlockEntityType.class);
         Services.PLATFORM.registerAll(ModEnchantments.class, BuiltInRegistries.ENCHANTMENT, Enchantment.class);
         Services.PLATFORM.registerAll(ModRecipeSerializers.class, BuiltInRegistries.RECIPE_SERIALIZER, RecipeSerializer.class);
-
+        Services.PLATFORM.registerAll(ModCreativeTabs.class, BuiltInRegistries.CREATIVE_MODE_TAB, CreativeModeTab.class);
     }
 
     public static void setup() {
@@ -139,6 +142,17 @@ public class MineAnything {
 
     public static ResourceLocation id(String path) {
         return new ResourceLocation(MOD_ID,path);
+    }
+
+    public static Stream<Block> getKnownBlocks() {
+        return getKnown(BuiltInRegistries.BLOCK);
+    }
+    public static Stream<Item> getKnownItems() {
+        return getKnown(BuiltInRegistries.ITEM);
+    }
+
+    public static <V> Stream<V> getKnown(Registry<V> registry) {
+        return registry.stream().filter(o -> registry.getKey(o).getNamespace().equals(MineAnything.MOD_ID));
     }
 
 }
