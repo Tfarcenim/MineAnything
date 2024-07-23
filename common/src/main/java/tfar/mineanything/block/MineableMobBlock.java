@@ -6,6 +6,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -22,6 +23,7 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import tfar.mineanything.blockentity.MineableMobBlockEntity;
+import tfar.mineanything.entity.DeadDragonEntity;
 import tfar.mineanything.init.ModEntities;
 import tfar.mineanything.init.ModItems;
 
@@ -76,13 +78,16 @@ public class MineableMobBlock extends Block implements EntityBlock {
         }
         BlockEntity blockEntity = level.getBlockEntity(pos);
         if (blockEntity instanceof MineableMobBlockEntity mineableMobBlockEntity) {
-            if (mineableMobBlockEntity.isWings()) {
-                mineableMobBlockEntity.setWings(false);
-                player.addItem(new ItemStack(ModItems.DRAGON_ELYTRA));
+            Entity displayEntity = mineableMobBlockEntity.getOrCreateDisplayEntity();
+            if (displayEntity instanceof DeadDragonEntity deadDragonEntity) {
+                if (mineableMobBlockEntity.isWings()) {
+                    mineableMobBlockEntity.setWings(false);
+                    player.addItem(new ItemStack(ModItems.DRAGON_ELYTRA));
+                }
+                return false;
             }
         }
-
-        return false;
+        return level.setBlock(pos, fluid.createLegacyBlock(), level.isClientSide ? 11 : 3);
     }
 
     /**

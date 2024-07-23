@@ -147,6 +147,12 @@ public class MineAnything {
         }
     }
 
+    public static void copyFrom(ServerPlayer oldPlayer,ServerPlayer newPlayer,boolean alive) {
+        PlayerDuck oldPlayerDuck = PlayerDuck.of(oldPlayer);
+        PlayerDuck newPlayerDuck = PlayerDuck.of(newPlayer);
+        newPlayerDuck.setRunner(oldPlayerDuck.isRunner());
+    }
+
     public static ResourceLocation id(String path) {
         return new ResourceLocation(MOD_ID,path);
     }

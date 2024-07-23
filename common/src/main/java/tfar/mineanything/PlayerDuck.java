@@ -10,6 +10,8 @@ public interface PlayerDuck {
     void setDisguise(@Nullable GameProfile disguise);
     int getCloneCooldown();
     void setCloneCooldown(int cooldown);
+    boolean isRunner();
+    void setRunner(boolean runner);
 
     static PlayerDuck of(Player player) {
         return (PlayerDuck) player;

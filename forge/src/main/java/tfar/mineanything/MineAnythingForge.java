@@ -3,6 +3,7 @@ package tfar.mineanything;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.monster.Blaze;
@@ -11,11 +12,13 @@ import net.minecraft.world.level.BaseSpawner;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.MobSpawnEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.LogicalSide;
@@ -53,6 +56,8 @@ public class MineAnythingForge {
         MinecraftForge.EVENT_BUS.addListener(this::onSpawn);
         MinecraftForge.EVENT_BUS.addListener(this::onBreak);
         MinecraftForge.EVENT_BUS.addListener(this::playerTick);
+        MinecraftForge.EVENT_BUS.addListener(this::commands);
+        MinecraftForge.EVENT_BUS.addListener(this::copyFrom);
         if (MineAnything.SIDE == Side.CLIENT) {
             MineAnythingClientForge.init(bus);
         }
@@ -75,6 +80,14 @@ public class MineAnythingForge {
 
     private void onBreak(BlockEvent.BreakEvent event) {
 
+    }
+
+    private void commands(RegisterCommandsEvent event) {
+        ModCommands.register(event.getDispatcher());
+    }
+
+    private void copyFrom(PlayerEvent.Clone event) {
+        MineAnything.copyFrom((ServerPlayer) event.getOriginal(), (ServerPlayer) event.getEntity(),!event.isWasDeath());
     }
 
     private void playerTick(TickEvent.PlayerTickEvent event){
