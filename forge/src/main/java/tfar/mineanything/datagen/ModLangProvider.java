@@ -25,6 +25,7 @@ public class ModLangProvider extends LanguageProvider {
         addBlock(() -> ModBlocks.MINEABLE_WATER,"Water");
         addBlock(() -> ModBlocks.MINEABLE_LAVA,"Lava");
         addDefaultItem(() -> ModItems.CREEPER_WATER_BUCKET);
+        addDefaultItem(() -> ModItems.CREEPER_BUCKET);
         addDefaultItem(() -> ModItems.SKELETON_BOW);
         addDefaultItem(() -> ModItems.ZOMBIE_SWORD);
         addDefaultItem(() -> ModItems.PICKAXE);

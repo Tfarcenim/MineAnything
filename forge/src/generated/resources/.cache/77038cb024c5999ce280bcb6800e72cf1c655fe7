@@ -1,4 +1,4 @@
-// 1.20.1	2024-06-23T18:24:10.5458855	Model Definitions
+// 1.20.1	2024-07-23T02:59:35.5899517	Model Definitions
 cc4a7d973ccdcc76cfa147fc94c5977c63893ee2 assets/mineanything/blockstates/blue_portal.json
 e5a33b4a2db42195222fa1709b3d9533ac41e453 assets/mineanything/blockstates/creeper_water.json
 cd81011f1dd680e82da3a2ec0283e3a4a1e6bf59 assets/mineanything/blockstates/fortified_spawner.json
@@ -21,6 +21,7 @@ b6709db90a74a76b0b8a326df5587f5bd2b2d459 assets/mineanything/models/block/pointe
 6bce5e5870178abc86db2317567b7da934ea7fdb assets/mineanything/models/block/pointed_bedrock_up_tip.json
 9dcf5758a93b72abd2f5a4d66e87a5db29452faf assets/mineanything/models/block/pointed_bedrock_up_tip_merge.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/mineanything/models/item/bedrock_blaze_spawn_egg.json
+4c65a9e542114ee3437a914951a5fe5225ecc422 assets/mineanything/models/item/creeper_bucket.json
 b8bf9fed12c85096da488de87030114d5a79a73f assets/mineanything/models/item/creeper_water_bucket.json
 8d58fc6692e6e18a61414b4b4f1ec8ad11d55f94 assets/mineanything/models/item/dragon_elytra.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/mineanything/models/item/fortified_silverfish_spawn_egg.json

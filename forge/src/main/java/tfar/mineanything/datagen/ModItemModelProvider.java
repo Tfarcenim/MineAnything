@@ -29,6 +29,7 @@ public class ModItemModelProvider extends ItemModelGenerators {
         this.generatePortalItem(ModItems.NETHER_PORTAL,ModelTemplates.FLAT_ITEM);
         this.generateFlatItem(ModItems.CREEPER_WATER_BUCKET,ModelTemplates.FLAT_ITEM);
         this.generateFlatItem(ModItems.DRAGON_ELYTRA,ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem(ModItems.CREEPER_BUCKET,ModelTemplates.FLAT_ITEM);
     }
 
     public void generatePortalItem(Item pItem, ModelTemplate pModelTemplate) {

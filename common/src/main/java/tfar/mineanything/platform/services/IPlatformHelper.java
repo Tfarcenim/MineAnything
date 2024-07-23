@@ -12,9 +12,11 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ShieldItem;
@@ -24,6 +26,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.phys.HitResult;
+import org.jetbrains.annotations.NotNull;
 import tfar.mineanything.network.client.S2CModPacket;
 import tfar.mineanything.network.server.C2SModPacket;
 import tfar.mineanything.platform.Side;
@@ -109,5 +113,6 @@ public interface IPlatformHelper {
     void registerRenderLayer(Block block, RenderType renderType);
     void registerRenderLayer(Fluid fluid, RenderType renderType);
     ShieldItem fortifiedShield(Item.Properties properties);
+    InteractionResultHolder<ItemStack> onBucketUse(@NotNull Player player, @NotNull Level level, @NotNull ItemStack stack, @org.jetbrains.annotations.Nullable HitResult target);
 
 }
