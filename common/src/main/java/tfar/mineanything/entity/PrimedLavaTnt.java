@@ -12,6 +12,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import tfar.mineanything.LavaExplosion;
+import tfar.mineanything.init.ModEntities;
 import tfar.mineanything.platform.Services;
 
 public class PrimedLavaTnt extends PrimedTnt {
@@ -21,8 +22,16 @@ public class PrimedLavaTnt extends PrimedTnt {
         super($$0, $$1);
     }
 
-    public PrimedLavaTnt(Level $$0, double $$1, double $$2, double $$3, @Nullable LivingEntity $$4) {
-        super($$0, $$1, $$2, $$3, $$4);
+    public PrimedLavaTnt(Level level, double x, double y, double z, @Nullable LivingEntity owner) {
+        this(ModEntities.LAVA_TNT, level);
+        this.setPos(x, y, z);
+        double radians = level.random.nextDouble() * 2 * Math.PI;
+        this.setDeltaMovement(-Math.sin(radians) * 0.02, 0.2, -Math.cos(radians) * 0.02);
+        this.setFuse(80);
+        this.xo = x;
+        this.yo = y;
+        this.zo = z;
+        this.owner = owner;
     }
 
     @Override

@@ -40,6 +40,7 @@ public class MineAnythingClientForge {
         bus.addListener(MineAnythingClientForge::clientSetup);
         bus.addListener(MineAnythingClientForge::registerRenderers);
         bus.addListener(MineAnythingClientForge::itemColors);
+        bus.addListener(MineAnythingClientForge::blockColors);
         bus.addListener(MineAnythingClientForge::layers);
         MinecraftForge.EVENT_BUS.addListener(MineAnythingClientForge::clientTick);
         MinecraftForge.EVENT_BUS.addListener(MineAnythingClientForge::renderPlayerPre);
@@ -67,6 +68,10 @@ public class MineAnythingClientForge {
 
     static void itemColors(RegisterColorHandlersEvent.Item event) {
         MineAnythingClient.itemColors(event.getItemColors());
+    }
+
+    static void blockColors(RegisterColorHandlersEvent.Block event) {
+        MineAnythingClient.blockColors(event.getBlockColors());
     }
 
     static void clientSetup(FMLClientSetupEvent event) {

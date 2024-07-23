@@ -30,6 +30,7 @@ import tfar.mineanything.platform.Side;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
+import java.util.List;
 import java.util.function.Function;
 
 public interface IPlatformHelper {
@@ -98,6 +99,7 @@ public interface IPlatformHelper {
     boolean onExplosionStart(Level level, Explosion explosion);
 
     boolean getMobGriefingEvent(Level level,Entity source);
+    void onExplosionDetonate(Level level, Explosion explosion, List<Entity> list, double diameter);
 
     FlowingFluid createCreeperWaterFluid();
     FlowingFluid createCreeperWaterFlowingFluid();

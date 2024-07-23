@@ -156,6 +156,11 @@ public class ForgePlatformHelper implements IPlatformHelper {
     }
 
     @Override
+    public void onExplosionDetonate(Level level, Explosion explosion, List<Entity> list, double diameter) {
+        net.minecraftforge.event.ForgeEventFactory.onExplosionDetonate(level, explosion,list,diameter);
+    }
+
+    @Override
     public FlowingFluid createCreeperWaterFluid() {
         return new ForgeCreeperWaterFluid.Source();
     }

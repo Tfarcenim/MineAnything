@@ -32,3 +32,5 @@ extendable method net/minecraft/world/entity/projectile/Projectile <init> (Lnet/
 
 accessible field net/minecraft/client/renderer/block/BlockRenderDispatcher blockEntityRenderer Lnet/minecraft/client/renderer/BlockEntityWithoutLevelRenderer;
 accessible field net/minecraft/client/renderer/BlockEntityWithoutLevelRenderer shieldModel Lnet/minecraft/client/model/ShieldModel;
+
+accessible field net/minecraft/world/entity/item/PrimedTnt owner Lnet/minecraft/world/entity/LivingEntity;

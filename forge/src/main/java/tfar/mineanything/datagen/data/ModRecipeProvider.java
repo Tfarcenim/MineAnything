@@ -23,8 +23,9 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy(getHasName(ModItems.MINEABLE_LAVA),has(ModItems.MINEABLE_LAVA))
                 .save(pWriter);
 
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.CREEPER_WATER_BUCKET).requires(Items.WATER_BUCKET)
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.CREEPER_WATER_BUCKET).requires(ModItems.MINEABLE_WATER)
                 .requires(Items.CREEPER_HEAD)
+                .requires(Items.BUCKET)
                 .unlockedBy(getHasName(Items.CREEPER_HEAD),has(Items.CREEPER_HEAD))
                 .save(pWriter);
 

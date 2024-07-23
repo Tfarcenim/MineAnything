@@ -3,10 +3,13 @@
   "category": "misc",
   "ingredients": [
     {
-      "item": "minecraft:water_bucket"
+      "item": "mineanything:mineable_water"
     },
     {
       "item": "minecraft:creeper_head"
+    },
+    {
+      "item": "minecraft:bucket"
     }
   ],
   "result": {

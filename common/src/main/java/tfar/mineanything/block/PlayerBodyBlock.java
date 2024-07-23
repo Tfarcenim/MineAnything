@@ -1,16 +1,24 @@
 package tfar.mineanything.block;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
+import tfar.mineanything.PlayerDuck;
 import tfar.mineanything.blockentity.PlayerBodyBlockEntity;
+
+import java.util.List;
 
 public class PlayerBodyBlock extends Block implements EntityBlock {
 
@@ -42,4 +50,15 @@ public class PlayerBodyBlock extends Block implements EntityBlock {
         return RenderShape.ENTITYBLOCK_ANIMATED;
     }
 
+    @Override
+    public List<ItemStack> getDrops(BlockState state, LootParams.Builder builder) {
+        List<ItemStack> drops = super.getDrops(state, builder);
+        Entity parameter = builder.getParameter(LootContextParams.THIS_ENTITY);
+        if (parameter instanceof Player player) {
+            if (PlayerDuck.of(player).isRunner()) {
+                return drops;
+            }
+        }
+        return List.of();
+    }
 }

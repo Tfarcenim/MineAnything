@@ -4,13 +4,13 @@ import com.google.common.collect.ImmutableMap;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.minecraft.MinecraftProfileTexture;
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.Util;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.blockentity.SpawnerRenderer;
 import net.minecraft.client.renderer.entity.*;
@@ -19,6 +19,7 @@ import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.client.resources.DefaultPlayerSkin;
 import net.minecraft.client.resources.SkinManager;
 import net.minecraft.client.resources.model.Material;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.UUIDUtil;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.ResourceLocation;
@@ -28,7 +29,9 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import org.apache.commons.lang3.ArrayUtils;
 import org.jetbrains.annotations.Nullable;
 import tfar.mineanything.HasFakeItems;
@@ -41,7 +44,6 @@ import tfar.mineanything.platform.Services;
 
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 public class MineAnythingClient {
 
@@ -114,12 +116,6 @@ public class MineAnythingClient {
         }
     }
 
-    public static ResourceLocation lookupSkin(UUID profile) {
-        if (profile == null) profile = Util.NIL_UUID;
-        GameProfile profile1 = new GameProfile(profile,null);
-        return getPlayerSkin(profile1);
-    }
-
     public static ResourceLocation getPlayerSkin(GameProfile gameProfile) {
         Minecraft minecraft = Minecraft.getInstance();
         SkinManager skinManager = minecraft.getSkinManager();
@@ -163,6 +159,11 @@ public class MineAnythingClient {
     public static void itemColors(ItemColors itemColors) {
         itemColors.register((itemStack, i) -> {return 0x6666ff;}, ModItems.MINEABLE_WATER);
     }
+
+    public static void blockColors(BlockColors blockColors) {
+        blockColors.register(($$0x, $$1, $$2, $$3) -> $$1 != null && $$2 != null ? BiomeColors.getAverageWaterColor($$1, $$2) : -1, ModBlocks.CREEPER_WATER);
+    }
+
 
     public static void setFakeClientEquipment(int entityId, List<Pair<EquipmentSlot, ItemStack>> slots) {
         Entity entity = Minecraft.getInstance().level.getEntity(entityId);
