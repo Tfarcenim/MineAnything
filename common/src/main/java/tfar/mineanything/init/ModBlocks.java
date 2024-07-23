@@ -18,8 +18,8 @@ import tfar.mineanything.block.*;
 
 public class ModBlocks {
     public static final Block PLAYER_BODY = new PlayerBodyBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BROWN).instrument(NoteBlockInstrument.COW_BELL).strength(0.5F).speedFactor(0.4F).sound(SoundType.SOUL_SAND).noOcclusion());
-    public static final Block MINEABLE_WATER = new MineableLiquidBlock(Fluids.WATER, BlockBehaviour.Properties.of().mapColor(MapColor.WATER).replaceable().noCollission().strength(10).pushReaction(PushReaction.DESTROY).liquid().sound(SoundType.EMPTY));
-    public static final Block MINEABLE_LAVA = new MineableLiquidBlock(Fluids.LAVA,  BlockBehaviour.Properties.of().mapColor(MapColor.FIRE).replaceable().noCollission().randomTicks().strength(10).lightLevel(state -> 15).pushReaction(PushReaction.DESTROY).liquid().sound(SoundType.EMPTY));
+    public static final Block MINEABLE_WATER = new MineableLiquidBlock(Fluids.WATER, BlockBehaviour.Properties.of().mapColor(MapColor.WATER).replaceable().noCollission().strength(5,10).pushReaction(PushReaction.DESTROY).liquid().sound(SoundType.EMPTY));
+    public static final Block MINEABLE_LAVA = new MineableLiquidBlock(Fluids.LAVA,  BlockBehaviour.Properties.of().mapColor(MapColor.FIRE).replaceable().noCollission().randomTicks().strength(5,10).lightLevel(state -> 15).pushReaction(PushReaction.DESTROY).liquid().sound(SoundType.EMPTY));
     public static final Block LAVA_TNT = new LavaTntBlock(BlockBehaviour.Properties.of().mapColor(MapColor.FIRE).instabreak().sound(SoundType.GRASS).ignitedByLava().isRedstoneConductor(ModBlocks::never));
     public static final Block CREEPER_WATER = new LiquidBlock(ModFluids.CREEPER_WATER,BlockBehaviour.Properties.of().mapColor(MapColor.WATER).replaceable().noCollission().strength(10).pushReaction(PushReaction.DESTROY).noLootTable().liquid().sound(SoundType.EMPTY)){
         @Override

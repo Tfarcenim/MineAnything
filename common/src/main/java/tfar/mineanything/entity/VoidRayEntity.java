@@ -15,7 +15,7 @@ import java.util.Set;
 
 public class VoidRayEntity extends AbstractHurtingProjectile {
 
-    private float power = 4;
+    private float power = 5;
 
     int hits;
 
@@ -45,7 +45,7 @@ public class VoidRayEntity extends AbstractHurtingProjectile {
     protected void createCrater() {
         Set<BlockPos> affected = new HashSet<>();
 
-        int r = 2;
+        int r = 3;
         for (int y = -r; y <= 1;y++){
             for (int z = -r;z < r;z++) {
                 for (int x = -r;x < r;x++) {
@@ -64,7 +64,7 @@ public class VoidRayEntity extends AbstractHurtingProjectile {
         }
         hits++;
 
-        if (hits >= 5) {
+        if (hits >= 7) {
             discard();
         }
     }
