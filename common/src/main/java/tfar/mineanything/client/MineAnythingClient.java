@@ -19,7 +19,6 @@ import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.client.resources.DefaultPlayerSkin;
 import net.minecraft.client.resources.SkinManager;
 import net.minecraft.client.resources.model.Material;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.UUIDUtil;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.ResourceLocation;
@@ -29,9 +28,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
 import org.apache.commons.lang3.ArrayUtils;
 import org.jetbrains.annotations.Nullable;
 import tfar.mineanything.HasFakeItems;
@@ -39,13 +36,23 @@ import tfar.mineanything.MineAnything;
 import tfar.mineanything.client.render.*;
 import tfar.mineanything.entity.ClonePlayerEntity;
 import tfar.mineanything.init.*;
+import tfar.mineanything.network.server.C2SInputPacket;
 import tfar.mineanything.network.server.C2SKeyActionPacket;
 import tfar.mineanything.platform.Services;
+import tfar.mineanything.world.InputHandler;
 
 import java.util.List;
 import java.util.Map;
 
 public class MineAnythingClient {
+
+    private static boolean up = false;
+    private static boolean down = false;
+    private static boolean forwards = false;
+    private static boolean backwards = false;
+    private static boolean left = false;
+    private static boolean right = false;
+    private static boolean sprint = false;
 
     public static void clientTick() {
         List<ModKeybinds.ModKeybind> keys = ModKeybinds.KEYS;
@@ -54,6 +61,46 @@ public class MineAnythingClient {
                 key.onPress.run();
             }
         }
+        tickJetpack();
+    }
+
+    /*
+     * Keyboard handling borrowed from Simply Jetpacks
+     * https://github.com/Tomson124/SimplyJetpacks-2/blob/1.12/src/main/java/tonius/simplyjetpacks/client/handler/KeyTracker.java
+     */
+    public static void tickJetpack() {
+            var mc = Minecraft.getInstance();
+            var settings = mc.options;
+
+            if (mc.getConnection() == null)
+                return;
+
+            boolean upNow = settings.keyJump.isDown();
+            boolean downNow = settings.keyShift.isDown();
+            boolean forwardsNow = settings.keyUp.isDown();
+            boolean backwardsNow = settings.keyDown.isDown();
+            boolean leftNow = settings.keyLeft.isDown();
+            boolean rightNow = settings.keyRight.isDown();
+            boolean sprintNow = settings.keySprint.isDown();
+
+            if (upNow != up || downNow != down || forwardsNow != forwards || backwardsNow != backwards || leftNow != left || rightNow != right || sprintNow != sprint) {
+                up = upNow;
+                down = downNow;
+                forwards = forwardsNow;
+                backwards = backwardsNow;
+                left = leftNow;
+                right = rightNow;
+                sprint = sprintNow;
+
+                update(up, down, forwards, backwards, left, right, sprint);
+        }
+    }
+
+    public static void update(boolean up, boolean down, boolean forwards, boolean backwards, boolean left, boolean right, boolean sprint) {
+        var player = Minecraft.getInstance().player;
+
+        Services.PLATFORM.sendToServer(new C2SInputPacket(up, down, forwards, backwards, left, right, sprint));
+        InputHandler.update(player, up, down, forwards, backwards, left, right, sprint);
     }
 
     public static Material REINFORCED_BASE;

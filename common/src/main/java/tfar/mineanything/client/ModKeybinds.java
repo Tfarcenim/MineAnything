@@ -3,6 +3,7 @@ package tfar.mineanything.client;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.KeyMapping;
 import org.lwjgl.glfw.GLFW;
+import tfar.mineanything.network.server.C2SInputPacket;
 import tfar.mineanything.network.server.C2SKeyActionPacket;
 import tfar.mineanything.platform.Services;
 
@@ -17,6 +18,8 @@ public class ModKeybinds {
 
     public static final ModKeybind PING = new ModKeybind("ping", GLFW.GLFW_KEY_P,CAT, MineAnythingClient::spawnPingParticles);
     public static final ModKeybind CLONE = new ModKeybind("clone",GLFW.GLFW_KEY_COMMA,CAT,() -> Services.PLATFORM.sendToServer(new C2SKeyActionPacket(C2SKeyActionPacket.Action.CLONE)));
+    public static final ModKeybind TOGGLE_FLIGHT = new ModKeybind("toggle_flight", GLFW.GLFW_KEY_F,CAT, () -> Services.PLATFORM.sendToServer(new C2SKeyActionPacket(C2SKeyActionPacket.Action.TOGGLE_FLIGHT)));
+    public static final ModKeybind TOGGLE_HOVER = new ModKeybind("toggle_hover",GLFW.GLFW_KEY_V,CAT,() -> Services.PLATFORM.sendToServer(new C2SKeyActionPacket(C2SKeyActionPacket.Action.TOGGLE_HOVER)));
 
     public static class ModKeybind extends KeyMapping {
 

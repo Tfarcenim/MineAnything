@@ -20,6 +20,7 @@ import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.MobSpawnEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.level.BlockEvent;
+import net.minecraftforge.event.server.ServerStoppingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.Mod;
@@ -35,6 +36,7 @@ import tfar.mineanything.entity.BedrockSilverfishEntity;
 import tfar.mineanything.entity.ClonePlayerEntity;
 import tfar.mineanything.init.ModEntities;
 import tfar.mineanything.platform.Side;
+import tfar.mineanything.world.InputHandler;
 
 import java.util.HashMap;
 import java.util.List;
@@ -58,6 +60,9 @@ public class MineAnythingForge {
         MinecraftForge.EVENT_BUS.addListener(this::playerTick);
         MinecraftForge.EVENT_BUS.addListener(this::commands);
         MinecraftForge.EVENT_BUS.addListener(this::copyFrom);
+        MinecraftForge.EVENT_BUS.addListener(this::onPlayerLoggedOut);
+        MinecraftForge.EVENT_BUS.addListener(this::onPlayerChangedDimension);
+        MinecraftForge.EVENT_BUS.addListener(this::onServerStopping);
         if (MineAnything.SIDE == Side.CLIENT) {
             MineAnythingClientForge.init(bus);
         }
@@ -71,6 +76,18 @@ public class MineAnythingForge {
                 e.register((ResourceKey<? extends Registry<Object>>)registry.key(),pair.getLeft(),(Supplier<Object>)pair.getValue());
             }
         }
+    }
+
+    public void onPlayerLoggedOut(PlayerEvent.PlayerLoggedOutEvent event) {
+        InputHandler.remove(event.getEntity());
+    }
+
+    public void onPlayerChangedDimension(PlayerEvent.PlayerChangedDimensionEvent event) {
+        InputHandler.remove(event.getEntity());
+    }
+
+    public void onServerStopping(ServerStoppingEvent event) {
+        InputHandler.clear();
     }
 
     private void setup(FMLCommonSetupEvent event) {

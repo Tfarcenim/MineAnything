@@ -19,9 +19,11 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.PlayerHeadItem;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import tfar.mineanything.PlayerDuck;
+import tfar.mineanything.Utils;
 import tfar.mineanything.entity.ClonePlayerEntity;
 import tfar.mineanything.init.ModEnchantments;
 import tfar.mineanything.init.ModEntities;
+import tfar.mineanything.init.ModItems;
 
 import java.util.Map;
 
@@ -101,11 +103,23 @@ public class C2SKeyActionPacket implements C2SModPacket {
                     }
                 }
             }
+            case TOGGLE_FLIGHT -> {
+                ItemStack stack = player.getItemBySlot(EquipmentSlot.CHEST);
+                if (stack.is(ModItems.DRAGON_ELYTRA)) {
+                    Utils.toggleFlight(stack);
+                }
+            }
+            case TOGGLE_HOVER -> {
+                ItemStack stack = player.getItemBySlot(EquipmentSlot.CHEST);
+                if (stack.is(ModItems.DRAGON_ELYTRA)) {
+                    Utils.toggleHover(stack);
+                }
+            }
         }
     }
 
     public enum Action{
-        PING,LEVEL_UP,CLONE;
+        PING,LEVEL_UP,CLONE, TOGGLE_FLIGHT,TOGGLE_HOVER;
     }
 
 }
