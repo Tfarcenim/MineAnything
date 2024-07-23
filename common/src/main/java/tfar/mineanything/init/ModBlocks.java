@@ -13,6 +13,7 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.Vec3;
+import tfar.mineanything.Utils;
 import tfar.mineanything.block.*;
 
 public class ModBlocks {
@@ -25,8 +26,12 @@ public class ModBlocks {
         public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
             if (!level.isClientSide) {
                 Vec3 boomPos = findPos(pos,level.random);
-                level.explode(null,boomPos.x,boomPos.y,boomPos.z,3, Level.ExplosionInteraction.MOB);
+                Utils.explode(level, null, boomPos.x,boomPos.y,boomPos.z, 3, Level.ExplosionInteraction.MOB, Utils.ExplosionType.WEAK);
+              //  level.explode(null,boomPos.x,boomPos.y,boomPos.z,3, Level.ExplosionInteraction.MOB);
             }
+
+
+
         }
 
         public Vec3 findPos(BlockPos pos, RandomSource randomSource) {

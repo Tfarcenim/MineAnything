@@ -53,7 +53,7 @@ public class PlayerBodyBlock extends Block implements EntityBlock {
     @Override
     public List<ItemStack> getDrops(BlockState state, LootParams.Builder builder) {
         List<ItemStack> drops = super.getDrops(state, builder);
-        Entity parameter = builder.getParameter(LootContextParams.THIS_ENTITY);
+        Entity parameter = builder.getOptionalParameter(LootContextParams.THIS_ENTITY);
         if (parameter instanceof Player player) {
             if (PlayerDuck.of(player).isRunner()) {
                 return drops;

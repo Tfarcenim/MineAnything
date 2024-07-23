@@ -1,4 +1,4 @@
-package tfar.mineanything;
+package tfar.mineanything.world;
 
 import com.google.common.collect.Sets;
 import com.mojang.datafixers.util.Pair;
@@ -46,14 +46,14 @@ public class LavaExplosion extends Explosion {
         super(pLevel, pSource,pDamageSource,pDamageCalculator,pToBlowX, pToBlowY, pToBlowZ,pRadius,pFire,pBlockInteraction);
     }
 
-  /*  @Override
+    @Override
     public void explode() {
         Level level = $getLevel();
         float radius = $getRadius();
         Entity source = getDirectSourceEntity();
         double x = $getX();
-        double y = $getX();
-        double z = $getX();
+        double y = $getY();
+        double z = $getZ();
         List<BlockPos> toBlow = getToBlow();
         ExplosionDamageCalculator damageCalculator = $getDamageCalculator();
         level.gameEvent(source, GameEvent.EXPLODE, new Vec3(x, y, z));
@@ -116,7 +116,7 @@ public class LavaExplosion extends Explosion {
 
         for (Entity entity : list) {
             if (!entity.ignoreExplosion()) {
-                double d12 = Math.sqrt(entity.distanceToSqr(vec3)) / (double) diameter;
+                double d12 = Math.sqrt(entity.distanceToSqr(vec3)) / diameter;
                 if (d12 <= 1.0D) {
                     double d5 = entity.getX() - x;
                     double d7 = (entity instanceof PrimedTnt ? entity.getY() : entity.getEyeY()) - y;
@@ -128,7 +128,8 @@ public class LavaExplosion extends Explosion {
                         d9 /= d13;
                         double d14 = getSeenPercent(vec3, entity);
                         double d10 = (1.0D - d12) * d14;
-                        entity.hurt(getDamageSource(), (float) (int) ((d10 * d10 + d10) / 2.0D * 7.0D * (double) diameter + 1.0D));
+                        float damage = (float) ((d10 * d10 + d10) / 2.0D * 7.0D * diameter + 1.0D);
+                        entity.hurt(getDamageSource(), damage);
                         double d11;
                         if (entity instanceof LivingEntity livingentity) {
                             d11 = ProtectionEnchantment.getExplosionKnockbackAfterDampener(livingentity, d10);
@@ -150,7 +151,7 @@ public class LavaExplosion extends Explosion {
                 }
             }
         }
-    }*/
+    }
 
 
     @Override
