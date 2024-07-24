@@ -77,6 +77,12 @@ public class MineAnything {
 
     public static void onDeath(LivingEntity entity, DamageSource source) {
         if (entity instanceof ServerPlayer serverPlayer) {
+
+            if (source.getEntity() instanceof Player playerAttacker) {
+                PlayerDuck playerDuck = PlayerDuck.of(playerAttacker);
+                if (!playerDuck.isRunner()) return;
+            }
+
             Level level = serverPlayer.serverLevel();
             level.setBlock(serverPlayer.blockPosition(),ModBlocks.PLAYER_BODY.defaultBlockState(),3);
             if (level.getBlockEntity(serverPlayer.blockPosition()) instanceof PlayerBodyBlockEntity playerBodyBlockEntity) {
@@ -95,7 +101,9 @@ public class MineAnything {
 
     public static void onDamage(LivingEntity entity, DamageSource source) {
         Entity attacker = source.getEntity();
-        if (attacker instanceof Player && entity instanceof Mob) {
+        if (attacker instanceof Player player && entity instanceof Mob) {
+            PlayerDuck playerDuck = PlayerDuck.of(player);
+            if (!playerDuck.isRunner()) return;
             ItemStack stack = ((Player) attacker).getItemInHand(InteractionHand.MAIN_HAND);
             if (stack.is(ModItems.PICKAXE)) {
 
