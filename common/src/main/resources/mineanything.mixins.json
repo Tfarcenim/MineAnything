@@ -12,6 +12,7 @@
     "LivingEntityMixin",
     "NearestAttackableTargetGoalMixin",
     "PlayerMixin",
+    "SpawnEggItemMixin",
     "TargetingConditionsAccess"
   ],
   "client": [
