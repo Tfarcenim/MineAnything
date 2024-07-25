@@ -9,6 +9,8 @@ import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
+import net.minecraft.world.level.block.entity.BeaconBlockEntity;
+import net.minecraft.world.phys.Vec3;
 import tfar.mineanything.blockentity.MineableMobBlockEntity;
 import tfar.mineanything.mixin.DragonModelAccess;
 import tfar.mineanything.mixin.EnderDragonRenderAccess;
@@ -46,5 +48,10 @@ public class MineableMobBlockEntityRenderer implements BlockEntityRenderer<Minea
     @Override
     public boolean shouldRenderOffScreen(MineableMobBlockEntity $$0) {
         return true;
+    }
+
+    @Override
+    public boolean shouldRender(MineableMobBlockEntity pBlockEntity, Vec3 pCameraPos) {
+        return true;//Vec3.atCenterOf(pBlockEntity.getBlockPos()).multiply(1.0D, 0.0D, 1.0D).closerThan(pCameraPos.multiply(1.0D, 0.0D, 1.0D), this.getViewDistance());
     }
 }

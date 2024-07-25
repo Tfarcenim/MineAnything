@@ -51,3 +51,5 @@ accessible field net/minecraft/world/level/portal/PortalShape numPortalBlocks I
 extendable method net/minecraft/world/level/portal/PortalShape getDistanceUntilEdgeAboveFrame (Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/Direction;)I
 extendable method net/minecraft/world/level/portal/PortalShape getDistanceUntilTop (Lnet/minecraft/core/BlockPos$MutableBlockPos;)I
 extendable method net/minecraft/world/level/portal/PortalShape hasTopFrame (Lnet/minecraft/core/BlockPos$MutableBlockPos;I)Z
+
+accessible method net/minecraft/world/entity/item/FallingBlockEntity <init> (Lnet/minecraft/world/level/Level;DDDLnet/minecraft/world/level/block/state/BlockState;)V

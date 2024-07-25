@@ -7,8 +7,12 @@ import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 import tfar.mineanything.init.ModBlockEntities;
 
@@ -89,4 +93,13 @@ public class MineableMobBlockEntity extends BlockEntity {
         data = tag.getCompound("data");
         wings = tag.getBoolean("wings");
     }
+
+    public static final AABB INFINITE_EXTENT_AABB = new net.minecraft.world.phys.AABB(Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY);
+
+    //IForgeBlockEntity patch
+    @SuppressWarnings("unused")
+    public AABB getRenderBoundingBox() {
+        return INFINITE_EXTENT_AABB;
+    }
+
 }

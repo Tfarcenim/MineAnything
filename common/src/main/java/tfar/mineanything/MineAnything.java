@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -11,6 +12,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
+import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -123,7 +125,9 @@ public class MineAnything {
                     if (blockEntity instanceof MineableMobBlockEntity mineableMobBlockEntity) {
                         mineableMobBlockEntity.setDisplayEntity(entity);
                     }
-                   // DeadDragonEntity deadDragonEntity = ModEntities.DEAD_DRAGON.spawn((ServerLevel) entity.level(),entity.blockPosition(), MobSpawnType.SPAWN_EGG);
+                    FallingBlockEntity fallingBlockEntity = FallingBlockEntity.fall(entity.level(),entity.blockPosition(),ModBlocks.MINEABLE_MOB.defaultBlockState());
+                    fallingBlockEntity.blockData = blockEntity.saveWithoutMetadata();
+                    // DeadDragonEntity deadDragonEntity = ModEntities.DEAD_DRAGON.spawn((ServerLevel) entity.level(),entity.blockPosition(), MobSpawnType.SPAWN_EGG);
                     //deadDragonEntity.setDisplayEntity(enderDragon);
                     entity.discard();
                     EndDragonFight dragonFight = enderDragon.getDragonFight();
