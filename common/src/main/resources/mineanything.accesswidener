@@ -38,3 +38,16 @@ accessible field net/minecraft/world/entity/item/PrimedTnt owner Lnet/minecraft/
 accessible field net/minecraft/world/item/BucketItem content Lnet/minecraft/world/level/material/Fluid;
 
 accessible field net/minecraft/server/network/ServerGamePacketListenerImpl aboveGroundTickCount I
+
+# custom portals
+accessible field net/minecraft/world/level/portal/PortalShape level Lnet/minecraft/world/level/LevelAccessor;
+accessible field net/minecraft/world/level/portal/PortalShape axis Lnet/minecraft/core/Direction$Axis;
+accessible field net/minecraft/world/level/portal/PortalShape rightDir Lnet/minecraft/core/Direction;
+accessible field net/minecraft/world/level/portal/PortalShape height I
+accessible field net/minecraft/world/level/portal/PortalShape width I
+accessible field net/minecraft/world/level/portal/PortalShape bottomLeft Lnet/minecraft/core/BlockPos;
+accessible field net/minecraft/world/level/portal/PortalShape numPortalBlocks I
+
+extendable method net/minecraft/world/level/portal/PortalShape getDistanceUntilEdgeAboveFrame (Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/Direction;)I
+extendable method net/minecraft/world/level/portal/PortalShape getDistanceUntilTop (Lnet/minecraft/core/BlockPos$MutableBlockPos;)I
+extendable method net/minecraft/world/level/portal/PortalShape hasTopFrame (Lnet/minecraft/core/BlockPos$MutableBlockPos;I)Z
