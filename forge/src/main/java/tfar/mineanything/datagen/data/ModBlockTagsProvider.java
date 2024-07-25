@@ -20,6 +20,6 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
     @Override
     protected void addTags(HolderLookup.Provider pProvider) {
         tag(BlockTags.MINEABLE_WITH_SHOVEL).add(ModBlocks.MINEABLE_WATER,ModBlocks.MINEABLE_LAVA);
-        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(Blocks.REINFORCED_DEEPSLATE);
+        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(Blocks.REINFORCED_DEEPSLATE,Blocks.BEDROCK);
     }
 }

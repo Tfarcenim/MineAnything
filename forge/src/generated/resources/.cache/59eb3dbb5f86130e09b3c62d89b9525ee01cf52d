@@ -1,4 +1,4 @@
-// 1.20.1	2024-06-23T18:21:30.4358105	Loot Tables
+// 1.20.1	2024-07-25T14:40:38.0625494	Loot Tables
 492804b26b82617596976194f22fdc494238745d data/mineanything/loot_tables/blocks/blue_portal.json
 c21b0bf7043328714c724a74ddef660396440adb data/mineanything/loot_tables/blocks/fortified_spawner.json
 349134a89478b09506c8ab978441a8e301ba2c8d data/mineanything/loot_tables/blocks/lava_tnt.json
@@ -7,5 +7,6 @@ a66dfa6a27da1761ec49b2ecd8a571a0a5a78007 data/mineanything/loot_tables/blocks/mi
 8a631582daa4ab1844774701d673d151c1fd977d data/mineanything/loot_tables/blocks/mineable_water.json
 43a6c75d28e475fce7d9c215d9406015af4913c7 data/mineanything/loot_tables/blocks/player_body.json
 025fe05733e02e4aa660480faf456debc8ef4377 data/mineanything/loot_tables/blocks/pointed_bedrock.json
+2a5049e5430fb21bfb6a206bd4b97fbe110fab07 data/minecraft/loot_tables/blocks/bedrock.json
 84fa4b568eab71c5a9b2b26d8a94e14670e1d283 data/minecraft/loot_tables/blocks/nether_portal.json
 96b5084051fd9e7f507986a59eb852ec35703ed3 data/minecraft/loot_tables/blocks/reinforced_deepslate.json

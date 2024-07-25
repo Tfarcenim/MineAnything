@@ -24,12 +24,14 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.dimension.end.EndDragonFight;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import tfar.mineanything.blockentity.FortifiedSpawnerBlockEntity;
 import tfar.mineanything.blockentity.MineableMobBlockEntity;
 import tfar.mineanything.blockentity.PlayerBodyBlockEntity;
 import tfar.mineanything.init.*;
+import tfar.mineanything.mixin.BlockBehaviorAccess;
 import tfar.mineanything.mixin.BlockStateBaseAccess;
 import tfar.mineanything.mixin.TargetingConditionsAccess;
 import tfar.mineanything.network.PacketHandler;
@@ -64,14 +66,20 @@ public class MineAnything {
         Services.PLATFORM.registerAll(ModEnchantments.class, BuiltInRegistries.ENCHANTMENT, Enchantment.class);
         Services.PLATFORM.registerAll(ModRecipeSerializers.class, BuiltInRegistries.RECIPE_SERIALIZER, RecipeSerializer.class);
         Services.PLATFORM.registerAll(ModCreativeTabs.class, BuiltInRegistries.CREATIVE_MODE_TAB, CreativeModeTab.class);
+        ((BlockBehaviorAccess)Blocks.BEDROCK).setDrops(null);
     }
 
     public static void setup() {
         PacketHandler.registerPackets();
-        ImmutableList<BlockState> possibleStates = Blocks.NETHER_PORTAL.getStateDefinition().getPossibleStates();
+        setDestroySpeed(Blocks.NETHER_PORTAL,1);
+        setDestroySpeed(Blocks.BEDROCK,100);
+    }
+
+    public static void setDestroySpeed(Block block,float speed) {
+        ImmutableList<BlockState> possibleStates = block.getStateDefinition().getPossibleStates();
 
         for (BlockState blockState : possibleStates) {
-            ((BlockStateBaseAccess)blockState).setDestroySpeed(1);
+            ((BlockStateBaseAccess)blockState).setDestroySpeed(speed);
         }
     }
 
@@ -118,6 +126,12 @@ public class MineAnything {
                    // DeadDragonEntity deadDragonEntity = ModEntities.DEAD_DRAGON.spawn((ServerLevel) entity.level(),entity.blockPosition(), MobSpawnType.SPAWN_EGG);
                     //deadDragonEntity.setDisplayEntity(enderDragon);
                     entity.discard();
+                    EndDragonFight dragonFight = enderDragon.getDragonFight();
+                    if (dragonFight != null) {
+                        dragonFight.updateDragon(enderDragon);
+                        dragonFight.setDragonKilled(enderDragon);
+                    }
+
                     return;
                 }
 

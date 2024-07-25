@@ -43,6 +43,7 @@ public class ModBlockLoot extends VanillaBlockLoot {
         this.add(ModBlocks.MINEABLE_MOB,noDrop());
         this.dropOther(Blocks.NETHER_PORTAL, ModItems.NETHER_PORTAL);
         this.dropSelf(Blocks.REINFORCED_DEEPSLATE);
+        dropSelf(Blocks.BEDROCK);
         this.add(ModBlocks.BLUE_PORTAL,noDrop());
     }
 
@@ -51,6 +52,7 @@ public class ModBlockLoot extends VanillaBlockLoot {
         List<Block> blocks = new ArrayList<>();
         blocks.add(Blocks.NETHER_PORTAL);
         blocks.add(Blocks.REINFORCED_DEEPSLATE);
+        blocks.add(Blocks.BEDROCK);
         blocks.addAll(MineAnything.getKnownBlocks().toList());
         return blocks;
     }

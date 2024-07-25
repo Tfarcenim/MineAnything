@@ -10,6 +10,8 @@ import net.minecraft.world.entity.monster.Blaze;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.level.BaseSpawner;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegisterCommandsEvent;
@@ -35,6 +37,7 @@ import tfar.mineanything.entity.BedrockBlazeBossEntity;
 import tfar.mineanything.entity.BedrockSilverfishEntity;
 import tfar.mineanything.entity.ClonePlayerEntity;
 import tfar.mineanything.init.ModEntities;
+import tfar.mineanything.mixin.BlockBehaviorAccessForge;
 import tfar.mineanything.platform.Side;
 import tfar.mineanything.world.InputHandler;
 
@@ -66,6 +69,10 @@ public class MineAnythingForge {
         if (MineAnything.SIDE == Side.CLIENT) {
             MineAnythingClientForge.init(bus);
         }
+        ((BlockBehaviorAccessForge)Blocks.BEDROCK).setLootTableSupplier(() -> {
+            ResourceLocation registryName = net.minecraftforge.registries.ForgeRegistries.BLOCKS.getKey(Blocks.BEDROCK);
+            return new ResourceLocation(registryName.getNamespace(), "blocks/" + registryName.getPath());
+        });
     }
     public static Map<Registry<?>, List<Pair<ResourceLocation, Supplier<?>>>> registerLater = new HashMap<>();
     private void register(RegisterEvent e) {
