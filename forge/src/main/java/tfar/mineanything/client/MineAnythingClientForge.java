@@ -50,7 +50,7 @@ public class MineAnythingClientForge {
     }
 
     static void nameTag(RenderNameTagEvent event){
-        event.setResult(Event.Result.ALLOW);
+       // event.setResult(Event.Result.ALLOW);
         Entity entity = event.getEntity();
         if (entity instanceof Player player) {
             ItemStack stack = player.getItemBySlot(EquipmentSlot.HEAD);

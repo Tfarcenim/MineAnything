@@ -36,6 +36,7 @@ import tfar.mineanything.datagen.Datagen;
 import tfar.mineanything.entity.BedrockBlazeBossEntity;
 import tfar.mineanything.entity.BedrockSilverfishEntity;
 import tfar.mineanything.entity.ClonePlayerEntity;
+import tfar.mineanything.entity.DeadDragonEntity;
 import tfar.mineanything.init.ModEntities;
 import tfar.mineanything.mixin.BlockBehaviorAccessForge;
 import tfar.mineanything.platform.Side;
@@ -137,7 +138,7 @@ public class MineAnythingForge {
         event.put(ModEntities.MINER_ZOMBIE, Zombie.createAttributes().build());
         event.put(ModEntities.BEDROCK_BLAZE_BOSS, BedrockBlazeBossEntity.createBossAttributes().build());
         event.put(ModEntities.FORTIFIED_SILVERFISH, BedrockSilverfishEntity.createBossAttributes().build());
-        event.put(ModEntities.DEAD_DRAGON, Mob.createMobAttributes().build());
+        event.put(ModEntities.DEAD_DRAGON, DeadDragonEntity.custom().build());
     }
 
     private void onDeath(LivingDeathEvent event) {

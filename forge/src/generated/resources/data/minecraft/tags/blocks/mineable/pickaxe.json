@@ -1,6 +1,8 @@
 {
   "values": [
     "minecraft:reinforced_deepslate",
-    "minecraft:bedrock"
+    "minecraft:bedrock",
+    "mineanything:mineable_water",
+    "mineanything:mineable_lava"
   ]
 }

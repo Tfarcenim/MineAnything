@@ -12,9 +12,11 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ShieldItem;
@@ -24,12 +26,15 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.phys.HitResult;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tfar.mineanything.network.client.S2CModPacket;
 import tfar.mineanything.network.server.C2SModPacket;
 import tfar.mineanything.platform.services.IPlatformHelper;
 import net.fabricmc.loader.api.FabricLoader;
 
+import java.util.List;
 import java.util.function.Function;
 
 public class FabricPlatformHelper implements IPlatformHelper {
@@ -122,6 +127,11 @@ public class FabricPlatformHelper implements IPlatformHelper {
     }
 
     @Override
+    public void onExplosionDetonate(Level level, Explosion explosion, List<Entity> list, double diameter) {
+
+    }
+
+    @Override
     public FlowingFluid createCreeperWaterFluid() {
         return null;
     }
@@ -148,6 +158,11 @@ public class FabricPlatformHelper implements IPlatformHelper {
 
     @Override
     public ShieldItem fortifiedShield(Item.Properties properties) {
+        return null;
+    }
+
+    @Override
+    public InteractionResultHolder<ItemStack> onBucketUse(@NotNull Player player, @NotNull Level level, @NotNull ItemStack stack, @Nullable HitResult target) {
         return null;
     }
 }

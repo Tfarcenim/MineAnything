@@ -53,3 +53,8 @@ extendable method net/minecraft/world/level/portal/PortalShape getDistanceUntilT
 extendable method net/minecraft/world/level/portal/PortalShape hasTopFrame (Lnet/minecraft/core/BlockPos$MutableBlockPos;I)Z
 
 accessible method net/minecraft/world/entity/item/FallingBlockEntity <init> (Lnet/minecraft/world/level/Level;DDDLnet/minecraft/world/level/block/state/BlockState;)V
+
+accessible field net/minecraft/client/renderer/entity/EnderDragonRenderer model Lnet/minecraft/client/renderer/entity/EnderDragonRenderer$DragonModel;
+
+accessible field net/minecraft/client/renderer/entity/EnderDragonRenderer$DragonModel rightWing Lnet/minecraft/client/model/geom/ModelPart;
+accessible field net/minecraft/client/renderer/entity/EnderDragonRenderer$DragonModel leftWing Lnet/minecraft/client/model/geom/ModelPart;

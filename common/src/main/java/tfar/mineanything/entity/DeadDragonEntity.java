@@ -10,6 +10,8 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
@@ -31,6 +33,11 @@ public class DeadDragonEntity extends Mob {
     protected void defineSynchedData() {
         super.defineSynchedData();
         entityData.define(ENTITY_DATA,new CompoundTag());
+    }
+
+
+    public static AttributeSupplier.Builder custom() {
+        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 100);
     }
 
     public void setDisplayEntity(Entity displayEntity) {
@@ -89,6 +96,11 @@ public class DeadDragonEntity extends Mob {
 
     @Override
     public boolean addEffect(MobEffectInstance $$0, @Nullable Entity $$1) {
+        return false;
+    }
+
+    @Override
+    public boolean canBeAffected(MobEffectInstance $$0) {
         return false;
     }
 
