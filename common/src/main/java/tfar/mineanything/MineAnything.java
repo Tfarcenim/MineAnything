@@ -118,16 +118,16 @@ public class MineAnything {
             if (stack.is(ModItems.PICKAXE)) {
 
                 if (entity instanceof EnderDragon enderDragon) {
+                    BlockPos spawnPos = entity.blockPosition().offset(0,0,4);
+                    entity.level().setBlock(spawnPos,ModBlocks.MINEABLE_MOB.defaultBlockState(),3);
 
-                    entity.level().setBlock(entity.blockPosition(),ModBlocks.MINEABLE_MOB.defaultBlockState(),3);
-
-                    BlockEntity blockEntity = entity.level().getBlockEntity(entity.blockPosition());
+                    BlockEntity blockEntity = entity.level().getBlockEntity(spawnPos);
                     if (blockEntity instanceof MineableMobBlockEntity mineableMobBlockEntity) {
                         mineableMobBlockEntity.setDisplayEntity(entity);
                     }
-                    FallingBlockEntity fallingBlockEntity = FallingBlockEntity.fall(entity.level(),entity.blockPosition(),ModBlocks.MINEABLE_MOB.defaultBlockState());
+                    FallingBlockEntity fallingBlockEntity = FallingBlockEntity.fall(entity.level(),spawnPos,ModBlocks.MINEABLE_MOB.defaultBlockState());
                     fallingBlockEntity.blockData = blockEntity.saveWithoutMetadata();
-                    // DeadDragonEntity deadDragonEntity = ModEntities.DEAD_DRAGON.spawn((ServerLevel) entity.level(),entity.blockPosition(), MobSpawnType.SPAWN_EGG);
+                    // DeadDragonEntity deadDragonEntity = ModEntities.DEAD_DRAGON.spawn((ServerLevel) entity.level(),spawnPos, MobSpawnType.SPAWN_EGG);
                     //deadDragonEntity.setDisplayEntity(enderDragon);
                     entity.discard();
                     EndDragonFight dragonFight = enderDragon.getDragonFight();

@@ -7,6 +7,8 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
@@ -14,7 +16,9 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.dimension.end.EndDragonFight;
 import org.jetbrains.annotations.Nullable;
+import tfar.mineanything.EndDragonDuck;
 
 import java.util.function.Function;
 
@@ -102,6 +106,22 @@ public class DeadDragonEntity extends Mob {
     @Override
     public boolean canBeAffected(MobEffectInstance $$0) {
         return false;
+    }
+
+    @Override
+    public boolean canChangeDimensions() {
+        return false;
+    }
+
+    @Override
+    public void die(DamageSource $$0) {
+        super.die($$0);
+        if (!level().isClientSide) {
+            EndDragonFight endDragonFight = ((ServerLevel) level()).getDragonFight();
+            if (endDragonFight != null) {
+                ((EndDragonDuck)endDragonFight).endPart2();
+            }
+        }
     }
 
     public void setEntity(CompoundTag tag) {

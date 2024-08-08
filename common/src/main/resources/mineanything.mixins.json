@@ -7,8 +7,10 @@
   "mixins": [
     "BlockBehaviorAccess",
     "BlockStateBaseAccess",
+    "EndDragonFightMixin",
     "EntityMixin",
     "ExplosionAccess",
+    "FallingBlockEntityMixin",
     "FluidsMixin",
     "LivingEntityMixin",
     "NearestAttackableTargetGoalMixin",
