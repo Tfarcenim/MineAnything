@@ -1,6 +1,6 @@
-// 1.20.1	2024-08-09T14:22:19.8765102	Recipes
+// 1.20.1	2024-08-09T15:52:20.7619635	Recipes
 4ce0079497ca0b2a49d0a45420188c3e351e18f1 data/mineanything/advancements/recipes/combat/skeleton_bow.json
-e19006d4a1756aa9f323a1f69741c27f5902afb8 data/mineanything/advancements/recipes/combat/void.json
+5aaee26d246b0b2676338555a8dd02dec3b3883b data/mineanything/advancements/recipes/combat/void_ray.json
 0bf887311e6db7a9aac542842a7d2c26bd9b13dc data/mineanything/advancements/recipes/combat/zombie_sword.json
 f45a984917112d452d64be50878da5b9bfc68e99 data/mineanything/advancements/recipes/misc/creeper_water_bucket.json
 85088dcbfbdb450c0657c2cb34eb6f01bb398c64 data/mineanything/advancements/recipes/misc/lava_tnt.json
@@ -9,5 +9,5 @@ ef62797311b79da49c74062fe282c0c8525227b9 data/mineanything/advancements/recipes/
 dad3b6fe527512fd4f6983a94bcd1030e701ba17 data/mineanything/recipes/fortified_spawner.json
 32658c3dfa7334b4626d25593965dde2e963f14c data/mineanything/recipes/lava_tnt.json
 2920c19934880eff21e7ef9cdd254cc6e069083d data/mineanything/recipes/skeleton_bow.json
-5c3924a4d089f2b3b72b68925747c5199dbcb63c data/mineanything/recipes/void.json
+7d90c9676562c2042cb08bf5c991e8ee4eba2686 data/mineanything/recipes/void_ray.json
 6f7dbf1f043d606ea824e0b7bdc6c5693f31cb12 data/mineanything/recipes/zombie_sword.json

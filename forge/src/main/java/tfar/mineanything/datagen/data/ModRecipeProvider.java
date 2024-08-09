@@ -41,7 +41,7 @@ public class ModRecipeProvider extends RecipeProvider {
         SpawnerRecipeBuilder.shapeless(RecipeCategory.TOOLS,ModItems.FORTIFIED_SPAWNER).requires(Items.SPAWNER).requires(Items.BEDROCK)
                 .unlockedBy(getHasName(Items.BEDROCK),has(Items.BEDROCK)).save(pWriter);
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT,ModItems.VOID)
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT,ModItems.VOID_RAY)
                 .define('o', Blocks.OBSIDIAN)
                 .define('v', ModBlocks.VOID)
                 .pattern("oov")

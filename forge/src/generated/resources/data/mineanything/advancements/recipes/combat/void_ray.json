@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "mineanything:void"
+        "recipe": "mineanything:void_ray"
       },
       "trigger": "minecraft:recipe_unlocked"
     },
@@ -28,7 +28,7 @@
   ],
   "rewards": {
     "recipes": [
-      "mineanything:void"
+      "mineanything:void_ray"
     ]
   },
   "sends_telemetry_event": false
