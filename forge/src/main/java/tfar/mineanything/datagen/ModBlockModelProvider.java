@@ -38,6 +38,7 @@ public class ModBlockModelProvider extends BlockModelGenerators {
         this.delegateItemModel(ModItems.BEDROCK_BLAZE_SPAWN_EGG, ModelLocationUtils.decorateItemModelLocation("template_spawn_egg"));
         this.delegateItemModel(ModItems.FORTIFIED_SILVERFISH_SPAWN_EGG, ModelLocationUtils.decorateItemModelLocation("template_spawn_egg"));
         createBluePortalBlock();
+        this.blockEntityModels(Blocks.END_PORTAL, Blocks.OBSIDIAN).create(ModBlocks.VOID);
         this.createPointedBedrockDripstone();
     }
 

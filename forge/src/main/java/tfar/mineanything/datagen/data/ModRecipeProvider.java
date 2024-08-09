@@ -1,12 +1,11 @@
 package tfar.mineanything.datagen.data;
 
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.recipes.FinishedRecipe;
-import net.minecraft.data.recipes.RecipeCategory;
-import net.minecraft.data.recipes.RecipeProvider;
-import net.minecraft.data.recipes.ShapelessRecipeBuilder;
+import net.minecraft.data.recipes.*;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Blocks;
+import tfar.mineanything.init.ModBlocks;
 import tfar.mineanything.init.ModItems;
 
 import java.util.function.Consumer;
@@ -41,5 +40,13 @@ public class ModRecipeProvider extends RecipeProvider {
 
         SpawnerRecipeBuilder.shapeless(RecipeCategory.TOOLS,ModItems.FORTIFIED_SPAWNER).requires(Items.SPAWNER).requires(Items.BEDROCK)
                 .unlockedBy(getHasName(Items.BEDROCK),has(Items.BEDROCK)).save(pWriter);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT,ModItems.VOID)
+                .define('o', Blocks.OBSIDIAN)
+                .define('v', ModBlocks.VOID)
+                .pattern("oov")
+                .pattern("o  ")
+                .unlockedBy(getHasName(ModBlocks.VOID),has(ModBlocks.VOID))
+                .save(pWriter);
     }
 }

@@ -1,4 +1,4 @@
-// 1.20.1	2024-07-23T02:59:35.5899517	Model Definitions
+// 1.20.1	2024-08-09T13:27:47.7067806	Model Definitions
 cc4a7d973ccdcc76cfa147fc94c5977c63893ee2 assets/mineanything/blockstates/blue_portal.json
 e5a33b4a2db42195222fa1709b3d9533ac41e453 assets/mineanything/blockstates/creeper_water.json
 cd81011f1dd680e82da3a2ec0283e3a4a1e6bf59 assets/mineanything/blockstates/fortified_spawner.json
@@ -8,6 +8,7 @@ cd81011f1dd680e82da3a2ec0283e3a4a1e6bf59 assets/mineanything/blockstates/fortifi
 e5a33b4a2db42195222fa1709b3d9533ac41e453 assets/mineanything/blockstates/mineable_water.json
 94ee00eebd82061338b6db439a84b3fdf98f3942 assets/mineanything/blockstates/player_body.json
 86d7f0f9064a2ad19262e38ff08bf35352be227f assets/mineanything/blockstates/pointed_bedrock.json
+200b3feda96f8c69b34930ffe37af0ef03733aed assets/mineanything/blockstates/void.json
 e08b9f7574d460ca4dfb3b28d8aef0bd7d70e015 assets/mineanything/models/block/fortified_spawner.json
 b327cffc88cd303f92318f5d2a5d91522f89c706 assets/mineanything/models/block/lava_tnt.json
 b250a4393a42435afd60e3158b79e78128859595 assets/mineanything/models/block/pointed_bedrock_down_base.json
@@ -30,4 +31,6 @@ cf00a9c47265ae4aa4231b78c73c27f790ba7ba2 assets/mineanything/models/item/fortifi
 ef1c8a62be5ac5435d07b8996037c113374bcd04 assets/mineanything/models/item/mineable_lava.json
 30ace9a2473c25a41b8d678a208106940f060cb1 assets/mineanything/models/item/mineable_water.json
 0c2a72faf75f4de72cf3ced4610c35078c8f2362 assets/mineanything/models/item/nether_portal.json
+435675894c04bdbaa2d2bd9aeade4c7b6b12bab7 assets/mineanything/models/item/void.json
+25214ab70520dd96ab8ba81322f3017330bf6837 assets/minecraft/models/block/end_portal.json
 a5137f381146466da673bf43fda6967800cc6703 assets/minecraft/models/block/skull.json

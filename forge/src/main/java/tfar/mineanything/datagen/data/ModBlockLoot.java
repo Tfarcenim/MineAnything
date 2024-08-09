@@ -45,6 +45,7 @@ public class ModBlockLoot extends VanillaBlockLoot {
         this.dropSelf(Blocks.REINFORCED_DEEPSLATE);
         dropSelf(Blocks.BEDROCK);
         this.add(ModBlocks.BLUE_PORTAL,noDrop());
+        dropSelf(ModBlocks.VOID);
     }
 
     @Override

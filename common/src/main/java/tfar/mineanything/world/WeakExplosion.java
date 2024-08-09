@@ -191,7 +191,7 @@ public class WeakExplosion extends Explosion {
     }
 
     protected void dealExplosionDamage(Entity entity,float amount) {
-        entity.hurt(this.getDamageSource(),amount / 2);
+        entity.hurt(this.getDamageSource(),amount / 4);
     }
 
     ExplosionAccess getAccess() {

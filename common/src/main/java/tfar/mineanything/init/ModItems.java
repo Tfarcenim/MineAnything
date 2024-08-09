@@ -52,4 +52,6 @@ public class ModItems {
 
     };
 
+    public static final BlockItem VOID = new BlockItem(ModBlocks.VOID,new Item.Properties());
+
 }
