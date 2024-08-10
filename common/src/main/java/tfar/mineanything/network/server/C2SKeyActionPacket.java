@@ -51,7 +51,7 @@ public class C2SKeyActionPacket implements C2SModPacket {
     public void handleServer(ServerPlayer player) {
         switch (action) {
             case PING -> {
-
+                Utils.convertWaterBreadthFirstSearch(player.serverLevel(),player.blockPosition());
             }
 
             case END_PING -> {

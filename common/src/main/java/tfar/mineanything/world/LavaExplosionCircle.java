@@ -56,7 +56,7 @@ public class LavaExplosionCircle extends Explosion {
             double sin = Math.sin(radians);
             double cos = Math.cos(radians);
 
-            BlockPos pos = new BlockPos((int) (x + radius * cos), (int) (y + radius), (int) (z+radius * sin));
+            BlockPos pos = new BlockPos((int) (x + radius * cos), (int) (y + radius - 2), (int) (z+radius * sin));
             toBlow.add(pos);
         }
     }
