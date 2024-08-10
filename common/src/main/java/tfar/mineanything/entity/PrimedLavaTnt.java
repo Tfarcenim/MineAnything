@@ -29,6 +29,6 @@ public class PrimedLavaTnt extends PrimedTnt {
 
     @Override
     protected void explode() {
-        Utils.explode(level(), this, this.getX(), this.getY(0.0625), this.getZ(), POWER, Level.ExplosionInteraction.TNT, Utils.ExplosionType.LAVA);
+        Utils.explode(level(), this, this.getX(), this.getY(0.0625), this.getZ(), POWER, Level.ExplosionInteraction.TNT, Utils.ExplosionType.LAVA_CIRCLE);
     }
 }

@@ -2,10 +2,13 @@ package tfar.mineanything.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.PrimedTnt;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.TntBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -30,6 +33,19 @@ public class LavaTntBlock extends TntBlock {
      */
     public void onCaughtFire(BlockState state, Level level, BlockPos pos, @Nullable Direction direction, @Nullable LivingEntity igniter) {
         customExplode(level,pos,igniter);
+    }
+
+    @Override
+    public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity living, ItemStack stack) {
+        super.setPlacedBy(level, pos, state, living, stack);
+        level.scheduleTick(pos,this,50);
+    }
+
+    @Override
+    public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource $$3) {
+        super.tick(state, level, pos, $$3);
+        onCaughtFire(state,level,pos,null,null);
+        level.removeBlock(pos,false);
     }
 
     private static void customExplode(Level pLevel, BlockPos pPos, @Nullable LivingEntity pEntity) {

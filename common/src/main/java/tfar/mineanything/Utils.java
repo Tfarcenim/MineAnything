@@ -13,6 +13,7 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 import tfar.mineanything.platform.Services;
 import tfar.mineanything.world.LavaExplosion;
+import tfar.mineanything.world.LavaExplosionCircle;
 import tfar.mineanything.world.WeakExplosion;
 
 public class Utils {
@@ -20,7 +21,7 @@ public class Utils {
 
 
     public enum ExplosionType {
-        LAVA,WEAK;
+        LAVA,WEAK,LAVA_CIRCLE;
     }
 
     public static Explosion explode(Level level, @Nullable Entity pSource, double x, double y, double z, float pRadius, Level.ExplosionInteraction pExplosionInteraction,ExplosionType type) {
@@ -65,6 +66,9 @@ public class Utils {
             }
             case WEAK -> {
                 return new WeakExplosion(level, source, damageSource, damageCalculator, x, y, z, pRadius, pFire, blockInteraction);
+            }
+            case LAVA_CIRCLE -> {
+                return new LavaExplosionCircle(level, source, damageSource, damageCalculator, x, y, z, pRadius, pFire, blockInteraction);
             }
         }
         return null;
