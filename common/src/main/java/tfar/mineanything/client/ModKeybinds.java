@@ -17,6 +17,10 @@ public class ModKeybinds {
     public static final ModKeybind LEVEL_UP = new ModKeybind("level_up", GLFW.GLFW_KEY_L,CAT, () -> Services.PLATFORM.sendToServer(new C2SKeyActionPacket(C2SKeyActionPacket.Action.LEVEL_UP)));
 
     public static final ModKeybind PING = new ModKeybind("ping", GLFW.GLFW_KEY_P,CAT, MineAnythingClient::spawnPingParticles);
+    public static final ModKeybind END_PING = new ModKeybind("end_ping", GLFW.GLFW_KEY_P,CAT, MineAnythingClient::spawnEndPingParticles);
+
+
+
     public static final ModKeybind CLONE = new ModKeybind("clone",GLFW.GLFW_KEY_COMMA,CAT,() -> Services.PLATFORM.sendToServer(new C2SKeyActionPacket(C2SKeyActionPacket.Action.CLONE)));
     public static final ModKeybind TOGGLE_FLIGHT = new ModKeybind("toggle_flight", GLFW.GLFW_KEY_F,CAT, () -> Services.PLATFORM.sendToServer(new C2SKeyActionPacket(C2SKeyActionPacket.Action.TOGGLE_FLIGHT)));
     public static final ModKeybind TOGGLE_HOVER = new ModKeybind("toggle_hover",GLFW.GLFW_KEY_V,CAT,() -> Services.PLATFORM.sendToServer(new C2SKeyActionPacket(C2SKeyActionPacket.Action.TOGGLE_HOVER)));

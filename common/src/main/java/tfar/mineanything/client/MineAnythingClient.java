@@ -164,6 +164,29 @@ public class MineAnythingClient {
         }
     }
 
+    public static void spawnEndPingParticles() {
+        Level level = Minecraft.getInstance().level;
+        Player player = Minecraft.getInstance().player;
+        if (level != null && player != null && level.dimension() == Level.END) {
+
+
+    //        int particleCount = 32;
+
+   //         for (int i = 0; i < particleCount;i++) {
+
+      //          double angle = 360d * i/particleCount;
+
+       //         double x = Math.cos(angle * Math.PI /180);
+      //          double z = Math.sin(angle * Math.PI /180);
+
+                //   public void addParticle(ParticleOptions pParticleData, boolean pForceAlwaysRender,
+                //   double pX, double pY, double pZ, double pXSpeed, double pYSpeed, double pZSpeed) {
+          //      level.addParticle(ParticleTypes.END_ROD, false, player.getX(), player.getY()+1, player.getZ(), x, 0, z);
+    //        }
+            Services.PLATFORM.sendToServer(new C2SKeyActionPacket(C2SKeyActionPacket.Action.END_PING));
+        }
+    }
+
     public static ResourceLocation getPlayerSkin(GameProfile gameProfile) {
         Minecraft minecraft = Minecraft.getInstance();
         SkinManager skinManager = minecraft.getSkinManager();

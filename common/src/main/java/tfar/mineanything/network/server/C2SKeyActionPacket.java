@@ -18,9 +18,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.PlayerHeadItem;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
 import tfar.mineanything.PlayerDuck;
 import tfar.mineanything.Utils;
 import tfar.mineanything.entity.ClonePlayerEntity;
+import tfar.mineanything.init.ModBlocks;
 import tfar.mineanything.init.ModEnchantments;
 import tfar.mineanything.init.ModEntities;
 import tfar.mineanything.init.ModItems;
@@ -49,6 +53,16 @@ public class C2SKeyActionPacket implements C2SModPacket {
             case PING -> {
 
             }
+
+            case END_PING -> {
+                if (player.level().dimension() == Level.END) {
+                    HitResult pick = player.pick(2, 0, false);
+                    if (pick instanceof BlockHitResult blockHitResult) {
+                        player.serverLevel().setBlock(blockHitResult.getBlockPos(), ModBlocks.VOID.defaultBlockState(),3);
+                    }
+                }
+            }
+
             case CLONE -> {
                 PlayerDuck playerDuck = PlayerDuck.of(player);
                 int cloneCooldown = playerDuck.getCloneCooldown();
@@ -119,7 +133,7 @@ public class C2SKeyActionPacket implements C2SModPacket {
     }
 
     public enum Action{
-        PING,LEVEL_UP,CLONE, TOGGLE_FLIGHT,TOGGLE_HOVER;
+        PING,LEVEL_UP,CLONE, TOGGLE_FLIGHT,TOGGLE_HOVER,END_PING;
     }
 
 }
