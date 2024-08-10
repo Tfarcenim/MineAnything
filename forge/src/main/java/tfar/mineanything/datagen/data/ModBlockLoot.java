@@ -46,6 +46,7 @@ public class ModBlockLoot extends VanillaBlockLoot {
         dropSelf(Blocks.BEDROCK);
         this.add(ModBlocks.BLUE_PORTAL,noDrop());
         dropSelf(ModBlocks.VOID);
+        dropSelf(Blocks.SPAWNER);
     }
 
     @Override
@@ -54,6 +55,7 @@ public class ModBlockLoot extends VanillaBlockLoot {
         blocks.add(Blocks.NETHER_PORTAL);
         blocks.add(Blocks.REINFORCED_DEEPSLATE);
         blocks.add(Blocks.BEDROCK);
+        blocks.add(Blocks.SPAWNER);
         blocks.addAll(MineAnything.getKnownBlocks().toList());
         return blocks;
     }

@@ -33,6 +33,7 @@ public class ModLangProvider extends LanguageProvider {
         addDefaultItem(() -> ModItems.BEDROCK_BLAZE_SPAWN_EGG);
         addDefaultItem(() -> ModItems.FORTIFIED_SILVERFISH_SPAWN_EGG);
         addDefaultItem(() -> ModItems.DRAGON_ELYTRA);
+        addDefaultBlock(() -> ModBlocks.VOID);
 
         addDefaultBlock(() -> ModBlocks.LAVA_TNT);
         addDefaultBlock(() -> ModBlocks.PLAYER_BODY);

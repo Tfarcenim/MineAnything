@@ -16,6 +16,7 @@
     "NearestAttackableTargetGoalMixin",
     "PlayerMixin",
     "SpawnEggItemMixin",
+    "SpawnerBlockMixin",
     "TargetingConditionsAccess"
   ],
   "client": [

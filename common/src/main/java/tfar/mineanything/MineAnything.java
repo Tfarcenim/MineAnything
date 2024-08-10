@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -19,14 +18,17 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.level.BaseSpawner;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.entity.SpawnerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.dimension.end.EndDragonFight;
+import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import tfar.mineanything.blockentity.FortifiedSpawnerBlockEntity;
@@ -40,6 +42,7 @@ import tfar.mineanything.network.PacketHandler;
 import tfar.mineanything.platform.Services;
 import tfar.mineanything.platform.Side;
 
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
@@ -164,6 +167,18 @@ public class MineAnything {
 
             conditions.selector(newSelector);
         }
+    }
+
+    public static void modifySpawnerDrops(List<ItemStack> drops, BlockState state, LootParams.Builder builder) {
+            BlockEntity blockEntity = builder.getParameter(LootContextParams.BLOCK_ENTITY);
+            if (blockEntity instanceof SpawnerBlockEntity spawnerBlockEntity) {
+                BaseSpawner spawner = spawnerBlockEntity.getSpawner();
+                Entity displayEntity = spawner.getOrCreateDisplayEntity(blockEntity.getLevel(),blockEntity.getLevel().random,blockEntity.getBlockPos());
+                if (displayEntity != null) {
+                    drops.add(displayEntity.getPickResult().copyWithCount(16));
+                }
+            }
+
     }
 
     public static void playerTick(Player player){
