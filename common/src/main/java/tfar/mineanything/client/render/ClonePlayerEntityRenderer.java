@@ -54,7 +54,7 @@ public class ClonePlayerEntityRenderer extends LivingEntityRenderer<ClonePlayerE
 
     @Override
     protected boolean shouldShowName(ClonePlayerEntity entity) {
-        return super.shouldShowName(entity) && (entity.shouldShowName() || entity.hasCustomName() && entity == this.entityRenderDispatcher.crosshairPickEntity);
+        return super.shouldShowName(entity) && (entity.shouldShowName() || entity.hasCustomName());
     }
 
     @Override

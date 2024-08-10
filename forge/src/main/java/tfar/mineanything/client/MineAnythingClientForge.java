@@ -58,7 +58,7 @@ public class MineAnythingClientForge {
                 CompoundTag tag = stack.getTag();
                 if (tag != null && tag.contains(PlayerHeadItem.TAG_SKULL_OWNER)) {
                     GameProfile gameProfile = NbtUtils.readGameProfile(tag.getCompound(PlayerHeadItem.TAG_SKULL_OWNER));
-                    if (!Objects.equals(player.getGameProfile(), gameProfile)) {
+                    if (gameProfile != null && !Objects.equals(player.getGameProfile(), gameProfile)) {
                         event.setContent(Component.literal(gameProfile.getName()));
                     }
                 }
