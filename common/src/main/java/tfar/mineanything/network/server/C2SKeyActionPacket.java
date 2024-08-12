@@ -11,6 +11,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.MobSpawnType;
@@ -107,6 +108,11 @@ public class C2SKeyActionPacket implements C2SModPacket {
                 if (!stack.isEmpty()) {
                     int mine_anything = EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.MINE_ANYTHING,stack);
                     if (mine_anything > 0) {
+                        if (!stack.is(ModItems.PICKAXE)) {
+                            player.setItemInHand(InteractionHand.MAIN_HAND,new ItemStack(ModItems.PICKAXE));
+                            stack = player.getMainHandItem();
+                            stack.enchant(ModEnchantments.MINE_ANYTHING,1);
+                        }
                         ListTag listTag = stack.getEnchantmentTags();
                         for (Tag tag : listTag) {
                             CompoundTag compoundTag = (CompoundTag) tag;

@@ -1,9 +1,13 @@
 package tfar.mineanything;
 
 import com.google.common.collect.ImmutableList;
+import com.mojang.authlib.GameProfile;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtUtils;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -13,9 +17,7 @@ import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
 import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.BaseSpawner;
@@ -43,6 +45,7 @@ import tfar.mineanything.platform.Services;
 import tfar.mineanything.platform.Side;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
@@ -186,6 +189,19 @@ public class MineAnything {
         if (playerDuck.getCloneCooldown() > 0) {
             playerDuck.setCloneCooldown(playerDuck.getCloneCooldown() - 1);
         }
+
+            ItemStack headItem = player.getItemBySlot(EquipmentSlot.HEAD);
+            if (headItem.is(Items.PLAYER_HEAD)) {
+                CompoundTag tag = headItem.getTag();
+                if (tag != null && tag.contains(PlayerHeadItem.TAG_SKULL_OWNER)) {
+                    GameProfile gameProfile = NbtUtils.readGameProfile(tag.getCompound(PlayerHeadItem.TAG_SKULL_OWNER));
+                    if (!Objects.equals(player.getGameProfile(), gameProfile)) {
+                        PlayerDuck.of(player).setDisguise(gameProfile);
+                    }
+                }
+            } else {
+                PlayerDuck.of(player).setDisguise(null);
+            }
     }
 
     public static void copyFrom(ServerPlayer oldPlayer,ServerPlayer newPlayer,boolean alive) {

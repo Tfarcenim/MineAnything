@@ -45,25 +45,20 @@ public class MineAnythingClientForge {
         MinecraftForge.EVENT_BUS.addListener(MineAnythingClientForge::clientTick);
         MinecraftForge.EVENT_BUS.addListener(MineAnythingClientForge::renderPlayerPre);
         MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL,true,MineAnythingClientForge::renderPlayerPost);
-        MinecraftForge.EVENT_BUS.addListener(MineAnythingClientForge::clientPlayerTick);
+
         MinecraftForge.EVENT_BUS.addListener(MineAnythingClientForge::nameTag);
     }
 
-    static void nameTag(RenderNameTagEvent event){
-       // event.setResult(Event.Result.ALLOW);
+    static void nameTag(RenderNameTagEvent event) {
+        //event.setResult(Event.Result.ALLOW);
         Entity entity = event.getEntity();
         if (entity instanceof Player player) {
-            ItemStack stack = player.getItemBySlot(EquipmentSlot.HEAD);
-            if (stack.is(Items.PLAYER_HEAD)) {
-                CompoundTag tag = stack.getTag();
-                if (tag != null && tag.contains(PlayerHeadItem.TAG_SKULL_OWNER)) {
-                    GameProfile gameProfile = NbtUtils.readGameProfile(tag.getCompound(PlayerHeadItem.TAG_SKULL_OWNER));
-                    if (gameProfile != null && !Objects.equals(player.getGameProfile(), gameProfile)) {
-                        event.setContent(Component.literal(gameProfile.getName()));
-                    }
-                }
+            GameProfile profile = PlayerDuck.of(player).disguise();
+            if (profile != null) {
+                event.setContent(Component.literal(profile.getName()));
             }
         }
+
     }
 
     static void itemColors(RegisterColorHandlersEvent.Item event) {
@@ -92,23 +87,6 @@ public class MineAnythingClientForge {
         renderer.addLayer(new DragonElytraLayer<>(renderer,event.getEntityModels()));
     }
 
-    static void clientPlayerTick(TickEvent.PlayerTickEvent event) {
-        if (event.phase == TickEvent.Phase.START) {
-            Player player = event.player;
-            ItemStack headItem = player.getItemBySlot(EquipmentSlot.HEAD);
-            if (headItem.is(Items.PLAYER_HEAD)) {
-                CompoundTag tag = headItem.getTag();
-                if (tag != null && tag.contains(PlayerHeadItem.TAG_SKULL_OWNER)) {
-                    GameProfile gameProfile = NbtUtils.readGameProfile(tag.getCompound(PlayerHeadItem.TAG_SKULL_OWNER));
-                    if (!Objects.equals(player.getGameProfile(), gameProfile)) {
-                        PlayerDuck.of(player).setDisguise(gameProfile);
-                        return;
-                    }
-                }
-            }
-            PlayerDuck.of(player).setDisguise(null);
-        }
-    }
     static PlayerModel<?> original;
 
     static Map<EquipmentSlot,ItemStack> originalItems = new EnumMap<>(EquipmentSlot.class);

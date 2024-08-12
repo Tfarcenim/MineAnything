@@ -2,7 +2,10 @@ package tfar.mineanything.mixin;
 
 import com.mojang.authlib.GameProfile;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -10,9 +13,12 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import tfar.mineanything.PlayerDuck;
+import tfar.mineanything.network.client.S2CClearDisguisePacket;
+import tfar.mineanything.network.client.S2CDisguisePacket;
+import tfar.mineanything.platform.Services;
 
 @Mixin(Player.class)
-public class PlayerMixin implements PlayerDuck {
+public abstract class PlayerMixin extends LivingEntity implements PlayerDuck {
 
     @Unique
     @Nullable GameProfile disguise;
@@ -20,6 +26,10 @@ public class PlayerMixin implements PlayerDuck {
     int cloneCooldown;
     @Unique
     boolean runner;
+
+    protected PlayerMixin(EntityType<? extends LivingEntity> $$0, Level $$1) {
+        super($$0, $$1);
+    }
 
     @Override
     public @Nullable GameProfile disguise() {
@@ -29,6 +39,9 @@ public class PlayerMixin implements PlayerDuck {
     @Override
     public void setDisguise(@Nullable GameProfile disguise) {
         this.disguise = disguise;
+        if (!level().isClientSide) {
+            Services.PLATFORM.sendToClients(disguise != null ? new S2CDisguisePacket(getId(),disguise) : new S2CClearDisguisePacket(getId()),getServer().getPlayerList().getPlayers());
+        }
     }
 
     @Override

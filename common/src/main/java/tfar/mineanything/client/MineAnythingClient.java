@@ -34,6 +34,7 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.jetbrains.annotations.Nullable;
 import tfar.mineanything.HasFakeItems;
 import tfar.mineanything.MineAnything;
+import tfar.mineanything.PlayerDuck;
 import tfar.mineanything.client.render.*;
 import tfar.mineanything.entity.ClonePlayerEntity;
 import tfar.mineanything.init.*;
@@ -241,6 +242,13 @@ public class MineAnythingClient {
         Entity entity = Minecraft.getInstance().level.getEntity(entityId);
         if (entity instanceof HasFakeItems hasFakeItems) {
             slots.forEach((pair) -> hasFakeItems.setFakeItemSlot(pair.getFirst(), pair.getSecond()));
+        }
+    }
+
+    public static void setDisguise(int entityId, GameProfile profile) {
+        Entity entity = Minecraft.getInstance().level.getEntity(entityId);
+        if (entity instanceof Player player) {
+            PlayerDuck.of(player).setDisguise(profile);
         }
     }
 
