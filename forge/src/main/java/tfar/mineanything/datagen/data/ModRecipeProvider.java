@@ -48,5 +48,17 @@ public class ModRecipeProvider extends RecipeProvider {
                 .pattern("o  ")
                 .unlockedBy(getHasName(ModBlocks.VOID),has(ModBlocks.VOID))
                 .save(pWriter);
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC,ModItems.FORTIFIED_SILVERFISH_SPAWN_EGG)
+                .requires(Blocks.BEDROCK)
+                .requires(Items.SILVERFISH_SPAWN_EGG)
+                .unlockedBy(getHasName(Blocks.BEDROCK),has(Blocks.BEDROCK))
+                .save(pWriter);
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC,ModItems.BEDROCK_BLAZE_SPAWN_EGG)
+                .requires(Blocks.BEDROCK)
+                .requires(Items.BLAZE_SPAWN_EGG)
+                .unlockedBy(getHasName(Blocks.BEDROCK),has(Blocks.BEDROCK))
+                .save(pWriter);
     }
 }

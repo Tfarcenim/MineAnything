@@ -14,7 +14,7 @@ import tfar.mineanything.platform.Services;
 
 public class ModItems {
 
-    public static final Item PICKAXE = new PickaxeItem(Tiers.NETHERITE, 3, -2.4F, new Item.Properties().fireResistant()){};
+    public static final Item PICKAXE = new NamedPickaxeItem(Tiers.NETHERITE, 3, -2.4F, new Item.Properties().fireResistant());
     public static final BlockItem MINEABLE_WATER = new BlockItem(ModBlocks.MINEABLE_WATER,new Item.Properties());
     public static final BlockItem MINEABLE_LAVA = new BlockItem(ModBlocks.MINEABLE_LAVA,new Item.Properties().fireResistant());
     public static final BlockItem LAVA_TNT = new BlockItem(ModBlocks.LAVA_TNT,new Item.Properties());

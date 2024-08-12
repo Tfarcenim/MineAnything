@@ -38,7 +38,7 @@ public class LavaTntBlock extends TntBlock {
     @Override
     public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity living, ItemStack stack) {
         super.setPlacedBy(level, pos, state, living, stack);
-        level.scheduleTick(pos,this,50);
+        level.scheduleTick(pos,this,1);
     }
 
     @Override

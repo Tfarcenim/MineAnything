@@ -140,7 +140,7 @@ public class Utils {
             } else {
                 BlockState state = level.getBlockState(pos2);
                 FluidState fluidState = level.getFluidState(pos2);
-                if (!fluidState.is(FluidTags.WATER)) {
+                if (!fluidState.is(FluidTags.WATER) && !fluidState.is(FluidTags.LAVA)) {
                     return false;
                 } else {
                     Block block = state.getBlock();

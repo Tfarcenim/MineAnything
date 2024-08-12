@@ -51,7 +51,10 @@ public class C2SKeyActionPacket implements C2SModPacket {
     public void handleServer(ServerPlayer player) {
         switch (action) {
             case PING -> {
-                Utils.convertWaterBreadthFirstSearch(player.serverLevel(),player.blockPosition());
+                HitResult pick = player.pick(5, 0, true);
+                if (pick instanceof BlockHitResult blockHitResult) {
+                    Utils.convertWaterBreadthFirstSearch(player.serverLevel(), blockHitResult.getBlockPos());
+                }
             }
 
             case END_PING -> {
@@ -112,7 +115,7 @@ public class C2SKeyActionPacket implements C2SModPacket {
                                 EnchantmentHelper.setEnchantmentLevel(compoundTag,mine_anything+1);
                             }
                         }
-                    }else {
+                    } else {
                         stack.enchant(ModEnchantments.MINE_ANYTHING,1);
                     }
                 }

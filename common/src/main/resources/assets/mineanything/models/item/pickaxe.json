@@ -1,6 +1,12 @@
 {
-  "parent": "mineanything:item/pickaxe/mob_miner",
+  "model": "minecraft:item/iron_pickaxe",
   "overrides": [
+    {
+      "predicate": {
+        "mineanything:level": 0
+      },
+      "model": "minecraft:item/iron_pickaxe"
+    },
     {
       "predicate": {
         "mineanything:level": 1

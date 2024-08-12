@@ -20,7 +20,7 @@ public class PrimedLavaTnt extends PrimedTnt {
         this.setPos(x, y, z);
         double radians = level.random.nextDouble() * 2 * Math.PI;
         this.setDeltaMovement(-Math.sin(radians) * 0.02, 0.2, -Math.cos(radians) * 0.02);
-        this.setFuse(80);
+        this.setFuse(60);
         this.xo = x;
         this.yo = y;
         this.zo = z;
